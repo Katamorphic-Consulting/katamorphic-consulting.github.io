@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Operations Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .matrix-grid {
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: repeat(3, auto);
+        }
+        .matrix-cell {
+            width: 4rem;
+            height: 3rem;
+            text-align: center;
+            border-radius: 0.375rem;
+            border: 1px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+        .matrix-input {
+            width: 4rem;
+            height: 3rem;
+            text-align: center;
+            border-radius: 0.375rem;
+            border: 1px solid #D1D5DB;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .matrix-input:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
+        }
+        .btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">Matrix Operations Quiz</h1>
+            <p class="text-lg text-gray-600 mt-2">Test your matrix calculation skills.</p>
+        </header>
+
+        <!-- Name Input -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-8 max-w-md mx-auto">
+             <h2 class="text-2xl font-semibold mb-4 text-center">Student Name</h2>
+             <input type="text" id="studentName" placeholder="Enter your name" class="w-full p-2 border rounded text-center text-lg">
+        </div>
+
+        <!-- Problem Display -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4 text-center">Matrix A</h2>
+                <div id="matrixA" class="matrix-grid justify-center"></div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4 text-center">Matrix B</h2>
+                <div id="matrixB" class="matrix-grid justify-center"></div>
+            </div>
+        </div>
+
+        <!-- Answer Section -->
+        <div id="answer-container" class="bg-white p-6 rounded-lg shadow-md my-8">
+             <h2 class="text-2xl font-semibold mb-6 text-center">Enter Your Answers</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Addition -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">A + B</h3>
+                    <div id="answerAdd" class="matrix-grid justify-center"></div>
+                </div>
+                <!-- Subtraction -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">A - B</h3>
+                    <div id="answerSubtract" class="matrix-grid justify-center"></div>
+                </div>
+                <!-- Multiplication -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">A * B</h3>
+                    <div id="answerMultiply" class="matrix-grid justify-center"></div>
+                </div>
+                <!-- Transpose -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">Transpose A</h3>
+                    <div id="answerTranspose" class="matrix-grid justify-center"></div>
+                </div>
+             </div>
+             <div class="text-center mt-8">
+                <button onclick="gradeAllAnswers()" class="btn bg-teal-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-teal-700 text-lg">Grade All Answers</button>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div id="feedback-container" class="bg-white p-6 rounded-lg shadow-md" style="display: none;">
+            <h2 id="feedback-title" class="text-3xl font-bold mb-2 text-center"></h2>
+            <p id="feedback-score" class="text-2xl font-semibold mb-6 text-center text-indigo-600"></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Add Feedback -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">A + B</h3>
+                    <div id="feedbackAdd" class="matrix-grid justify-center"></div>
+                </div>
+                 <!-- Subtract Feedback -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">A - B</h3>
+                    <div id="feedbackSubtract" class="matrix-grid justify-center"></div>
+                </div>
+                 <!-- Multiply Feedback -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">A * B</h3>
+                    <div id="feedbackMultiply" class="matrix-grid justify-center"></div>
+                </div>
+                 <!-- Transpose Feedback -->
+                <div class="text-center">
+                    <h3 class="text-xl font-medium mb-3">Transpose A</h3>
+                    <div id="feedbackTranspose" class="matrix-grid justify-center"></div>
+                </div>
+            </div>
+             <div class="text-center mt-8">
+                <button onclick="generateNewProblem()" class="btn bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-indigo-700 text-lg">New Problem</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ROWS = 3;
+        const COLS = 3;
+        let matrixAValues = [];
+        let matrixBValues = [];
+
+        // DOM Elements
+        const studentNameEl = document.getElementById('studentName');
+        const matrixAContainer = document.getElementById('matrixA');
+        const matrixBContainer = document.getElementById('matrixB');
+        const answerContainer = document.getElementById('answer-container');
+        const feedbackContainer = document.getElementById('feedback-container');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackScore = document.getElementById('feedback-score');
+        
+        function generateNewProblem() {
+            matrixAValues = generateRandomMatrix(ROWS, COLS);
+            matrixBValues = generateRandomMatrix(ROWS, COLS);
+            displayProblemMatrix(matrixAContainer, matrixAValues);
+            displayProblemMatrix(matrixBContainer, matrixBValues);
+            
+            // Generate all answer input grids
+            generateMatrixInputs(document.getElementById('answerAdd'), ROWS, COLS, 'add');
+            generateMatrixInputs(document.getElementById('answerSubtract'), ROWS, COLS, 'subtract');
+            generateMatrixInputs(document.getElementById('answerMultiply'), ROWS, COLS, 'multiply');
+            generateMatrixInputs(document.getElementById('answerTranspose'), ROWS, COLS, 'transpose');
+            
+            answerContainer.style.display = 'block';
+            feedbackContainer.style.display = 'none';
+        }
+
+        function gradeAllAnswers() {
+            const studentName = studentNameEl.value.trim();
+            if (!studentName) {
+                alert("Please enter your name first!");
+                studentNameEl.focus();
+                return;
+            }
+
+            // Get all student answers
+            const answers = {
+                add: getMatrixValues(ROWS, COLS, 'add'),
+                subtract: getMatrixValues(ROWS, COLS, 'subtract'),
+                multiply: getMatrixValues(ROWS, COLS, 'multiply'),
+                transpose: getMatrixValues(ROWS, COLS, 'transpose'),
+            };
+
+            for (const key in answers) {
+                if (!answers[key]) {
+                    alert(`Please fill in all cells for the "${key}" problem.`);
+                    return;
+                }
+            }
+            
+            // Calculate correct answers
+            const correct = {
+                add: matrixAValues.map((row, i) => row.map((val, j) => val + matrixBValues[i][j])),
+                subtract: matrixAValues.map((row, i) => row.map((val, j) => val - matrixBValues[i][j])),
+                multiply: new Array(ROWS).fill(0).map(() => new Array(COLS).fill(0)),
+                transpose: matrixAValues[0].map((_, colIndex) => matrixAValues.map(row => row[colIndex]))
+            };
+            // Calculate correct multiplication
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    for (let k = 0; k < COLS; k++) {
+                        correct.multiply[i][j] += matrixAValues[i][k] * matrixBValues[k][j];
+                    }
+                }
+            }
+
+            let totalCorrectCount = 0;
+            const totalPossible = (ROWS * COLS) * 4;
+
+            // Grade each operation
+            totalCorrectCount += gradeAndDisplay('add', answers.add, correct.add);
+            totalCorrectCount += gradeAndDisplay('subtract', answers.subtract, correct.subtract);
+            totalCorrectCount += gradeAndDisplay('multiply', answers.multiply, correct.multiply);
+            totalCorrectCount += gradeAndDisplay('transpose', answers.transpose, correct.transpose);
+            
+            // Display overall feedback
+            feedbackTitle.textContent = `Results for ${studentName}`;
+            feedbackScore.textContent = `Total Score: ${totalCorrectCount} out of ${totalPossible} correct!`;
+            
+            answerContainer.style.display = 'none';
+            feedbackContainer.style.display = 'block';
+        }
+
+        function gradeAndDisplay(opType, studentAnswer, correctAnswer) {
+            let correctCount = 0;
+            const containerId = 'feedback' + opType.charAt(0).toUpperCase() + opType.slice(1);
+            const gridContainer = document.getElementById(containerId);
+            gridContainer.innerHTML = '';
+
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    const isCorrect = studentAnswer[i][j] === correctAnswer[i][j];
+                    if (isCorrect) correctCount++;
+                    
+                    const cell = document.createElement('div');
+                    cell.className = 'matrix-cell';
+                    cell.textContent = studentAnswer[i][j];
+                    cell.style.backgroundColor = isCorrect ? '#D1FAE5' : '#FEE2E2';
+                    cell.style.borderColor = isCorrect ? '#10B981' : '#EF4444';
+                    cell.title = `Correct Answer: ${correctAnswer[i][j]}`;
+                    gridContainer.appendChild(cell);
+                }
+            }
+            return correctCount;
+        }
+
+        function generateRandomMatrix(rows, cols) {
+            const matrix = [];
+            for (let i = 0; i < rows; i++) {
+                const row = [];
+                for (let j = 0; j < cols; j++) {
+                    row.push(Math.floor(Math.random() * 10)); 
+                }
+                matrix.push(row);
+            }
+            return matrix;
+        }
+
+        function displayProblemMatrix(container, matrix) {
+            container.innerHTML = '';
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'matrix-cell bg-gray-100';
+                    cell.textContent = matrix[i][j];
+                    container.appendChild(cell);
+                }
+            }
+        }
+
+        function generateMatrixInputs(container, rows, cols, matrixId) {
+            container.innerHTML = '';
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.className = 'matrix-input';
+                    input.id = `${matrixId}-${i}-${j}`;
+                    container.appendChild(input);
+                }
+            }
+        }
+
+        function getMatrixValues(rows, cols, matrixId) {
+            const matrix = [];
+            for (let i = 0; i < rows; i++) {
+                const row = [];
+                for (let j = 0; j < cols; j++) {
+                    const valueStr = document.getElementById(`${matrixId}-${i}-${j}`).value;
+                    if (valueStr === '') return null;
+                    row.push(parseFloat(valueStr));
+                }
+                matrix.push(row);
+            }
+            return matrix;
+        }
+        
+        window.onload = generateNewProblem;
+    </script>
+</body>
+</html>
+
