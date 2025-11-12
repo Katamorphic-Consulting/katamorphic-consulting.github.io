@@ -3,24 +3,27 @@ const passwordInput = document.getElementById('password');
 const loginContainer = document.getElementById('login-container');
 const resultsContainer = document.getElementById('results-container');
 const resultsTableBody = document.querySelector('#results-table tbody');
-const password = '######';
-
 
 loginButton.addEventListener('click', function() {
-    if (passwordInput.value === password) {
-        loginContainer.style.display = 'none';
-        resultsContainer.style.display = 'block';
-        displayResults();
-    } else {
-        alert('Incorrect password.');
+    const password = passwordInput.value;
+    if (!password) {
+        alert('Please enter the password.');
+        return;
     }
+    displayResults(password);
 });
 
 
-async function displayResults() {
+async function displayResults(password) {
     let results = {};
     try {
-        const response = await fetch('./api/results');
+        const response = await fetch(`/rquiz/api/results?password=${encodeURIComponent(password)}`);
+        
+        if (response.status === 401) {
+            alert('Incorrect password.');
+            return;
+        }
+
         if (response.ok) {
             results = await response.json();
         } else {
@@ -33,6 +36,11 @@ async function displayResults() {
         return;
     }
 
+    loginContainer.style.display = 'none';
+    resultsContainer.style.display = 'block';
+
+    // Clear previous results
+    resultsTableBody.innerHTML = '';
 
     for (let studentNumber in results) {
         const studentResults = results[studentNumber];

@@ -5,7 +5,13 @@ export default async function handler(request, response) {
         return response.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    const { JSONBIN_API_KEY, JSONBIN_BIN_ID } = process.env;
+    const { JSONBIN_API_KEY, JSONBIN_BIN_ID, RESULTS_PASSWORD } = process.env;
+    const { password } = request.query;
+
+    // Check password
+    if (password !== RESULTS_PASSWORD) {
+        return response.status(401).json({ message: 'Unauthorized' });
+    }
 
     try {
         const fetchResponse = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
