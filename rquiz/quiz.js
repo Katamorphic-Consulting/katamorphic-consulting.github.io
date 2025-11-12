@@ -109,7 +109,7 @@ quizForm.addEventListener('submit', async function(event) {
         }
 
         if (!response.ok) {
-            throw new Error('Failed to save results');
+            throw new Error('Failed to save results. Status: ' + response.status);
         }
 
     } catch (error) {

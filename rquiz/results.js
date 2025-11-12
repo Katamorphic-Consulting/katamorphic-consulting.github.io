@@ -24,7 +24,7 @@ async function displayResults() {
         if (response.ok) {
             results = await response.json();
         } else {
-            alert("Error fetching results.");
+            alert("Error fetching results. Status: " + response.status);
             return;
         }
     } catch (error) {
