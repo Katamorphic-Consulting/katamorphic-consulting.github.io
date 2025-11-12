@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Quiz - Part 5</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>R Quiz - Part 5</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is R Markdown used for?</p>
+                <input type="radio" name="q1" value="a"> a) Creating dynamic documents <br>
+                <input type="radio" name="q1" value="b"> b) Data manipulation <br>
+                <input type="radio" name="q1" value="c"> c) Plotting <br>
+                <input type="radio" name="q1" value="d"> d) Machine learning <br>
+            </div>
+            <div class="question">
+                <p>2. How do you create a code chunk in R Markdown?</p>
+                <input type="radio" name="q2" value="a"> a) ```{r} ``` <br>
+                <input type="radio" name="q2" value="b"> b) '''{r} ''' <br>
+                <input type="radio" name="q2" value="c"> c) `r ` <br>
+                <input type="radio" name="q2" value="d"> d) All of the above <br>
+            </div>
+            <div class="question">
+                <p>3. What is the purpose of the `echo=FALSE` option in a code chunk?</p>
+                <input type="radio" name="q3" value="a"> a) To prevent the code from being executed <br>
+                <input type="radio" name="q3" value="b"> b) To prevent the code from being displayed in the output <br>
+                <input type="radio" name="q3" value="c"> c) To prevent the results from being displayed in the output <br>
+                <input type="radio" name="q3" value="d"> d) To cause an error <br>
+            </div>
+            <div class="question">
+                <p>4. What is the purpose of the `eval=FALSE` option in a code chunk?</p>
+                <input type="radio" name="q4" value="a"> a) To prevent the code from being executed <br>
+                <input type="radio" name="q4" value="b"> b) To prevent the code from being displayed in the output <br>
+                <input type="radio" name="q4" value="c"> c) To prevent the results from being displayed in the output <br>
+                <input type="radio" name="q4" value="d"> d) To cause an error <br>
+            </div>
+            <div class="question">
+                <p>5. How do you install a package from GitHub in R?</p>
+                <input type="radio" name="q5" value="a"> a) install.packages("package_name") <br>
+                <input type="radio" name="q5" value="b"> b) devtools::install_github("author/package_name") <br>
+                <input type="radio" name="q5" value="c"> c) install.github("package_name") <br>
+                <input type="radio" name="q5" value="d"> d) github.install("package_name") <br>
+            </div>
+            <div class="question">
+                <p>6. What is the function to set the working directory in R?</p>
+                <input type="radio" name="q6" value="a"> a) getwd() <br>
+                <input type="radio" name="q6" value="b"> b) setwd() <br>
+                <input type="radio" name="q6" value="c"> c) list.files() <br>
+                <input type="radio" name="q6" value="d"> d) dir() <br>
+            </div>
+            <div class="question">
+                <p>7. What is the function to list all objects in the current environment?</p>
+                <input type="radio" name="q7" value="a"> a) ls() <br>
+                <input type="radio" name="q7" value="b"> b) list() <br>
+                <input type="radio" name="q7" value="c"> c) objects() <br>
+                <input type="radio" name="q7" value="d"> d) Both a and c <br>
+            </div>
+            <div class="question">
+                <p>8. How do you create a character string in R?</p>
+                <input type="radio" name="q8" value="a"> a) "hello" <br>
+                <input type="radio" name="q8" value="b"> b) 'hello' <br>
+                <input type="radio" name="q8" value="c"> c) Both a and b <br>
+                <input type="radio" name="q8" value="d"> d) string("hello") <br>
+            </div>
+            <div class="question">
+                <p>9. What is the function to check the class of an object in R?</p>
+                <input type="radio" name="q9" value="a"> a) class() <br>
+                <input type="radio" name="q9" value="b"> b) typeof() <br>
+                <input type="radio" name="q9" value="c"> c) mode() <br>
+                <input type="radio" name="q9" value="d"> d) All of the above <br>
+            </div>
+            <div class="question">
+                <p>10. What is the function to remove all objects from the current environment?</p>
+                <input type="radio" name="q10" value="a"> a) rm(list = ls()) <br>
+                <input type="radio" name="q10" value="b"> b) clear() <br>
+                <input type="radio" name="q10" value="c"> c) delete.all() <br>
+                <input type="radio" name="q10" value="d"> d) rm.all() <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

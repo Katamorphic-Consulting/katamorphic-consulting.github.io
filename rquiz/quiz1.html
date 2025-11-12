@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Quiz - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>R Quiz - Part 1</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the command to get the current working directory in R?</p>
+                <input type="radio" name="q1" value="a"> a) getwd() <br>
+                <input type="radio" name="q1" value="b"> b) setwd() <br>
+                <input type="radio" name="q1" value="c"> c) list.files() <br>
+                <input type="radio" name="q1" value="d"> d) dir() <br>
+            </div>
+            <div class="question">
+                <p>2. Which of the following is the assignment operator in R?</p>
+                <input type="radio" name="q2" value="a"> a) = <br>
+                <input type="radio" name="q2" value="b"> b) <- <br>
+                <input type="radio" name="q2" value="c"> c) == <br>
+                <input type="radio" name="q2" value="d"> d) -> <br>
+            </div>
+            <div class="question">
+                <p>3. How do you create a vector in R?</p>
+                <input type="radio" name="q3" value="a"> a) vector() <br>
+                <input type="radio" name="q3" value="b"> b) c() <br>
+                <input type="radio" name="q3" value="c"> c) list() <br>
+                <input type="radio" name="q3" value="d"> d) seq() <br>
+            </div>
+            <div class="question">
+                <p>4. What function is used to install a package in R?</p>
+                <input type="radio" name="q4" value="a"> a) library() <br>
+                <input type="radio" name="q4" value="b"> b) require() <br>
+                <input type="radio" name="q4" value="c"> c) install.packages() <br>
+                <input type="radio" name="q4" value="d"> d) source() <br>
+            </div>
+            <div class="question">
+                <p>5. How do you load a package in R?</p>
+                <input type="radio" name="q5" value="a"> a) library() <br>
+                <input type="radio" name="q5" value="b"> b) install.packages() <br>
+                <input type="radio" name="q5" value="c"> c) require() <br>
+                <input type="radio" name="q5" value="d"> d) Both a and c <br>
+            </div>
+            <div class="question">
+                <p>6. What is the result of `c(1, 2, 3) + c(4, 5, 6)`?</p>
+                <input type="radio" name="q6" value="a"> a) c(1, 2, 3, 4, 5, 6) <br>
+                <input type="radio" name="q6" value="b"> b) c(5, 7, 9) <br>
+                <input type="radio" name="q6" value="c"> c) Error <br>
+                <input type="radio" name="q6" value="d"> d) c(4, 5, 6, 1, 2, 3) <br>
+            </div>
+            <div class="question">
+                <p>7. How do you get help on a function in R?</p>
+                <input type="radio" name="q7" value="a"> a) help(function_name) <br>
+                <input type="radio" name="q7" value="b"> b) ?function_name <br>
+                <input type="radio" name="q7" value="c"> c) Both a and b <br>
+                <input type="radio" name="q7" value="d"> d) info(function_name) <br>
+            </div>
+            <div class="question">
+                <p>8. What is the data type of `TRUE` in R?</p>
+                <input type="radio" name="q8" value="a"> a) numeric <br>
+                <input type="radio" name="q8" value="b"> b) character <br>
+                <input type="radio" name="q8" value="c"> c) logical <br>
+                <input type="radio" name="q8" value="d"> d) integer <br>
+            </div>
+            <div class="question">
+                <p>9. How do you create a sequence of numbers from 1 to 10 in R?</p>
+                <input type="radio" name="q9" value="a"> a) 1:10 <br>
+                <input type="radio" name="q9" value="b"> b) seq(1, 10) <br>
+                <input type="radio" name="q9" value="c"> c) Both a and b <br>
+                <input type="radio" name="q9" value="d"> d) range(1, 10) <br>
+            </div>
+            <div class="question">
+                <p>10. What is the function to remove an object from the R environment?</p>
+                <input type="radio" name="q10" value="a"> a) rm() <br>
+                <input type="radio" name="q10" value="b"> b) remove() <br>
+                <input type="radio" name="q10" value="c"> c) delete() <br>
+                <input type="radio" name="q10" value="d"> d) Both a and b <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>
