@@ -20,7 +20,7 @@ loginButton.addEventListener('click', function() {
 async function displayResults() {
     let results = {};
     try {
-        const response = await fetch('/api/results');
+        const response = await fetch('/rquiz/api/results');
         if (response.ok) {
             results = await response.json();
         } else {

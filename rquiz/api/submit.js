@@ -1,31 +1,31 @@
 // api/submit.js
 
-exports.handler = async function(event, context) {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
+export default async function handler(request, response) {
+    if (request.method !== 'POST') {
+        return response.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    const { studentNumber, studentName, quizTitle, score, total } = JSON.parse(event.body);
+    const { studentNumber, studentName, quizTitle, score, total } = request.body;
     const { JSONBIN_API_KEY, JSONBIN_BIN_ID } = process.env;
 
     // Fetch existing results from jsonbin.io
     let results = {};
     try {
-        const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
+        const fetchResponse = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}/latest`, {
             headers: {
                 'X-Master-Key': JSONBIN_API_KEY
             }
         });
-        if (response.ok) {
-            const data = await response.json();
+        if (fetchResponse.ok) {
+            const data = await fetchResponse.json();
             results = data.record;
         }
     } catch (error) {
-        return { statusCode: 500, body: JSON.stringify({ message: 'Error fetching results' }) };
+        return response.status(500).json({ message: 'Error fetching results' });
     }
 
     if (results[studentNumber] && results[studentNumber][quizTitle]) {
-        return { statusCode: 409, body: JSON.stringify({ message: 'You have already taken this quiz.' }) };
+        return response.status(409).json({ message: 'You have already taken this quiz.' });
     }
 
     if (!results[studentNumber]) {
@@ -49,8 +49,8 @@ exports.handler = async function(event, context) {
             },
             body: JSON.stringify(results)
         });
-        return { statusCode: 200, body: JSON.stringify({ message: 'Results saved successfully' }) };
+        return response.status(200).json({ message: 'Results saved successfully' });
     } catch (error) {
-        return { statusCode: 500, body: JSON.stringify({ message: 'Error saving results' }) };
+        return response.status(500).json({ message: 'Error saving results' });
     }
-};
+}
