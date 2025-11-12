@@ -95,7 +95,7 @@ quizForm.addEventListener('submit', async function(event) {
     };
 
     try {
-        const response = await fetch('/rquiz/api/submit', {
+        const response = await fetch('./api/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
