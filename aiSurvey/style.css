@@ -43,6 +43,14 @@ h1 {
     margin-bottom: 15px;
 }
 
+.question-item.highlight {
+    border: 1px solid #dc3545;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
 .question-item label {
     display: block;
     margin-bottom: 8px;

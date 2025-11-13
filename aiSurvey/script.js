@@ -337,12 +337,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         jsonbinConfig = await configResponse.json();
     } catch (error) {
-        responseMessage.textContent = `Error: ${error.message} Please ensure you have set up your environment variables on Vercel.`;
-        responseMessage.className = "error";
-        responseMessage.classList.add('is-visible');
+        showError(`Error: ${error.message} Please ensure you have set up your environment variables on Vercel.`);
         // Disable the form if config fails
-        surveyForm.querySelector('button[type="submit"]').disabled = true;
-        surveyForm.querySelector('button[type="submit"]').textContent = 'Configuration Error';
+        const submitButton = surveyForm.querySelector('button[type="submit"]');
+        if(submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Configuration Error';
+        }
     }
 
 
@@ -368,6 +369,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             section.questions.forEach(q => {
                 const questionItemDiv = document.createElement('div');
                 questionItemDiv.classList.add('question-item');
+                // Add a data attribute to easily find the element
+                questionItemDiv.dataset.questionId = q.id;
 
                 const questionLabel = document.createElement('label');
                 questionLabel.textContent = q.text;
@@ -401,15 +404,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                         checkboxGroupDiv.appendChild(checkboxLabel);
                     });
                     questionItemDiv.appendChild(checkboxGroupDiv);
-                } else if (q.type === "text") {
-                    const textInput = document.createElement('input');
-                    textInput.type = "text";
-                    textInput.name = q.id;
-                    questionItemDiv.appendChild(textInput);
-                } else if (q.type === "textarea") {
-                    const textareaInput = document.createElement('textarea');
-                    textareaInput.name = q.id;
-                    questionItemDiv.appendChild(textareaInput);
                 }
                 sectionDiv.appendChild(questionItemDiv);
             });
@@ -417,17 +411,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    function validateSurvey(formData) {
+        let isValid = true;
+        questions.forEach(section => {
+            section.questions.forEach(q => {
+                if (!formData.has(q.id)) {
+                    isValid = false;
+                    const questionElement = document.querySelector(`.question-item[data-question-id="${q.id}"]`);
+                    if (questionElement) {
+                        questionElement.classList.add('highlight');
+                    }
+                }
+            });
+        });
+        return isValid;
+    }
+
+    function showError(message) {
+        responseMessage.textContent = message;
+        responseMessage.className = "error";
+        responseMessage.classList.add('is-visible');
+    }
+
     surveyForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+
+        // Clear previous highlights and errors
+        document.querySelectorAll('.question-item.highlight').forEach(el => el.classList.remove('highlight'));
+        responseMessage.classList.remove('is-visible');
+
+        const formData = new FormData(surveyForm);
+
+        // Validate the form
+        if (!validateSurvey(formData)) {
+            showError("Please answer all highlighted questions before submitting.");
+            const firstError = document.querySelector('.question-item.highlight');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            return;
+        }
 
         if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinBinId) {
             showError("Configuration is missing. Please set JSONBIN_SECRET_KEY and JSONBIN_BIN_ID environment variables on Vercel.");
             return;
         }
 
-        const formData = new FormData(surveyForm);
         const newAnswer = {};
-
         for (let [name, value] of formData.entries()) {
             if (name in newAnswer) {
                 if (!Array.isArray(newAnswer[name])) {
@@ -462,7 +492,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             const binData = await getResponse.json();
             let existingResponses = binData.record;
 
-            // Ensure existingResponses is an array
             if (!Array.isArray(existingResponses)) {
                 existingResponses = [];
             }
@@ -482,16 +511,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             // Success
-            const answeredCount = Object.keys(newAnswer).length;
+            const answeredCount = Object.keys(newAnswer).length - 4; // Subtract metadata fields
             const totalQuestions = getTotalQuestions();
             completionSummary.textContent = `You have answered ${answeredCount} out of ${totalQuestions} questions.`;
             modal.classList.add('is-visible');
 
         } catch (error) {
             console.error("Error updating bin:", error);
-            responseMessage.textContent = `An error occurred: ${error.message}`;
-            responseMessage.className = "error";
-            responseMessage.classList.add('is-visible');
+            showError(`An error occurred: ${error.message}`);
+        }
+    });
+
+    surveyForm.addEventListener('change', (event) => {
+        const questionItem = event.target.closest('.question-item');
+        if (questionItem && questionItem.classList.contains('highlight')) {
+            questionItem.classList.remove('highlight');
         }
     });
 
