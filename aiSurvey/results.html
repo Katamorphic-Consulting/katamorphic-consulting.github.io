@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    <link rel="stylesheet" href="results.style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Results</h1>
+        <div id="controls">
+            <button id="loadResultsBtn">Load Results</button>
+            <p class="instructions">Click the button to load all survey responses from your JSONBin.io collection.</p>
+        </div>
+        <div id="resultsContainer">
+            <!-- Results will be loaded here -->
+        </div>
+        <div id="loadingMessage" class="hidden">Loading...</div>
+        <div id="errorMessage" class="hidden"></div>
+        <a href="index.html" class="back-link">Back to Survey</a>
+    </div>
+    <script src="results.script.js"></script>
+</body>
+</html>

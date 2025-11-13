@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Survey</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Survey on Generative AI in Dutch Programming Education</h1>
+        <form id="surveyForm">
+            <div id="questionsContainer">
+                <!-- Questions will be loaded here by JavaScript -->
+            </div>
+            <button type="submit">Submit Survey</button>
+        </form>
+        <div id="responseMessage"></div>
+    </div>
+    <a href="results.html" class="results-link">View Survey Results</a>
+    <script src="script.js"></script>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Submission Successful!</h2>
+            <p id="completionSummary">You have answered X out of Y questions.</p>
+            <p class="instructions">Please take a screenshot of this window and submit it to your lecturer on Microsoft Teams as proof of completion.</p>
+        </div>
+    </div>
+</body>
+</html>
