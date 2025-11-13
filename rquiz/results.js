@@ -17,7 +17,7 @@ loginButton.addEventListener('click', function() {
 async function displayResults(password) {
     let results = {};
     try {
-        const response = await fetch(`/api/results?password=${encodeURIComponent(password)}`);
+        const response = await fetch(`/rquiz/api/results?password=${encodeURIComponent(password)}`);
         
         if (response.status === 401) {
             alert('Incorrect password.');
@@ -42,11 +42,10 @@ async function displayResults(password) {
     // Clear previous results
     resultsTableBody.innerHTML = '';
 
-    for (let studentNumber in results) {
-        const studentResults = results[studentNumber];
+    for (let firstName in results) {
+        const studentResults = results[firstName];
         const row = resultsTableBody.insertRow();
-        row.insertCell().textContent = studentNumber;
-        row.insertCell().textContent = studentResults.name;
+        row.insertCell().textContent = firstName;
 
         for (let i = 1; i <= 5; i++) {
             const quizTitle = `R Quiz - Part ${i}`;

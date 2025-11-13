@@ -67,13 +67,8 @@ const answers = {
 quizForm.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const studentName = prompt("Please enter your name:");
-    if (!studentName) {
-        return;
-    }
-
-    const studentNumber = prompt("Please enter your student number:");
-    if (!studentNumber) {
+    const firstName = prompt("Please enter your first name:");
+    if (!firstName) {
         return;
     }
 
@@ -87,8 +82,7 @@ quizForm.addEventListener('submit', async function(event) {
     }
 
     const submissionData = {
-        studentNumber,
-        studentName,
+        firstName,
         quizTitle,
         score,
         total: Object.keys(quizAnswers).length

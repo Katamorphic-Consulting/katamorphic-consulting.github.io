@@ -5,7 +5,7 @@ export default async function handler(request, response) {
         return response.status(405).json({ message: 'Method Not Allowed' });
     }
 
-    const { studentNumber, studentName, quizTitle, score, total } = request.body;
+    const { firstName, quizTitle, score, total } = request.body;
     const { JSONBIN_API_KEY, JSONBIN_BIN_ID } = process.env;
 
     // Fetch existing results from jsonbin.io
@@ -24,16 +24,14 @@ export default async function handler(request, response) {
         return response.status(500).json({ message: 'Error fetching results' });
     }
 
-    if (results[studentNumber] && results[studentNumber][quizTitle]) {
+    if (results[firstName] && results[firstName][quizTitle]) {
         return response.status(409).json({ message: 'You have already taken this quiz.' });
     }
 
-    if (!results[studentNumber]) {
-        results[studentNumber] = {
-            name: studentName
-        };
+    if (!results[firstName]) {
+        results[firstName] = {};
     }
-    results[studentNumber][quizTitle] = {
+    results[firstName][quizTitle] = {
         score: score,
         total: total,
         submissionTime: new Date().toLocaleString()
