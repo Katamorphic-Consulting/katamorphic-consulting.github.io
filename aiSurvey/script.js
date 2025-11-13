@@ -421,6 +421,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
+        // Add metadata to the submission
+        newAnswer.submissionTimestamp = new Date().toISOString();
+        newAnswer.userAgent = navigator.userAgent;
+        newAnswer.screenResolution = `${screen.width}x${screen.height}`;
+        newAnswer.language = navigator.language;
+
         console.log("Collected Answer:", newAnswer);
 
         const binUrl = `https://api.jsonbin.io/v3/b/${jsonbinConfig.jsonbinBinId}`;

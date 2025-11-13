@@ -135,6 +135,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             "agreement_hinders_learning": "Hinders my ability to learn programming",
             "agreement_over_reliant": "Concerned about becoming overly reliant",
             "agreement_genai_teachers": "GenAI as effective as human teachers",
+            "submissionTimestamp": "Submission Time",
+            "userAgent": "Browser Type",
+            "screenResolution": "Screen Resolution",
+            "language": "Language",
             // Add other question IDs and their text here for better display
         };
         return questionMap[id] || id.replace(/_/g, ' ');
