@@ -125,19 +125,6 @@ button[type="submit"]:hover {
     border-color: #f5c6cb;
 }
 
-.results-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.results-link:hover {
-    text-decoration: underline;
-}
-
 /* Modal Styles */
 .modal {
     display: none; /* Hidden by default */
