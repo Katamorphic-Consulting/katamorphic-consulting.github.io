@@ -139,6 +139,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             "userAgent": "Browser Type",
             "screenResolution": "Screen Resolution",
             "language": "Language",
+            "attitude_career_essential": "AI proficiency essential for career",
+            "genai_stuck_first_step": "First step when stuck on programming problem",
+            "genai_prompt_ability": "Ability to write effective prompts",
             // Add other question IDs and their text here for better display
         };
         return questionMap[id] || id.replace(/_/g, ' ');

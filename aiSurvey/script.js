@@ -39,6 +39,18 @@ const questions = [
                 text: "Learning about Topics and Concepts",
                 type: "radio",
                 options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+            },
+            {
+                id: "genai_stuck_first_step",
+                text: "When you get stuck on a programming problem, what is your typical first step?",
+                type: "radio",
+                options: ["Consult course materials/textbook", "Ask a friend or classmate", "Search on Google/Stack Overflow", "Ask a Generative AI tool", "Contact the teacher/TA"]
+            },
+            {
+                id: "genai_prompt_ability",
+                text: "How do you rate your ability to write effective prompts to get the code or explanation you need?",
+                type: "radio",
+                options: ["Very Poor", "Poor", "Average", "Good", "Excellent"]
             }
         ]
     },
@@ -202,6 +214,12 @@ const questions = [
             {
                 id: "attitude_frightened",
                 text: "I am frightened of GenAI",
+                type: "radio",
+                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+            },
+            {
+                id: "attitude_career_essential",
+                text: "To what extent do you agree with this statement: 'Proficiency with AI programming tools will be essential for my future career'?",
                 type: "radio",
                 options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
             }
