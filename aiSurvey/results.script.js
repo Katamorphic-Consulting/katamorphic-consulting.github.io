@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function fetchResults() {
-        if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinCollectionId) {
-            showError("Configuration is missing. Please set environment variables on Vercel.");
+        if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinBinId) {
+            showError("Configuration is missing. Please set JSONBIN_SECRET_KEY and JSONBIN_BIN_ID environment variables on Vercel.");
             return;
         }
 
@@ -30,43 +30,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         resultsContainer.innerHTML = ''; // Clear previous results
 
         try {
-            // 1. Fetch the list of all bins in the collection
-            const collectionUrl = `https://api.jsonbin.io/v3/c/${jsonbinConfig.jsonbinCollectionId}/bins`;
-            const collectionResponse = await fetch(collectionUrl, {
+            // 1. Fetch the content of the single bin
+            const binUrl = `https://api.jsonbin.io/v3/b/${jsonbinConfig.jsonbinBinId}`;
+            const response = await fetch(binUrl, {
                 headers: {
                     'X-Master-Key': jsonbinConfig.jsonbinSecretKey
                 }
             });
 
-            if (!collectionResponse.ok) {
-                throw new Error(`Failed to fetch collection data: ${collectionResponse.status} ${collectionResponse.statusText}`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch bin data: ${response.status} ${response.statusText}`);
             }
 
-            const bins = await collectionResponse.json();
+            const binData = await response.json();
+            const allResponses = binData.record; // The data is in the 'record' property
 
-            if (bins.length === 0) {
-                resultsContainer.innerHTML = '<p>No survey responses found in this collection.</p>';
+            if (!Array.isArray(allResponses) || allResponses.length === 0) {
+                resultsContainer.innerHTML = '<p>No survey responses found in this bin, or the bin is empty.</p>';
                 showLoading(false);
                 return;
             }
 
-            // 2. Fetch the content of each bin
-            const binFetchPromises = bins.map(bin =>
-                fetch(`https://api.jsonbin.io/v3/b/${bin.record}`, {
-                    headers: { 'X-Master-Key': jsonbinConfig.jsonbinSecretKey }
-                }).then(res => {
-                    if (!res.ok) {
-                        console.error(`Failed to fetch bin ${bin.record}`);
-                        return null; // Return null for failed fetches
-                    }
-                    return res.json();
-                })
-            );
-
-            const results = await Promise.all(binFetchPromises);
-
-            // 3. Process and render the results as statistics
-            processAndRenderStats(results.map(r => r.record));
+            // 2. Process and render the results as statistics
+            processAndRenderStats(allResponses);
 
         } catch (error) {
             showError(`An error occurred: ${error.message}`);

@@ -402,52 +402,70 @@ document.addEventListener('DOMContentLoaded', async () => {
     surveyForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
+        if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinBinId) {
+            showError("Configuration is missing. Please set JSONBIN_SECRET_KEY and JSONBIN_BIN_ID environment variables on Vercel.");
+            return;
+        }
+
         const formData = new FormData(surveyForm);
-        const answers = {};
+        const newAnswer = {};
 
         for (let [name, value] of formData.entries()) {
-            // Handle multiple checkboxes with the same name
-            if (name in answers) {
-                if (!Array.isArray(answers[name])) {
-                    answers[name] = [answers[name]];
+            if (name in newAnswer) {
+                if (!Array.isArray(newAnswer[name])) {
+                    newAnswer[name] = [newAnswer[name]];
                 }
-                answers[name].push(value);
+                newAnswer[name].push(value);
             } else {
-                answers[name] = value;
+                newAnswer[name] = value;
             }
         }
 
-        console.log("Collected Answers:", answers);
+        console.log("Collected Answer:", newAnswer);
 
-        const JSONBIN_URL = "https://api.jsonbin.io/v3/b";
+        const binUrl = `https://api.jsonbin.io/v3/b/${jsonbinConfig.jsonbinBinId}`;
+        const headers = {
+            'Content-Type': 'application/json',
+            'X-Master-Key': jsonbinConfig.jsonbinSecretKey
+        };
 
         try {
-            const response = await fetch(JSONBIN_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Master-Key': jsonbinConfig.jsonbinSecretKey,
-                    'X-Collection-Id': jsonbinConfig.jsonbinCollectionId,
-                    'X-Bin-Name': `survey_response_${Date.now()}`
-                },
-                body: JSON.stringify(answers)
+            // 1. GET the current bin content
+            const getResponse = await fetch(binUrl, { headers });
+            if (!getResponse.ok) {
+                throw new Error(`Failed to fetch existing data from the bin. Status: ${getResponse.status}`);
+            }
+            const binData = await getResponse.json();
+            let existingResponses = binData.record;
+
+            // Ensure existingResponses is an array
+            if (!Array.isArray(existingResponses)) {
+                existingResponses = [];
+            }
+
+            // 2. Append the new answer
+            existingResponses.push(newAnswer);
+
+            // 3. PUT the updated content back
+            const putResponse = await fetch(binUrl, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(existingResponses)
             });
 
-            if (response.ok) {
-                const answeredCount = Object.keys(answers).length;
-                const totalQuestions = getTotalQuestions();
-                completionSummary.textContent = `You have answered ${answeredCount} out of ${totalQuestions} questions.`;
-                modal.classList.add('is-visible');
-            } else {
-                const errorText = await response.text();
-                console.error("Error submitting to JSONBin.io:", response.status, errorText);
-                responseMessage.textContent = `Error submitting survey: ${response.status} - ${errorText}`;
-                responseMessage.className = "error";
-                responseMessage.classList.add('is-visible');
+            if (!putResponse.ok) {
+                throw new Error(`Failed to update the bin. Status: ${putResponse.status}`);
             }
+
+            // Success
+            const answeredCount = Object.keys(newAnswer).length;
+            const totalQuestions = getTotalQuestions();
+            completionSummary.textContent = `You have answered ${answeredCount} out of ${totalQuestions} questions.`;
+            modal.classList.add('is-visible');
+
         } catch (error) {
-            console.error("Network or other error:", error);
-            responseMessage.textContent = `An unexpected error occurred: ${error.message}`;
+            console.error("Error updating bin:", error);
+            responseMessage.textContent = `An error occurred: ${error.message}`;
             responseMessage.className = "error";
             responseMessage.classList.add('is-visible');
         }
