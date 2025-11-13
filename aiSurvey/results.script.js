@@ -1,30 +1,40 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const loadResultsBtn = document.getElementById('loadResultsBtn');
     const resultsContainer = document.getElementById('resultsContainer');
     const loadingMessage = document.getElementById('loadingMessage');
     const errorMessage = document.getElementById('errorMessage');
 
-    // IMPORTANT: Replace with your JSONBin.io Master Key and Collection ID
-    const JSONBIN_MASTER_KEY = "$2a$10$YOUR_JSONBIN_SECRET_KEY"; // Replace with your actual Master Key
-    const JSONBIN_COLLECTION_ID = "YOUR_COLLECTION_ID"; // Replace with the ID of the collection you created
+    let jsonbinConfig = {};
+
+    try {
+        const configResponse = await fetch('/api/config');
+        if (!configResponse.ok) {
+            throw new Error('Could not load configuration.');
+        }
+        jsonbinConfig = await configResponse.json();
+    } catch (error) {
+        showError(`Error: ${error.message} Please ensure you have set up your environment variables on Vercel.`);
+        loadResultsBtn.disabled = true;
+        loadResultsBtn.textContent = 'Configuration Error';
+        return; // Stop execution if config fails
+    }
 
     async function fetchResults() {
-        // Basic validation
-        if (JSONBIN_MASTER_KEY === "$2a$10$YOUR_JSONBIN_SECRET_KEY" || JSONBIN_COLLECTION_ID === "YOUR_COLLECTION_ID") {
-            showError("Please update `results.script.js` with your JSONBin.io Master Key and Collection ID.");
+        if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinCollectionId) {
+            showError("Configuration is missing. Please set environment variables on Vercel.");
             return;
         }
 
         showLoading(true);
-        errorMessage.classList.add('hidden');
+        errorMessage.style.display = 'none';
         resultsContainer.innerHTML = ''; // Clear previous results
 
         try {
             // 1. Fetch the list of all bins in the collection
-            const collectionUrl = `https://api.jsonbin.io/v3/c/${JSONBIN_COLLECTION_ID}/bins`;
+            const collectionUrl = `https://api.jsonbin.io/v3/c/${jsonbinConfig.jsonbinCollectionId}/bins`;
             const collectionResponse = await fetch(collectionUrl, {
                 headers: {
-                    'X-Master-Key': JSONBIN_MASTER_KEY
+                    'X-Master-Key': jsonbinConfig.jsonbinSecretKey
                 }
             });
 
@@ -43,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. Fetch the content of each bin
             const binFetchPromises = bins.map(bin =>
                 fetch(`https://api.jsonbin.io/v3/b/${bin.record}`, {
-                    headers: { 'X-Master-Key': JSONBIN_MASTER_KEY }
+                    headers: { 'X-Master-Key': jsonbinConfig.jsonbinSecretKey }
                 }).then(res => {
                     if (!res.ok) {
                         console.error(`Failed to fetch bin ${bin.record}`);
@@ -114,12 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showLoading(isLoading) {
-        loadingMessage.classList.toggle('hidden', !isLoading);
+        loadingMessage.style.display = isLoading ? 'block' : 'none';
     }
 
     function showError(message) {
         errorMessage.textContent = message;
-        errorMessage.classList.remove('hidden');
+        errorMessage.style.display = 'block';
     }
 
     loadResultsBtn.addEventListener('click', fetchResults);

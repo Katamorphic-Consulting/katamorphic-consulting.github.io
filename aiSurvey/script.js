@@ -300,7 +300,7 @@ const questions = [
     }
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const questionsContainer = document.getElementById('questionsContainer');
     const surveyForm = document.getElementById('surveyForm');
     const responseMessage = document.getElementById('responseMessage');
@@ -309,6 +309,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('confirmationModal');
     const closeButton = document.querySelector('.close-button');
     const completionSummary = document.getElementById('completionSummary');
+
+    let jsonbinConfig = {};
+
+    try {
+        const configResponse = await fetch('/api/config');
+        if (!configResponse.ok) {
+            throw new Error('Could not load configuration.');
+        }
+        jsonbinConfig = await configResponse.json();
+    } catch (error) {
+        responseMessage.textContent = `Error: ${error.message} Please ensure you have set up your environment variables on Vercel.`;
+        responseMessage.className = "error";
+        responseMessage.classList.add('is-visible');
+        // Disable the form if config fails
+        surveyForm.querySelector('button[type="submit"]').disabled = true;
+        surveyForm.querySelector('button[type="submit"]').textContent = 'Configuration Error';
+    }
+
 
     function getTotalQuestions() {
         return questions.reduce((total, section) => total + section.questions.length, 0);
@@ -401,19 +419,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log("Collected Answers:", answers);
 
-        // Replace with your JSONBin.io endpoint and secret key
-        const JSONBIN_URL = "https://api.jsonbin.io/v3/b"; // Create a new bin first to get the bin ID
-        const JSONBIN_SECRET_KEY = "$2a$10$YOUR_JSONBIN_SECRET_KEY"; // Replace with your actual secret key
-        const JSONBIN_COLLECTION_ID = "YOUR_COLLECTION_ID"; // Replace with your actual collection ID
+        const JSONBIN_URL = "https://api.jsonbin.io/v3/b";
 
         try {
             const response = await fetch(JSONBIN_URL, {
-                method: 'POST', // Use POST to create a new bin or PUT to update an existing one
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Master-Key': JSONBIN_SECRET_KEY,
-                    'X-Collection-Id': JSONBIN_COLLECTION_ID,
-                    'X-Bin-Name': `survey_response_${Date.now()}` // Optional: name your bin
+                    'X-Master-Key': jsonbinConfig.jsonbinSecretKey,
+                    'X-Collection-Id': jsonbinConfig.jsonbinCollectionId,
+                    'X-Bin-Name': `survey_response_${Date.now()}`
                 },
                 body: JSON.stringify(answers)
             });
