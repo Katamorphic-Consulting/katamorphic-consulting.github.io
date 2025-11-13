@@ -99,43 +99,43 @@ const questions = [
             {
                 id: "ethical_action_auto_generate_without_understanding",
                 text: "Auto-generating a solution for the entire assignment and submitting it without understanding it.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
                 id: "ethical_action_auto_generate_with_understanding",
                 text: "Auto-generating a solution for the entire assignment and submitting it even after fully understanding it.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
                 id: "ethical_action_auto_generate_small_parts",
                 text: "Auto-generating solutions for small parts of the assignment.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
                 id: "ethical_action_explain_problem",
                 text: "Using GenAI tools to \"explain\" step-by-step how to solve a problem.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
                 id: "ethical_action_fix_bug",
                 text: "Providing your code to GenAI tools and asking them to help fix a bug.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
                 id: "ethical_action_comment_tidy_improve",
                 text: "Asking GenAI tools to comment, tidy, and improve the style of your code.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
                 id: "ethical_action_other_language",
                 text: "Writing the solution in a programming language other than the course's and asking GenAI to translate/adapt it.",
-                type: "checkbox",
+                type: "radio",
                 options: ["Ethical", "Not Ethical"]
             },
             {
