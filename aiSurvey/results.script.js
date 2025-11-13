@@ -65,14 +65,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const results = await Promise.all(binFetchPromises);
 
-            // 3. Render the results
-            results.forEach((result, index) => {
-                if (result) { // Check if the fetch was successful
-                    const responseData = result.record;
-                    const responseId = bins[index].record; // Use the bin ID as the response ID
-                    renderResultCard(responseData, responseId);
-                }
-            });
+            // 3. Process and render the results as statistics
+            processAndRenderStats(results.map(r => r.record));
 
         } catch (error) {
             showError(`An error occurred: ${error.message}`);
@@ -82,29 +76,66 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function renderResultCard(data, responseId) {
-        const card = document.createElement('div');
-        card.classList.add('result-card');
+    function processAndRenderStats(allResponses) {
+        const stats = {};
+        const totalResponses = allResponses.length;
+
+        // Aggregate the data
+        allResponses.forEach(response => {
+            if (!response) return;
+            for (const [questionId, answer] of Object.entries(response)) {
+                if (!stats[questionId]) {
+                    stats[questionId] = {};
+                }
+                if (Array.isArray(answer)) { // Handle checkboxes (if any)
+                    answer.forEach(a => {
+                        stats[questionId][a] = (stats[questionId][a] || 0) + 1;
+                    });
+                } else {
+                    stats[questionId][answer] = (stats[questionId][answer] || 0) + 1;
+                }
+            }
+        });
+
+        // Render the aggregated data
+        resultsContainer.innerHTML = `<h2>Total Responses: ${totalResponses}</h2>`;
+        for (const [questionId, questionData] of Object.entries(stats)) {
+            renderQuestionStat(questionId, questionData, totalResponses);
+        }
+    }
+
+    function renderQuestionStat(questionId, questionData, totalResponses) {
+        const questionText = getQuestionTextById(questionId);
+
+        const statBlock = document.createElement('div');
+        statBlock.classList.add('stat-block');
 
         const title = document.createElement('h3');
-        title.textContent = `Response ID: ${responseId.substring(0, 8)}...`;
-        card.appendChild(title);
+        title.textContent = questionText;
+        statBlock.appendChild(title);
 
-        for (const [questionId, answer] of Object.entries(data)) {
-            const answerDiv = document.createElement('div');
-            answerDiv.classList.add('answer');
+        const resultsDiv = document.createElement('div');
+        resultsDiv.classList.add('stat-results');
 
-            const questionText = getQuestionTextById(questionId); // Helper to get full question text
+        for (const [answer, count] of Object.entries(questionData)) {
+            const percentage = ((count / totalResponses) * 100).toFixed(1);
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('stat-item');
 
-            answerDiv.innerHTML = `
-                <strong>${questionText || questionId}:</strong>
-                <span>${Array.isArray(answer) ? answer.join(', ') : answer}</span>
+            resultItem.innerHTML = `
+                <div class="stat-label">${answer}</div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar" style="width: ${percentage}%;"></div>
+                </div>
+                <div class="stat-value">${percentage}% (${count})</div>
             `;
-            card.appendChild(answerDiv);
+            resultsDiv.appendChild(resultItem);
         }
 
-        resultsContainer.appendChild(card);
+        statBlock.appendChild(resultsDiv);
+        resultsContainer.appendChild(statBlock);
     }
+
 
     function getQuestionTextById(id) {
         // This is a simplified mapping. For a real app, you might fetch this from a shared source.

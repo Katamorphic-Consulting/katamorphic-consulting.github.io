@@ -47,42 +47,66 @@ h1 {
 }
 
 #resultsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
+    display: block; /* Changed from grid */
 }
 
-.result-card {
+#resultsContainer h2 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-block {
     background-color: #f9f9f9;
     border: 1px solid #eee;
     border-radius: 5px;
     padding: 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
 }
 
-.result-card h3 {
+.stat-block h3 {
     margin-top: 0;
-    margin-bottom: 15px;
-    color: #007bff;
     font-size: 1.2em;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
+    color: #333;
 }
 
-.result-card .answer {
-    margin-bottom: 10px;
+.stat-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.9em;
 }
 
-.result-card .answer strong {
+.stat-label {
+    width: 25%;
+    flex-shrink: 0;
+    padding-right: 10px;
+    text-align: right;
     color: #555;
 }
 
-.result-card .answer span {
-    color: #333;
-    display: block;
-    margin-top: 3px;
-    word-wrap: break-word;
+.stat-bar-container {
+    flex-grow: 1;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    height: 20px;
 }
+
+.stat-bar {
+    background-color: #007bff;
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease-in-out;
+}
+
+.stat-value {
+    width: 15%;
+    flex-shrink: 0;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
 
 .hidden {
     display: none;
