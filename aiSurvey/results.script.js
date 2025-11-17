@@ -319,7 +319,6 @@ const questions = [
 ];
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const loadResultsBtn = document.getElementById('loadResultsBtn');
     const resultsContainer = document.getElementById('resultsContainer');
     const loadingMessage = document.getElementById('loadingMessage');
     const errorMessage = document.getElementById('errorMessage');
@@ -339,8 +338,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         jsonbinConfig = await configResponse.json();
     } catch (error) {
         showError(`Error: ${error.message} Please ensure you have set up your environment variables on Vercel.`);
-        loadResultsBtn.disabled = true;
-        loadResultsBtn.textContent = 'Configuration Error';
         return; // Stop execution if config fails
     }
 
@@ -524,7 +521,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         errorMessage.style.display = 'block';
     }
 
-    loadResultsBtn.addEventListener('click', fetchResults);
     timeRange.addEventListener('change', () => {
         startDate.value = '';
         endDate.value = '';
@@ -534,5 +530,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         timeRange.value = 'all';
         filterAndRenderResults();
     });
+
+    fetchResults(); // Load results automatically on page load
 });
 
