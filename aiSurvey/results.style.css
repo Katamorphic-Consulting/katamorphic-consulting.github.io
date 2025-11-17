@@ -25,6 +25,67 @@ h1 {
     margin-bottom: 30px;
 }
 
+#timeFilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#timeFilter label {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+#timeFilter select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    background-color: #fff;
+}
+
+#dateRangeFilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#dateRangeFilter label {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+#dateRangeFilter input[type="date"] {
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#dateRangeFilter span {
+    margin: 0 5px;
+}
+
+#dateRangeFilter button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#dateRangeFilter button:hover {
+    background-color: #0056b3;
+}
+
 #loadResultsBtn {
     padding: 12px 25px;
     background-color: #28a745;
