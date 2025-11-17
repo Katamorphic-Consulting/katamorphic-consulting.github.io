@@ -24,23 +24,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return; // Stop execution if config fails
     }
 
-
-    try {
-        const configResponse = await fetch('/api/config');
-        if (!configResponse.ok) {
-            throw new Error('Could not load configuration.');
-        }
-        jsonbinConfig = await configResponse.json();
-    } catch (error) {
-        showError(`Error: ${error.message} Please ensure you have set up your environment variables on Vercel.`);
-        loadResultsBtn.disabled = true;
-        loadResultsBtn.textContent = 'Configuration Error';
-        return; // Stop execution if config fails
-    }
-
-    const timeRange = document.getElementById('timeRange');
-    let allRawResponses = []; // Cache for the fetched data
-
     async function fetchResults() {
         if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinBinId) {
             showError("Configuration is missing. Please set JSONBIN_SECRET_KEY and JSONBIN_BIN_ID environment variables on Vercel.");
