@@ -17,7 +17,7 @@ loginButton.addEventListener('click', function() {
 async function displayResults(password) {
     let results = {};
     try {
-        const response = await fetch(`/rquiz/api/results?password=${encodeURIComponent(password)}`);
+        const response = await fetch(`/api/results?password=${encodeURIComponent(password)}`);
         
         if (response.status === 401) {
             alert('Incorrect password.');
