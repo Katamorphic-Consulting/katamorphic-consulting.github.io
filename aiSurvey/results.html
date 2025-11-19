@@ -10,22 +10,45 @@
     <div class="container">
         <h1>Survey Results</h1>
         <div id="controls">
-            <div id="timeFilter">
-                <label for="timeRange">Filter by time:</label>
-                <select id="timeRange">
-                    <option value="all">All time</option>
-                    <option value="24h">Last 24 hours</option>
-                    <option value="7d">Last 7 days</option>
-                    <option value="30d">Last 30 days</option>
-                </select>
+            <div class="filter-period" id="basePeriod">
+                <h3>Base Period</h3>
+                <div id="timeFilter">
+                    <label for="timeRange">Filter by time:</label>
+                    <select id="timeRange">
+                        <option value="all">All time</option>
+                        <option value="24h">Last 24 hours</option>
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                    </select>
+                </div>
+                <div id="dateRangeFilter">
+                    <label for="startDate">Or select a range:</label>
+                    <input type="date" id="startDate">
+                    <span>-</span>
+                    <input type="date" id="endDate">
+                    <button id="applyDateRangeBtn">Apply</button>
+                </div>
             </div>
-            <div id="dateRangeFilter">
-                <label for="startDate">Or select a range:</label>
-                <input type="date" id="startDate">
-                <span>-</span>
-                <input type="date" id="endDate">
-                <button id="applyDateRangeBtn">Apply</button>
+            <div class="filter-period" id="comparisonPeriod">
+                <h3>Comparison Period</h3>
+                <div id="comparisonTimeFilter">
+                    <label for="comparisonTimeRange">Filter by time:</label>
+                    <select id="comparisonTimeRange">
+                        <option value="all">All time</option>
+                        <option value="24h">Last 24 hours</option>
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                    </select>
+                </div>
+                <div id="comparisonDateRangeFilter">
+                    <label for="comparisonStartDate">Or select a range:</label>
+                    <input type="date" id="comparisonStartDate">
+                    <span>-</span>
+                    <input type="date" id="comparisonEndDate">
+                    <button id="applyComparisonDateRangeBtn">Apply</button>
+                </div>
             </div>
+            <button id="compareBtn">Compare</button>
         </div>
         <div id="resultsContainer">
             <!-- Results will be loaded here -->

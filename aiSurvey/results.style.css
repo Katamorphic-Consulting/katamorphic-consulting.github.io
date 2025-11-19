@@ -21,24 +21,67 @@ h1 {
 }
 
 #controls {
-    text-align: center;
-    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
 }
 
-#timeFilter {
+.filter-period {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex-basis: 45%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.filter-period h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+#compareBtn {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 12px 25px;
+    background-color: #ff7f50; /* Coral color for contrast */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#compareBtn:hover {
+    background-color: #ff6347; /* Tomato color on hover */
+}
+
+#timeFilter, #comparisonTimeFilter {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 15px;
 }
 
-#timeFilter label {
+#timeFilter label, #comparisonTimeFilter label {
     margin-right: 10px;
     font-size: 0.9em;
     color: #555;
 }
 
-#timeFilter select {
+#timeFilter select, #comparisonTimeFilter select {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -46,31 +89,31 @@ h1 {
     background-color: #fff;
 }
 
-#dateRangeFilter {
+#dateRangeFilter, #comparisonDateRangeFilter {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
 }
 
-#dateRangeFilter label {
+#dateRangeFilter label, #comparisonDateRangeFilter label {
     margin-right: 10px;
     font-size: 0.9em;
     color: #555;
 }
 
-#dateRangeFilter input[type="date"] {
+#dateRangeFilter input[type="date"], #comparisonDateRangeFilter input[type="date"] {
     padding: 7px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 0.9em;
 }
 
-#dateRangeFilter span {
+#dateRangeFilter span, #comparisonDateRangeFilter span {
     margin: 0 5px;
 }
 
-#dateRangeFilter button {
+#dateRangeFilter button, #comparisonDateRangeFilter button {
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -82,7 +125,7 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
-#dateRangeFilter button:hover {
+#dateRangeFilter button:hover, #comparisonDateRangeFilter button:hover {
     background-color: #0056b3;
 }
 
@@ -167,6 +210,73 @@ h1 {
     font-weight: bold;
     color: #333;
 }
+
+/* Comparison View Styles */
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
+.comparison-item .stat-bar-container {
+    position: relative;
+    height: 25px; /* Make bars a bit thicker for comparison */
+}
+
+.comparison-item .stat-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    opacity: 0.7;
+}
+
+.comparison-item .base-bar {
+    background-color: #007bff;
+    z-index: 1;
+}
+
+.comparison-item .comp-bar {
+    background-color: #ff7f50;
+    z-index: 2; /* Comparison bar on top */
+}
+
+.stat-value-group {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.stat-value-group .stat-value {
+    width: 100%;
+    padding-left: 0;
+    font-size: 0.9em;
+}
+
+.base-value {
+    color: #007bff;
+}
+
+.comp-value {
+    color: #ff7f50;
+}
+
 
 
 .hidden {

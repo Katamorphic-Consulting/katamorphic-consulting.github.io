@@ -322,10 +322,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resultsContainer = document.getElementById('resultsContainer');
     const loadingMessage = document.getElementById('loadingMessage');
     const errorMessage = document.getElementById('errorMessage');
+
+    // Base period elements
     const timeRange = document.getElementById('timeRange');
     const startDate = document.getElementById('startDate');
     const endDate = document.getElementById('endDate');
     const applyDateRangeBtn = document.getElementById('applyDateRangeBtn');
+
+    // Comparison period elements
+    const comparisonTimeRange = document.getElementById('comparisonTimeRange');
+    const comparisonStartDate = document.getElementById('comparisonStartDate');
+    const comparisonEndDate = document.getElementById('comparisonEndDate');
+    const applyComparisonDateRangeBtn = document.getElementById('applyComparisonDateRangeBtn');
+
+    const compareBtn = document.getElementById('compareBtn');
 
     let jsonbinConfig = {};
     let allRawResponses = []; // Cache for the fetched data
@@ -341,7 +351,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return; // Stop execution if config fails
     }
 
-
     async function fetchResults() {
         if (!jsonbinConfig.jsonbinSecretKey || !jsonbinConfig.jsonbinBinId) {
             showError("Configuration is missing. Please set JSONBIN_SECRET_KEY and JSONBIN_BIN_ID environment variables on Vercel.");
@@ -353,12 +362,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         resultsContainer.innerHTML = ''; // Clear previous results
 
         try {
-            // Fetch the content of the single bin
             const binUrl = `https://api.jsonbin.io/v3/b/${jsonbinConfig.jsonbinBinId}`;
             const response = await fetch(binUrl, {
-                headers: {
-                    'X-Master-Key': jsonbinConfig.jsonbinSecretKey
-                }
+                headers: { 'X-Master-Key': jsonbinConfig.jsonbinSecretKey }
             });
 
             if (!response.ok) {
@@ -366,7 +372,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             const binData = await response.json();
-            allRawResponses = binData.record; // Cache the data
+            allRawResponses = binData.record;
 
             if (!Array.isArray(allRawResponses) || allRawResponses.length === 0) {
                 resultsContainer.innerHTML = '<p>No survey responses found in this bin, or the bin is empty.</p>';
@@ -374,7 +380,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            // Initial render
             filterAndRenderResults();
 
         } catch (error) {
@@ -385,65 +390,65 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function filterAndRenderResults() {
-        let responsesToRender = [...allRawResponses];
-        const selectedRange = timeRange.value;
-        const startVal = startDate.value;
-        const endVal = endDate.value;
+    function getFilteredResponses(period) {
+        let responses = [...allRawResponses];
+        const timeRangeEl = period === 'base' ? timeRange : comparisonTimeRange;
+        const startDateEl = period === 'base' ? startDate : comparisonStartDate;
+        const endDateEl = period === 'base' ? endDate : comparisonEndDate;
+
+        const selectedRange = timeRangeEl.value;
+        const startVal = startDateEl.value;
+        const endVal = endDateEl.value;
 
         if (startVal && endVal) {
             const cutoffStartDate = new Date(startVal);
-            cutoffStartDate.setHours(0, 0, 0, 0); // Start of the day
+            cutoffStartDate.setHours(0, 0, 0, 0);
             const cutoffEndDate = new Date(endVal);
-            cutoffEndDate.setHours(23, 59, 59, 999); // End of the day
+            cutoffEndDate.setHours(23, 59, 59, 999);
 
-            responsesToRender = responsesToRender.filter(response => {
+            responses = responses.filter(response => {
                 if (!response.submissionTimestamp) return false;
                 const submissionDate = new Date(response.submissionTimestamp);
                 return submissionDate >= cutoffStartDate && submissionDate <= cutoffEndDate;
             });
-            
         } else if (selectedRange !== 'all') {
             const now = new Date();
             const cutoffDate = new Date();
 
-            if (selectedRange === '24h') {
-                cutoffDate.setDate(now.getDate() - 1);
-            } else if (selectedRange === '7d') {
-                cutoffDate.setDate(now.getDate() - 7);
-            } else if (selectedRange === '30d') {
-                cutoffDate.setDate(now.getDate() - 30);
-            }
+            if (selectedRange === '24h') cutoffDate.setDate(now.getDate() - 1);
+            else if (selectedRange === '7d') cutoffDate.setDate(now.getDate() - 7);
+            else if (selectedRange === '30d') cutoffDate.setDate(now.getDate() - 30);
 
-            responsesToRender = responsesToRender.filter(response => {
+            responses = responses.filter(response => {
                 if (!response.submissionTimestamp) return false;
                 const submissionDate = new Date(response.submissionTimestamp);
                 return submissionDate >= cutoffDate;
             });
         }
+        return responses;
+    }
+
+    function filterAndRenderResults() {
+        const baseResponses = getFilteredResponses('base');
         
-        resultsContainer.innerHTML = ''; // Clear previous results before re-rendering
-        if (responsesToRender.length === 0) {
+        resultsContainer.innerHTML = '';
+        if (baseResponses.length === 0) {
             resultsContainer.innerHTML = '<p>No responses found for the selected time range.</p>';
             return;
         }
 
-
-        processAndRenderStats(responsesToRender);
+        processAndRenderStats(baseResponses);
     }
 
-    function processAndRenderStats(allResponses) {
+    function processStats(responses) {
         const stats = {};
-        const totalResponses = allResponses.length;
+        const totalResponses = responses.length;
 
-        // Aggregate the data
-        allResponses.forEach(response => {
+        responses.forEach(response => {
             if (!response) return;
             for (const [questionId, answer] of Object.entries(response)) {
-                if (!stats[questionId]) {
-                    stats[questionId] = {};
-                }
-                if (Array.isArray(answer)) { // Handle checkboxes (if any)
+                if (!stats[questionId]) stats[questionId] = {};
+                if (Array.isArray(answer)) {
                     answer.forEach(a => {
                         stats[questionId][a] = (stats[questionId][a] || 0) + 1;
                     });
@@ -452,8 +457,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
         });
+        return { stats, totalResponses };
+    }
 
-        // Render the aggregated data
+    function processAndRenderStats(responses) {
+        const { stats, totalResponses } = processStats(responses);
         resultsContainer.innerHTML = `<h2>Total Responses: ${totalResponses}</h2>`;
         for (const [questionId, questionData] of Object.entries(stats)) {
             renderQuestionStat(questionId, questionData, totalResponses);
@@ -462,22 +470,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function renderQuestionStat(questionId, questionData, totalResponses) {
         const questionText = getQuestionTextById(questionId);
-
         const statBlock = document.createElement('div');
         statBlock.classList.add('stat-block');
-
         const title = document.createElement('h3');
         title.textContent = questionText;
         statBlock.appendChild(title);
-
         const resultsDiv = document.createElement('div');
         resultsDiv.classList.add('stat-results');
 
         for (const [answer, count] of Object.entries(questionData)) {
-            const percentage = ((count / totalResponses) * 100).toFixed(1);
+            const percentage = totalResponses > 0 ? ((count / totalResponses) * 100).toFixed(1) : 0;
             const resultItem = document.createElement('div');
             resultItem.classList.add('stat-item');
-
             resultItem.innerHTML = `
                 <div class="stat-label">${answer}</div>
                 <div class="stat-bar-container">
@@ -487,28 +491,95 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             resultsDiv.appendChild(resultItem);
         }
+        statBlock.appendChild(resultsDiv);
+        resultsContainer.appendChild(statBlock);
+    }
+
+    function compareResults() {
+        const baseResponses = getFilteredResponses('base');
+        const comparisonResponses = getFilteredResponses('comparison');
+
+        resultsContainer.innerHTML = '';
+        if (baseResponses.length === 0 && comparisonResponses.length === 0) {
+            resultsContainer.innerHTML = '<p>No responses found for the selected time ranges.</p>';
+            return;
+        }
+
+        processAndRenderComparison(baseResponses, comparisonResponses);
+    }
+
+    function processAndRenderComparison(baseResponses, comparisonResponses) {
+        const { stats: baseStats, totalResponses: baseTotal } = processStats(baseResponses);
+        const { stats: compStats, totalResponses: compTotal } = processStats(comparisonResponses);
+
+        const legend = `
+            <div class="legend">
+                <div class="legend-item"><span class="legend-color" style="background-color: #007bff;"></span> Base Period (${baseTotal} responses)</div>
+                <div class="legend-item"><span class="legend-color" style="background-color: #ff7f50;"></span> Comparison Period (${compTotal} responses)</div>
+            </div>
+        `;
+        resultsContainer.innerHTML = `<h2>Comparison View</h2>${legend}`;
+
+        const allQuestionIds = new Set([...Object.keys(baseStats), ...Object.keys(compStats)]);
+
+        allQuestionIds.forEach(questionId => {
+            const baseQuestionData = baseStats[questionId] || {};
+            const compQuestionData = compStats[questionId] || {};
+            renderComparisonStat(questionId, baseQuestionData, baseTotal, compQuestionData, compTotal);
+        });
+    }
+
+    function renderComparisonStat(questionId, baseData, baseTotal, compData, compTotal) {
+        const questionText = getQuestionTextById(questionId);
+        if (!questionText || questionId === 'submissionTimestamp' || questionId === 'userAgent' || questionId === 'screenResolution' || questionId === 'language') {
+            return; // Skip metadata fields in comparison view
+        }
+
+        const statBlock = document.createElement('div');
+        statBlock.classList.add('stat-block');
+        const title = document.createElement('h3');
+        title.textContent = questionText;
+        statBlock.appendChild(title);
+        const resultsDiv = document.createElement('div');
+        resultsDiv.classList.add('stat-results');
+
+        const allAnswers = new Set([...Object.keys(baseData), ...Object.keys(compData)]);
+
+        allAnswers.forEach(answer => {
+            const baseCount = baseData[answer] || 0;
+            const compCount = compData[answer] || 0;
+            const basePercentage = baseTotal > 0 ? ((baseCount / baseTotal) * 100).toFixed(1) : 0;
+            const compPercentage = compTotal > 0 ? ((compCount / compTotal) * 100).toFixed(1) : 0;
+
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('stat-item', 'comparison-item');
+            resultItem.innerHTML = `
+                <div class="stat-label">${answer}</div>
+                <div class="stat-bar-container">
+                    <div class="stat-bar base-bar" style="width: ${basePercentage}%;" title="Base: ${basePercentage}% (${baseCount})"></div>
+                    <div class="stat-bar comp-bar" style="width: ${compPercentage}%;" title="Comparison: ${compPercentage}% (${compCount})"></div>
+                </div>
+                <div class="stat-value-group">
+                    <div class="stat-value base-value">${basePercentage}% (${baseCount})</div>
+                    <div class="stat-value comp-value">${compPercentage}% (${compCount})</div>
+                </div>
+            `;
+            resultsDiv.appendChild(resultItem);
+        });
 
         statBlock.appendChild(resultsDiv);
         resultsContainer.appendChild(statBlock);
     }
 
-
     function getQuestionTextById(id) {
         const questionMap = {};
-
-        // Build map from the questions array
         questions.forEach(section => {
-            section.questions.forEach(q => {
-                questionMap[q.id] = q.text;
-            });
+            section.questions.forEach(q => { questionMap[q.id] = q.text; });
         });
-
-        // Add special mappings for metadata
         questionMap["submissionTimestamp"] = "Submission Time";
         questionMap["userAgent"] = "Browser Type";
         questionMap["screenResolution"] = "Screen Resolution";
         questionMap["language"] = "Language";
-        
         return questionMap[id] || id.replace(/_/g, ' ');
     }
 
@@ -521,16 +592,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         errorMessage.style.display = 'block';
     }
 
+    // Event Listeners
+    applyDateRangeBtn.addEventListener('click', () => {
+        timeRange.value = 'all';
+        filterAndRenderResults();
+    });
     timeRange.addEventListener('change', () => {
         startDate.value = '';
         endDate.value = '';
         filterAndRenderResults();
     });
-    applyDateRangeBtn.addEventListener('click', () => {
-        timeRange.value = 'all';
-        filterAndRenderResults();
+    applyComparisonDateRangeBtn.addEventListener('click', () => {
+        comparisonTimeRange.value = 'all';
+        compareResults();
     });
+    comparisonTimeRange.addEventListener('change', () => {
+        comparisonStartDate.value = '';
+        comparisonEndDate.value = '';
+        compareResults();
+    });
+    compareBtn.addEventListener('click', compareResults);
 
-    fetchResults(); // Load results automatically on page load
+    fetchResults();
 });
 
