@@ -8,37 +8,37 @@ const questions = [
                 id: "genai_use_text",
                 text: "Working with text (e.g., writing emails, reports, summaries)",
                 type: "radio",
-                options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+                options: ["Never", "Less often", "Monthly", "Weekly", "Daily"]
             },
             {
                 id: "genai_use_images",
                 text: "Generating images",
                 type: "radio",
-                options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+                options: ["Never", "Less often", "Monthly", "Weekly", "Daily"]
             },
             {
                 id: "genai_use_code",
                 text: "Generating Code (e.g., the solution to a programming problem, or part of it)",
                 type: "radio",
-                options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+                options: ["Never", "Less often", "Monthly", "Weekly", "Daily"]
             },
             {
                 id: "genai_use_errors",
                 text: "Finding and Fixing errors",
                 type: "radio",
-                options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+                options: ["Never", "Less often", "Monthly", "Weekly", "Daily"]
             },
             {
                 id: "genai_use_feedback",
                 text: "Getting Feedback",
                 type: "radio",
-                options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+                options: ["Never", "Less often", "Monthly", "Weekly", "Daily"]
             },
             {
                 id: "genai_use_learning",
                 text: "Learning about Topics and Concepts",
                 type: "radio",
-                options: ["Daily", "Weekly", "Monthly", "Less often", "Never"]
+                options: ["Never", "Less often", "Monthly", "Weekly", "Daily"]
             },
             {
                 id: "genai_stuck_first_step",
@@ -99,7 +99,7 @@ const questions = [
                 id: "ethics_students_unapproved_use",
                 text: "How many students at your school/university are using GenAI tools in ways that teachers would not approve of?",
                 type: "radio",
-                options: ["Almost everyone", "Many", "Some", "Almost no one"]
+                options: ["Almost no one", "Some", "Many", "Almost everyone"]
             }
         ]
     },
@@ -173,7 +173,7 @@ const questions = [
                 id: "attitude_change_edit_genai",
                 text: "I change or edit what GenAI produces to suit my needs",
                 type: "radio",
-                options: ["Always", "Most of the time", "Sometimes", "Never"]
+                options: ["Never", "Sometimes", "Most of the time", "Always"]
             },
             {
                 id: "attitude_optimistic",
