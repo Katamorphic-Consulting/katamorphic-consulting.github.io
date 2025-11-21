@@ -50,7 +50,7 @@ const questions = [
                 id: "genai_prompt_ability",
                 text: "How do you rate your ability to write effective prompts to get the code or explanation you need?",
                 type: "radio",
-                options: ["Very Poor", "Poor", "Average", "Good", "Excellent"]
+                options: ["Excellent", "Good", "Average", "Poor", "Very Poor"]
             }
         ]
     },
@@ -63,19 +63,19 @@ const questions = [
                 id: "agreement_hinders_learning",
                 text: "Using GenAI tools frequently to generate code hinders my ability to learn programming.",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "agreement_over_reliant",
                 text: "I am concerned that I will become overly reliant on GenAI tools.",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "agreement_genai_teachers",
                 text: "GenAI tools can provide guidance for coursework as effectively as human teachers.",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             }
         ]
     },
@@ -87,7 +87,7 @@ const questions = [
                 id: "ethics_policies_clear",
                 text: "The policies of my school/university are clear regarding what is allowed and not allowed regarding the use of Generative AI (GenAI) tools.",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "ethics_policy_general",
@@ -167,61 +167,61 @@ const questions = [
                 id: "attitude_trust_genai",
                 text: "I trust what Generative AI (GenAI) generates (i.e., that it is accurate, reliable, appropriate)",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_change_edit_genai",
                 text: "I change or edit what GenAI produces to suit my needs",
                 type: "radio",
-                options: ["Never", "Sometimes", "Most of the time", "Always"]
+                options: ["Always", "Most of the time", "Sometimes", "Never"]
             },
             {
                 id: "attitude_optimistic",
                 text: "I am optimistic about GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_skeptical",
                 text: "I am skeptical about GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_worried",
                 text: "I am worried about GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_excited",
                 text: "I am excited by GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_stressed",
                 text: "I am stressed by GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_grateful",
                 text: "I am grateful for GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_frightened",
                 text: "I am frightened of GenAI",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "attitude_career_essential",
                 text: "To what extent do you agree with this statement: 'Proficiency with AI programming tools will be essential for my future career'?",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             }
         ]
     },
@@ -240,83 +240,91 @@ const questions = [
                 id: "course_want_use_genai_easier_faster",
                 text: "In this course, I want to use GenAI because it: Makes things easier or faster",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_want_use_genai_improves_quality",
                 text: "In this course, I want to use GenAI because it: Improves the quality of my work",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_want_use_genai_helps_otherwise",
                 text: "In this course, I want to use GenAI because it: Helps me do things I could not do otherwise",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_want_use_genai_improves_grades",
                 text: "In this course, I want to use GenAI because it: Improves my grades",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_want_use_genai_more_confident",
                 text: "In this course, I want to use GenAI because it: Helps me feel more confident",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_dont_want_use_genai_breaking_rules",
                 text: "In this course, I don't want to use GenAI because: I am worried about breaking my school's rules",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_dont_want_use_genai_inaccurate",
                 text: "In this course, I don't want to use GenAI because: It can be inaccurate or make things up",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_dont_want_use_genai_not_confident",
                 text: "In this course, I don't want to use GenAI because: I do not know how to use it confidently",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_dont_want_use_genai_do_myself",
                 text: "In this course, I don't want to use GenAI because: I want to do it myself",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_dont_want_use_genai_privacy_concerns",
                 text: "In this course, I don't want to use GenAI because: I have privacy or ethical concerns",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_genai_significant_role",
                 text: "GenAI tools have played a significant role in my learning process during this course",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_genai_accelerated_learning",
                 text: "GenAI tools have accelerated my learning process in this course",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             },
             {
                 id: "course_without_genai_same_amount",
                 text: "Without GenAI, I believe I would have learned the same amount in this course",
                 type: "radio",
-                options: ["Strongly disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Strongly agree"]
+                options: ["Strongly agree", "Somewhat agree", "Neutral", "Somewhat disagree", "Strongly disagree"]
             }
         ]
     }
 ];
+const questionOptionsMap = new Map();
+questions.forEach(section => {
+    section.questions.forEach(question => {
+        if (question.options) {
+            questionOptionsMap.set(question.id, question.options);
+        }
+    });
+});
 
 document.addEventListener('DOMContentLoaded', async () => {
     const resultsContainer = document.getElementById('resultsContainer');
@@ -478,7 +486,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultsDiv = document.createElement('div');
         resultsDiv.classList.add('stat-results');
 
-        for (const [answer, count] of Object.entries(questionData)) {
+        let sortedAnswers = Object.keys(questionData);
+        const optionOrder = questionOptionsMap.get(questionId);
+        if (optionOrder) {
+            sortedAnswers.sort((a, b) => {
+                const indexA = optionOrder.indexOf(a);
+                const indexB = optionOrder.indexOf(b);
+                if (indexA !== -1 && indexB !== -1) {
+                    return indexA - indexB;
+                }
+                if (indexA !== -1) return -1;
+                if (indexB !== -1) return 1;
+                return a.localeCompare(b);
+            });
+        } else {
+            sortedAnswers.sort((a, b) => a.localeCompare(b));
+        }
+
+        for (const answer of sortedAnswers) {
+            const count = questionData[answer];
             const percentage = totalResponses > 0 ? ((count / totalResponses) * 100).toFixed(1) : 0;
             const resultItem = document.createElement('div');
             resultItem.classList.add('stat-item');
@@ -543,7 +569,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         const resultsDiv = document.createElement('div');
         resultsDiv.classList.add('stat-results');
 
-        const allAnswers = new Set([...Object.keys(baseData), ...Object.keys(compData)]);
+        let allAnswers = Array.from(new Set([...Object.keys(baseData), ...Object.keys(compData)]));
+        const optionOrder = questionOptionsMap.get(questionId);
+
+        if (optionOrder) {
+            allAnswers.sort((a, b) => {
+                const indexA = optionOrder.indexOf(a);
+                const indexB = optionOrder.indexOf(b);
+                if (indexA !== -1 && indexB !== -1) {
+                    return indexA - indexB;
+                }
+                if (indexA !== -1) return -1;
+                if (indexB !== -1) return 1;
+                return a.localeCompare(b);
+            });
+        } else {
+            allAnswers.sort((a, b) => a.localeCompare(b));
+        }
 
         allAnswers.forEach(answer => {
             const baseCount = baseData[answer] || 0;
