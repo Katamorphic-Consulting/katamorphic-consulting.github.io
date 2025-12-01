@@ -21,7 +21,21 @@ export default async function handler(request, response) {
         });
         if (fetchResponse.ok) {
             const data = await fetchResponse.json();
-            return response.status(200).json(data.record);
+            const results = data.record;
+            const mergedResults = {};
+
+            for (const firstName in results) {
+                const existingName = Object.keys(mergedResults).find(key => key.toLowerCase() === firstName.toLowerCase());
+                if (existingName) {
+                    // Merge the quiz results
+                    Object.assign(mergedResults[existingName], results[firstName]);
+                } else {
+                    // Add the new entry
+                    mergedResults[firstName] = results[firstName];
+                }
+            }
+
+            return response.status(200).json(mergedResults);
         } else {
             return response.status(fetchResponse.status).json({ message: 'Error fetching results' });
         }
