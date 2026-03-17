@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8PQ0P2F31V"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8PQ0P2F31V');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Making AI Results Legible: Data Visualisation for Decision-Makers – Katamorphic Consulting</title>
+    <meta name="description" content="The gap between what an AI model produces and what a decision-maker needs to act on it is wider than most organisations realise. Closing that gap is a communication problem as much as a technical one.">
+    <meta name="theme-color" content="#f7f8fc">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .article-hero { padding: 70px 0 40px; }
+        .article-hero .tag { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+        .article-hero h1 { max-width: 760px; font-size: 2rem; margin-bottom: 12px; }
+        .article-hero .meta { font-size: 0.85rem; color: var(--muted); }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+        .article-body h2 { font-size: 1.35rem; margin: 32px 0 10px; color: var(--text); }
+        .article-body h3 { font-size: 1.05rem; margin: 20px 0 6px; color: var(--text); }
+        .article-body p { color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+        .article-body ul { color: var(--muted); padding-left: 20px; margin-bottom: 16px; line-height: 1.75; }
+        .article-body ul li { margin-bottom: 6px; }
+        .callout { background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(139,92,246,0.07)); border-left: 3px solid var(--brand); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 20px; margin: 24px 0; }
+        .callout p { margin: 0; color: var(--text); font-weight: 600; font-size: 0.97rem; }
+        .breadcrumb { font-size: 0.88rem; margin-bottom: 18px; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--muted); margin: 0 6px; }
+        .cta-band { background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08)); border-radius: var(--radius); padding: 36px; text-align: center; margin-top: 48px; }
+        .cta-band h2 { margin-bottom: 8px; font-size: 1.4rem; }
+        .cta-band p { max-width: 480px; margin: 0 auto 18px; }
+        @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <header class="site-header" role="banner">
+        <div class="container">
+            <a class="brand" href="../index.html" aria-label="Katamorphic Consulting home">
+                <span class="logo">K</span>
+                <span class="brand-text">Katamorphic Consulting</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a href="../index.html#values">Values</a>
+                <a href="../index.html#working-mode">Working Mode</a>
+                <a href="../index.html#service-areas">Services</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#contact" class="btn btn-primary">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="article-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>›</span>
+                    <a href="index.html">Insights</a>
+                    <span>›</span>
+                    AI Results Communication
+                </div>
+                <div class="tag">Data &amp; AI</div>
+                <h1>Making AI Results Legible: Data Visualisation for Decision-Makers</h1>
+                <div class="meta">2 April 2025</div>
+            </div>
+        </section>
+
+        <div class="article-body">
+            <p>A model that produces accurate outputs but cannot explain them to the people who need to act on them is only partially useful. This is a problem that shows up repeatedly in organisations deploying AI: the gap between what the system produces — probabilities, scores, classifications, anomaly flags — and what a decision-maker needs to understand and act confidently. Closing that gap is a communication challenge, and data visualisation is one of the most powerful tools for addressing it.</p>
+
+            <h2>The Translation Problem</h2>
+            <p>Most AI models produce outputs that are not directly legible to non-technical stakeholders. A fraud detection model might output a probability score between 0 and 1; a recommendation system might output a ranked list with confidence intervals; an anomaly detection system might flag deviations in multivariate space. These outputs are technically meaningful but communicatively inert to the people who need to make decisions.</p>
+            <p>The standard response is to add a threshold: above 0.8, flag for review. This is pragmatic but loses information. A more sophisticated response is to build communication layers — visualisations that convey not just the output but the basis for it, the confidence behind it, and the conditions under which it should be trusted or questioned.</p>
+
+            <h2>Principles for Effective AI Result Communication</h2>
+            <p>Several principles distinguish visualisations that actually support decision-making from those that merely display data:</p>
+
+            <h3>Calibration visibility.</h3>
+            <p>Decision-makers should be able to see not just what the model predicted, but how confident it was — and how well-calibrated that confidence is. A model that is 90% confident and right 90% of the time is very different from one that is 90% confident and right 60% of the time.</p>
+
+            <h3>Context anchoring.</h3>
+            <p>Outputs become meaningful when shown in context. A score of 0.73 means little on its own; shown against a distribution of historical scores, or against a threshold with an explanation of what crossing it implies, it becomes actionable.</p>
+
+            <h3>Uncertainty representation.</h3>
+            <p>Good visualisation makes uncertainty visible rather than hiding it. Error bars, confidence intervals, and sensitivity analyses look less clean than single-point estimates, but they are more honest — and more useful for decision-makers who need to understand the limits of what they are being told.</p>
+
+            <div class="callout">
+                <p>"The goal is not to make AI outputs look impressive. It is to make them legible enough to be challenged, questioned, and acted on."</p>
+            </div>
+
+            <h2>The Organisational Dimension</h2>
+            <p>Data visualisation for AI is not just a technical problem — it is an organisational one. The right visualisation depends on the audience: a clinical team needs different representations than a risk committee, which needs different representations than a board. Building these layers requires both technical skill and genuine engagement with how different stakeholders reason and decide.</p>
+            <p>It also requires honesty about what AI cannot do. Visualisations that obscure uncertainty, that present model outputs as facts, or that make it difficult to identify when the model is operating outside its training distribution are not just bad communication — they are a governance risk.</p>
+
+            <h2>Starting Points</h2>
+            <p>For organisations beginning to think about this, the most productive starting point is usually not a visualisation tool — it is a structured conversation about who needs to understand what, for what purpose, and with what level of technical fluency. From there, the visualisation choices follow.</p>
+            <p>The technical capacity to build clear, honest, useful AI result communication already exists. The missing piece, in most organisations, is the translation work between technical output and human decision.</p>
+
+            <section class="interactive-tool" style="background: var(--surface); border: 1px solid rgba(17,24,39,0.08); border-radius: var(--radius); padding: 32px; margin: 48px 0; box-shadow: var(--shadow);">
+                <h2 style="font-size: 1.25rem; margin-bottom: 8px;">Chart Type Selector</h2>
+                <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 24px;">What are you trying to communicate? Select a goal to see the recommended chart type.</p>
+
+                <div id="chart-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 24px;"></div>
+
+                <div id="chart-detail" style="display: none; padding: 20px; background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(139,92,246,0.05)); border-radius: var(--radius); border-left: 3px solid var(--brand); animation: fadeSlideIn 0.3s ease both;"></div>
+
+                <p style="font-size: 0.82rem; color: var(--muted); margin-top: 20px; margin-bottom: 0; font-style: italic;">The right chart is the one that makes the answer obvious — not the most sophisticated one available.</p>
+
+                <script>
+                (function() {
+                    var options = [
+                        {
+                            goal: 'Compare values across categories',
+                            chart: 'Horizontal bar chart',
+                            desc: 'Clear ranking, easy label reading. Use when categories have long names or you have more than 5 items.',
+                            svg: '<svg viewBox="0 0 120 60" width="120" height="60" aria-hidden="true"><rect x="20" y="8" width="70" height="10" rx="2" fill="var(--brand)" opacity="0.8"/><rect x="20" y="25" width="50" height="10" rx="2" fill="var(--brand)" opacity="0.6"/><rect x="20" y="42" width="85" height="10" rx="2" fill="var(--brand)" opacity="0.7"/><line x1="18" y1="4" x2="18" y2="56" stroke="rgba(107,114,128,0.4)" stroke-width="1.5"/></svg>'
+                        },
+                        {
+                            goal: 'Show change over time',
+                            chart: 'Line chart',
+                            desc: 'Emphasises trajectory and rate of change. Use when time is the primary dimension.',
+                            svg: '<svg viewBox="0 0 120 60" width="120" height="60" aria-hidden="true"><polyline points="10,48 30,38 50,42 70,22 90,18 110,10" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="10" cy="48" r="3" fill="var(--brand)"/><circle cx="50" cy="42" r="3" fill="var(--brand)"/><circle cx="90" cy="18" r="3" fill="var(--brand)"/><circle cx="110" cy="10" r="3" fill="var(--brand)"/><line x1="8" y1="52" x2="112" y2="52" stroke="rgba(107,114,128,0.4)" stroke-width="1.5"/></svg>'
+                        },
+                        {
+                            goal: 'Show composition (parts of a whole)',
+                            chart: 'Stacked bar or treemap',
+                            desc: 'Avoid pie charts for more than 3 segments. Stacked bars allow comparison across multiple groups.',
+                            svg: '<svg viewBox="0 0 120 60" width="120" height="60" aria-hidden="true"><rect x="15" y="10" width="22" height="42" rx="2" fill="var(--brand)" opacity="0.85"/><rect x="15" y="24" width="22" height="28" rx="2" fill="var(--accent)" opacity="0.7"/><rect x="15" y="36" width="22" height="16" rx="2" fill="rgba(107,114,128,0.4)"/><rect x="45" y="18" width="22" height="34" rx="2" fill="var(--brand)" opacity="0.85"/><rect x="45" y="30" width="22" height="22" rx="2" fill="var(--accent)" opacity="0.7"/><rect x="75" y="6" width="22" height="46" rx="2" fill="var(--brand)" opacity="0.85"/><rect x="75" y="22" width="22" height="30" rx="2" fill="var(--accent)" opacity="0.7"/><rect x="75" y="40" width="22" height="12" rx="2" fill="rgba(107,114,128,0.4)"/><line x1="10" y1="52" x2="110" y2="52" stroke="rgba(107,114,128,0.4)" stroke-width="1.5"/></svg>'
+                        },
+                        {
+                            goal: 'Show distribution',
+                            chart: 'Histogram or box plot',
+                            desc: "Don't summarise with a mean alone — show the spread. Box plots reveal outliers and quartiles.",
+                            svg: '<svg viewBox="0 0 120 60" width="120" height="60" aria-hidden="true"><rect x="35" y="20" width="50" height="28" rx="2" fill="none" stroke="var(--brand)" stroke-width="2"/><line x1="60" y1="20" x2="60" y2="48" stroke="var(--brand)" stroke-width="2"/><line x1="35" y1="34" x2="20" y2="34" stroke="var(--brand)" stroke-width="1.5"/><line x1="85" y1="34" x2="100" y2="34" stroke="var(--brand)" stroke-width="1.5"/><line x1="20" y1="30" x2="20" y2="38" stroke="var(--brand)" stroke-width="1.5"/><line x1="100" y1="30" x2="100" y2="38" stroke="var(--brand)" stroke-width="1.5"/><circle cx="108" cy="34" r="3" fill="none" stroke="rgba(239,68,68,0.8)" stroke-width="1.5"/><line x1="10" y1="52" x2="115" y2="52" stroke="rgba(107,114,128,0.4)" stroke-width="1.5"/></svg>'
+                        }
+                    ];
+
+                    var selectedIdx = null;
+                    var grid = document.getElementById('chart-grid');
+
+                    options.forEach(function(opt, i) {
+                        var card = document.createElement('div');
+                        card.id = 'chart-card-' + i;
+                        card.style.cssText = 'padding:16px; border-radius:var(--radius); border:2px solid rgba(17,24,39,0.1); cursor:pointer; transition:border-color 0.15s, box-shadow 0.15s; background:transparent;';
+                        card.innerHTML = '<p style="font-size:0.88rem; font-weight:600; color:var(--text); margin:0;">' + opt.goal + '</p>';
+                        card.onmouseover = function() { if (selectedIdx !== i) card.style.borderColor = 'rgba(59,130,246,0.35)'; };
+                        card.onmouseout = function() { if (selectedIdx !== i) card.style.borderColor = 'rgba(17,24,39,0.1)'; };
+                        card.onclick = function() { chartSelect(i); };
+                        grid.appendChild(card);
+                    });
+
+                    window.chartSelect = function(i) {
+                        selectedIdx = i;
+                        options.forEach(function(_, j) {
+                            var c = document.getElementById('chart-card-' + j);
+                            if (j === i) {
+                                c.style.borderColor = 'var(--brand)';
+                                c.style.boxShadow = '0 0 0 3px rgba(59,130,246,0.12)';
+                            } else {
+                                c.style.borderColor = 'rgba(17,24,39,0.1)';
+                                c.style.boxShadow = 'none';
+                            }
+                        });
+                        var opt = options[i];
+                        var detail = document.getElementById('chart-detail');
+                        detail.innerHTML = '<div style="display:flex; align-items:flex-start; gap:20px; flex-wrap:wrap;">'
+                            + '<div style="flex-shrink:0;">' + opt.svg + '</div>'
+                            + '<div style="flex:1; min-width:160px;">'
+                            + '<p style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:var(--brand); margin:0 0 4px;">Recommended</p>'
+                            + '<p style="font-size:1rem; font-weight:700; color:var(--text); margin:0 0 8px;">' + opt.chart + '</p>'
+                            + '<p style="font-size:0.87rem; color:var(--muted); margin:0; line-height:1.6;">' + opt.desc + '</p>'
+                            + '</div>'
+                            + '</div>';
+                        detail.style.display = 'block';
+                    };
+                })();
+                </script>
+            </section>
+
+            <div class="cta-band">
+                <h2>Interested in how we can help communicate your AI system's outputs clearly?</h2>
+                <p>We work with organisations to bridge the gap between model outputs and decision-maker understanding — combining data science expertise with a focus on honest, legible communication.</p>
+                <a href="../index.html#contact" class="btn btn-primary">Contact us</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Katamorphic Consulting. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

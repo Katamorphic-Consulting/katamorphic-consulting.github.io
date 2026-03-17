@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8PQ0P2F31V"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8PQ0P2F31V');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>From Data to Insight: The Process Most Organisations Skip – Katamorphic Consulting</title>
+    <meta name="description" content="Most organisations have more data than they can act on. The bottleneck is rarely collection — it's the structured process of turning raw data into decisions.">
+    <meta name="theme-color" content="#f7f8fc">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .article-hero { padding: 70px 0 40px; }
+        .article-hero .tag { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+        .article-hero h1 { max-width: 760px; font-size: 2rem; margin-bottom: 12px; }
+        .article-hero .meta { font-size: 0.85rem; color: var(--muted); }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+        .article-body h2 { font-size: 1.35rem; margin: 32px 0 10px; color: var(--text); }
+        .article-body p { color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+        .article-body ul { color: var(--muted); padding-left: 20px; margin-bottom: 16px; line-height: 1.75; }
+        .article-body ul li { margin-bottom: 6px; }
+        .callout { background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(139,92,246,0.07)); border-left: 3px solid var(--brand); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 20px; margin: 24px 0; }
+        .callout p { margin: 0; color: var(--text); font-weight: 600; font-size: 0.97rem; }
+        .breadcrumb { font-size: 0.88rem; margin-bottom: 18px; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--muted); margin: 0 6px; }
+        .cta-band { background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08)); border-radius: var(--radius); padding: 36px; text-align: center; margin-top: 48px; }
+        .cta-band h2 { margin-bottom: 8px; font-size: 1.4rem; }
+        .cta-band p { max-width: 480px; margin: 0 auto 18px; }
+    </style>
+</head>
+<body>
+    <header class="site-header" role="banner">
+        <div class="container">
+            <a class="brand" href="../index.html" aria-label="Katamorphic Consulting home">
+                <span class="logo">K</span>
+                <span class="brand-text">Katamorphic Consulting</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a href="../index.html#values">Values</a>
+                <a href="../index.html#working-mode">Working Mode</a>
+                <a href="../index.html#service-areas">Services</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#contact" class="btn btn-primary">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="article-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>›</span>
+                    <a href="index.html">Insights</a>
+                    <span>›</span>
+                    From Data to Insight
+                </div>
+                <div class="tag">Data &amp; Analysis</div>
+                <h1>From Data to Insight: The Process Most Organisations Skip</h1>
+                <div class="meta">9 June 2025</div>
+            </div>
+        </section>
+
+        <div class="article-body">
+            <p>Most organisations have more data than they know what to do with. Storage is cheap, instrumentation is pervasive, and the tooling to collect and aggregate data has become broadly accessible. The scarcity is not in the data itself — it is in the capacity to turn that data into decisions. The gap between "we have data on this" and "we made a better decision because of that data" is wider than most organisations acknowledge, and the bottleneck almost never sits where people assume it does.</p>
+
+            <h2>The Data-to-Decision Gap</h2>
+            <p>The assumption embedded in most data investment is that more data, better tools, and more dashboards will lead to better decisions. Sometimes this is true. More often, it produces a situation where data exists, reports are generated, and decisions are made — but the connection between the three is looser than it appears. Decisions get made on intuition and political dynamics, with data cited as post-hoc justification rather than genuine input. The data infrastructure exists; the culture of using it does not.</p>
+            <p>Closing this gap requires attention to the process that connects collection to decision — and specifically to the stages in that process where things reliably go wrong.</p>
+
+            <h2>The Five Stages: Where Things Go Wrong</h2>
+            <p>The journey from raw data to actionable insight has five stages, each with its characteristic failure modes:</p>
+            <ul>
+                <li><strong>Collection:</strong> Data is collected for the wrong reasons, at the wrong granularity, or without documentation of how and when it was gathered. The failure here is often invisible — nobody knows what the data does not contain. The fix is investing in data documentation and provenance from the outset, not retrospectively.</li>
+                <li><strong>Cleaning:</strong> Raw data is almost never analysis-ready. Missing values, inconsistent formats, duplicate records, and encoding errors are ubiquitous. The failure mode is either skipping cleaning entirely (producing unreliable results) or spending so much time on it that the analysis never happens. Systematic cleaning pipelines, built once and reused, are more efficient than ad hoc repair for each new project.</li>
+                <li><strong>Exploration:</strong> Exploratory data analysis (EDA) — examining the shape, distribution, and relationships in the data before attempting to answer a specific question — is the step most routinely skipped under time pressure. The cost of skipping it is analyses built on incorrect assumptions about the data: outliers not identified, distributions mischaracterised, relationships misunderstood. EDA is not overhead; it is the foundation on which reliable analysis rests.</li>
+                <li><strong>Analysis:</strong> The most common failure here is answering the wrong question. The analysis is technically competent, but it addresses a proxy for the actual business question rather than the question itself. This often happens because the question was never precisely specified at the outset. A brief but explicit problem statement — what decision does this analysis need to support, and what would change our recommendation? — prevents a great deal of well-executed but irrelevant work.</li>
+                <li><strong>Communication:</strong> Results that cannot be understood cannot be acted upon. The communication failure is typically a mismatch between the analyst's frame of reference and the audience's: jargon-heavy explanations of methodology when the audience needs a clear recommendation, or charts that make sense to someone who built them and nobody else. The discipline of designing outputs for a specific audience — asking "what does this person need to know, and what do they need to be able to do?" — produces radically better communication.</li>
+            </ul>
+
+            <div class="callout">
+                <p>"The bottleneck in most organisations is not the volume of data. It is the structured, disciplined process of asking the right question, cleaning what you have, and communicating the answer clearly."</p>
+            </div>
+
+            <h2>The Role of Domain Knowledge</h2>
+            <p>Technical skill in data analysis is necessary but not sufficient. Domain knowledge — understanding the context in which data was generated, the meaning of the variables, the plausibility of the results, and the decisions they need to inform — is what distinguishes analysis that can be acted on from analysis that is technically correct but organisationally inert.</p>
+            <p>This is why the best analysts in applied contexts are rarely pure technicians. They have built enough familiarity with the domain to know when a result is surprising and worth investigating, when it is implausible and likely reflects a data error, and when it confirms something already known without adding new information. That contextual judgement cannot be automated, and it is not developed quickly.</p>
+
+            <h2>Visualisation vs. Summary Statistics</h2>
+            <p>A persistent debate in data communication is when to use visualisation and when to use summary statistics. The useful answer is that they serve different purposes and work best in combination. Summary statistics are efficient when the audience needs to know a specific value (what is the average, what is the range, how does this quarter compare to last?). Visualisation is stronger when the goal is to show a pattern, a relationship, or a distribution that a table would obscure.</p>
+            <p>The failure mode is using visualisation as decoration — producing charts because they look sophisticated rather than because they communicate something that a table cannot. A well-chosen chart that reveals a genuine pattern is far more useful than an elaborate dashboard that generates noise. The question to ask for any visualisation: what would a reader miss if this were a table instead? If the honest answer is "nothing much", use the table.</p>
+
+            <h2>Closing the Loop</h2>
+            <p>The final and most neglected stage is the feedback loop: does the decision get made, and does it produce the outcome the analysis predicted? In most organisations, analysts hand off their work and never learn whether it was used, whether the recommended action was taken, or whether the outcome matched the model's expectation. This disconnection is expensive — it means errors in assumptions or method go uncorrected, and improvements in the analytical process cannot happen systematically.</p>
+            <p>Closing the loop requires deliberate structure: a mechanism to track whether insights led to decisions, and whether those decisions produced the expected results. This feeds back into better data collection — because when you know what decisions your data needs to support, you can design collection around those needs rather than collecting everything and hoping something is useful later.</p>
+
+            <section class="interactive-tool" style="background: var(--surface); border: 1px solid rgba(17,24,39,0.08); border-radius: var(--radius); padding: 32px; margin: 48px 0; box-shadow: var(--shadow);">
+                <h2 style="font-size: 1.25rem; margin-bottom: 8px;">Data Pipeline Failure Mode Explorer</h2>
+                <p style="color: var(--muted); font-size: 0.92rem; margin-bottom: 24px;">Click any stage in the pipeline to explore its common failure modes and the single most important best practice.</p>
+
+                <div id="dpe-pipeline" style="display:flex; flex-wrap:wrap; gap:0; align-items:center; margin-bottom:24px;"></div>
+                <div style="font-size:0.78rem; color:var(--muted); margin-bottom:16px;" id="dpe-stage-label">Select a stage to begin</div>
+                <div id="dpe-detail" style="display:none; border-top:2px solid var(--brand); padding-top:20px; animation: dpeFadeIn 0.2s ease;"></div>
+
+                <style>
+                    @keyframes dpeFadeIn { from {opacity:0; transform:translateY(6px);} to {opacity:1; transform:translateY(0);} }
+                </style>
+
+                <script>
+                (function(){
+                    const stages = [
+                        {
+                            name: 'Collection',
+                            failures: ['Incomplete coverage', 'Proxy metrics used instead of real measures', 'Collection bias baked in at the source'],
+                            best: 'Define what question you are answering before deciding what to collect.'
+                        },
+                        {
+                            name: 'Cleaning',
+                            failures: ['Undocumented changes to the data', 'Silent data loss during transformation', 'Inconsistent handling of nulls across fields'],
+                            best: 'Keep a change log. Never overwrite raw data.'
+                        },
+                        {
+                            name: 'Exploration',
+                            failures: ['Skipping EDA entirely under time pressure', 'Confirmation bias — only looking for expected patterns'],
+                            best: 'Spend at least 20% of your analysis time on exploration before any modelling.'
+                        },
+                        {
+                            name: 'Analysis',
+                            failures: ['Answering the wrong question', 'Confusing correlation with causation', 'Overfitting to the available data'],
+                            best: 'State your question precisely in writing before you begin. Review it before reporting.'
+                        },
+                        {
+                            name: 'Communication',
+                            failures: ['Charts that require explanation to understand', 'Jargon-heavy reports', 'No clear recommendation — just findings'],
+                            best: 'If the insight requires more than one sentence to explain, the visualisation is not yet clear enough.'
+                        }
+                    ];
+
+                    let activeIdx = null;
+
+                    function render() {
+                        let html = '';
+                        stages.forEach((s, i) => {
+                            const isActive = (i === activeIdx);
+                            html += `<button onclick="dpeSelect(${i})" style="
+                                padding: 10px 16px;
+                                font-size: 0.85rem;
+                                font-weight: ${isActive ? '700' : '500'};
+                                color: ${isActive ? 'var(--brand)' : 'var(--text)'};
+                                background: ${isActive ? 'rgba(59,130,246,0.08)' : '#fff'};
+                                border: ${isActive ? '2px solid var(--brand)' : '1.5px solid rgba(17,24,39,0.15)'};
+                                border-radius: var(--radius);
+                                cursor: pointer;
+                                white-space: nowrap;
+                                transition: all 0.15s;
+                                margin-bottom: 6px;
+                            ">${s.name}</button>`;
+                            if (i < stages.length - 1) {
+                                html += `<span style="font-size:1.1rem; color:var(--muted); padding:0 6px; margin-bottom:6px; display:inline-flex; align-items:center;">&#8594;</span>`;
+                            }
+                        });
+                        document.getElementById('dpe-pipeline').innerHTML = html;
+                    }
+
+                    window.dpeSelect = function(idx) {
+                        activeIdx = idx;
+                        render();
+                        const s = stages[idx];
+                        document.getElementById('dpe-stage-label').textContent = `Stage ${idx+1} of ${stages.length}`;
+                        let failHtml = s.failures.map(f => `<li style="margin-bottom:5px;">${f}</li>`).join('');
+                        document.getElementById('dpe-detail').innerHTML = `
+                            <div style="font-size:1rem; font-weight:700; color:var(--text); margin-bottom:12px;">${s.name}</div>
+                            <div style="margin-bottom:14px;">
+                                <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--muted); margin-bottom:8px;">Common failure modes</div>
+                                <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:0.88rem; line-height:1.65;">${failHtml}</ul>
+                            </div>
+                            <div style="padding:12px 16px; background:linear-gradient(135deg,rgba(59,130,246,0.07),rgba(139,92,246,0.07)); border-left:3px solid var(--brand); border-radius:0 var(--radius) var(--radius) 0;">
+                                <div style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--brand); margin-bottom:5px;">Best practice</div>
+                                <div style="font-size:0.88rem; color:var(--text); font-weight:600; line-height:1.55;">${s.best}</div>
+                            </div>`;
+                        const el = document.getElementById('dpe-detail');
+                        el.style.display = 'block';
+                        el.style.animation = 'none';
+                        el.offsetHeight; // reflow
+                        el.style.animation = 'dpeFadeIn 0.2s ease';
+                    };
+
+                    render();
+                })();
+                </script>
+            </section>
+
+            <div class="cta-band">
+                <h2>Want to build a more rigorous data-to-decision process?</h2>
+                <p>We work with organisations to identify where analysis is breaking down and design the processes and capabilities needed to turn data into reliable decisions.</p>
+                <a href="../index.html#contact" class="btn btn-primary">Contact us</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Katamorphic Consulting. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
