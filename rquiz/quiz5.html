@@ -22,7 +22,7 @@
                 <input type="radio" name="q2" value="a"> a) ```{r} ``` <br>
                 <input type="radio" name="q2" value="b"> b) '''{r} ''' <br>
                 <input type="radio" name="q2" value="c"> c) `r ` <br>
-                <input type="radio" name="q2" value="d"> d) All of the above <br>
+                <input type="radio" name="q2" value="d"> d) [r] [/r] <br>
             </div>
             <div class="question">
                 <p>3. What is the purpose of the `echo=FALSE` option in a code chunk?</p>
@@ -56,22 +56,22 @@
                 <p>7. What is the function to list all objects in the current environment?</p>
                 <input type="radio" name="q7" value="a"> a) ls() <br>
                 <input type="radio" name="q7" value="b"> b) list() <br>
-                <input type="radio" name="q7" value="c"> c) objects() <br>
-                <input type="radio" name="q7" value="d"> d) Both a and c <br>
+                <input type="radio" name="q7" value="c"> c) items() <br>
+                <input type="radio" name="q7" value="d"> d) dir() <br>
             </div>
             <div class="question">
                 <p>8. How do you create a character string in R?</p>
                 <input type="radio" name="q8" value="a"> a) "hello" <br>
-                <input type="radio" name="q8" value="b"> b) 'hello' <br>
-                <input type="radio" name="q8" value="c"> c) Both a and b <br>
+                <input type="radio" name="q8" value="b"> b) [hello] <br>
+                <input type="radio" name="q8" value="c"> c) char("hello") <br>
                 <input type="radio" name="q8" value="d"> d) string("hello") <br>
             </div>
             <div class="question">
                 <p>9. What is the function to check the class of an object in R?</p>
                 <input type="radio" name="q9" value="a"> a) class() <br>
-                <input type="radio" name="q9" value="b"> b) typeof() <br>
-                <input type="radio" name="q9" value="c"> c) mode() <br>
-                <input type="radio" name="q9" value="d"> d) All of the above <br>
+                <input type="radio" name="q9" value="b"> b) type() <br>
+                <input type="radio" name="q9" value="c"> c) kind() <br>
+                <input type="radio" name="q9" value="d"> d) sort() <br>
             </div>
             <div class="question">
                 <p>10. What is the function to remove all objects from the current environment?</p>
@@ -79,6 +79,146 @@
                 <input type="radio" name="q10" value="b"> b) clear() <br>
                 <input type="radio" name="q10" value="c"> c) delete.all() <br>
                 <input type="radio" name="q10" value="d"> d) rm.all() <br>
+            </div>
+            <div class="question">
+                <p>11. Which function is used to display an informational message to the user that does not signify an error or warning?</p>
+                <input type="radio" name="q11" value="a"> a) alert() <br>
+                <input type="radio" name="q11" value="b"> b) info() <br>
+                <input type="radio" name="q11" value="c"> c) message() <br>
+                <input type="radio" name="q11" value="d"> d) note() <br>
+            </div>
+            <div class="question">
+                <p>12. What function is used to signal a condition that is potentially problematic but doesn't stop the program?</p>
+                <input type="radio" name="q12" value="a"> a) alert() <br>
+                <input type="radio" name="q12" value="b"> b) warning() <br>
+                <input type="radio" name="q12" value="c"> c) caution() <br>
+                <input type="radio" name="q12" value="d"> d) advice() <br>
+            </div>
+            <div class="question">
+                <p>13. Which function completely stops the execution of a function and displays an error message?</p>
+                <input type="radio" name="q13" value="a"> a) halt() <br>
+                <input type="radio" name="q13" value="b"> b) break() <br>
+                <input type="radio" name="q13" value="c"> c) stop() <br>
+                <input type="radio" name="q13" value="d"> d) exit() <br>
+            </div>
+            <div class="question">
+                <p>14. Which popular package is used for methodically testing R code?</p>
+                <input type="radio" name="q14" value="a"> a) testR <br>
+                <input type="radio" name="q14" value="b"> b) checkthat <br>
+                <input type="radio" name="q14" value="c"> c) testthat <br>
+                <input type="radio" name="q14" value="d"> d) verifyR <br>
+            </div>
+            <div class="question">
+                <p>15. In `testthat`, which function is used to assert that two values are identical (within a default tolerance)?</p>
+                <input type="radio" name="q15" value="a"> a) expect_match() <br>
+                <input type="radio" name="q15" value="b"> b) expect_true() <br>
+                <input type="radio" name="q15" value="c"> c) expect_equal() <br>
+                <input type="radio" name="q15" value="d"> d) expect_same() <br>
+            </div>
+            <div class="question">
+                <p>16. Why is a 'tolerance' argument often necessary when testing floating-point numbers?</p>
+                <input type="radio" name="q16" value="a"> a) Because R is very slow <br>
+                <input type="radio" name="q16" value="b"> b) Due to floating-point imprecision <br>
+                <input type="radio" name="q16" value="c"> c) To allow for user spelling errors <br>
+                <input type="radio" name="q16" value="d"> d) Because NA values are common <br>
+            </div>
+            <div class="question">
+                <p>17. What is the development philosophy where you write tests *before* writing the actual code?</p>
+                <input type="radio" name="q17" value="a"> a) Fast-track development <br>
+                <input type="radio" name="q17" value="b"> b) Test-driven development <br>
+                <input type="radio" name="q17" value="c"> c) Backwards development <br>
+                <input type="radio" name="q17" value="d"> d) Error-first programming <br>
+            </div>
+            <div class="question">
+                <p>18. Which BDD-style functions in `testthat` are used to describe and test specific behaviors?</p>
+                <input type="radio" name="q18" value="a"> a) describe() and it() <br>
+                <input type="radio" name="q18" value="b"> b) explain() and do() <br>
+                <input type="radio" name="q18" value="c"> c) header() and case() <br>
+                <input type="radio" name="q18" value="d"> d) report() and verify() <br>
+            </div>
+            <div class="question">
+                <p>19. Which file in an R package structure contains metadata like the package name, version, and author?</p>
+                <input type="radio" name="q19" value="a"> a) NAMESPACE <br>
+                <input type="radio" name="q19" value="b"> b) INDEX <br>
+                <input type="radio" name="q19" value="c"> c) DESCRIPTION <br>
+                <input type="radio" name="q19" value="d"> d) CONFIG <br>
+            </div>
+            <div class="question">
+                <p>20. What is the purpose of the `NAMESPACE` file in an R package?</p>
+                <input type="radio" name="q20" value="a"> a) To list the author's name <br>
+                <input type="radio" name="q20" value="b"> b) To declare exported functions <br>
+                <input type="radio" name="q20" value="c"> c) To store the package license <br>
+                <input type="radio" name="q20" value="d"> d) To list all variables used <br>
+            </div>
+            <div class="question">
+                <p>21. Which directory in a standard R package contains the R source code files?</p>
+                <input type="radio" name="q21" value="a"> a) src/ <br>
+                <input type="radio" name="q21" value="b"> b) code/ <br>
+                <input type="radio" name="q21" value="c"> c) R/ <br>
+                <input type="radio" name="q21" value="d"> d) scripts/ <br>
+            </div>
+            <div class="question">
+                <p>22. Which directory in a standard R package contains the manual pages (documentation)?</p>
+                <input type="radio" name="q22" value="a"> a) doc/ <br>
+                <input type="radio" name="q22" value="b"> b) help/ <br>
+                <input type="radio" name="q22" value="c"> c) man/ <br>
+                <input type="radio" name="q22" value="d"> d) info/ <br>
+            </div>
+            <div class="question">
+                <p>23. What keyword is used in the `NAMESPACE` file to make a function available to users?</p>
+                <input type="radio" name="q23" value="a"> a) share() <br>
+                <input type="radio" name="q23" value="b"> b) public() <br>
+                <input type="radio" name="q23" value="c"> c) export() <br>
+                <input type="radio" name="q23" value="d"> d) include() <br>
+            </div>
+            <div class="question">
+                <p>24. Which `devtools` function loads all the code and data in your package into memory for development?</p>
+                <input type="radio" name="q24" value="a"> a) import_all() <br>
+                <input type="radio" name="q24" value="b"> b) refresh() <br>
+                <input type="radio" name="q24" value="c"> c) load_all() <br>
+                <input type="radio" name="q24" value="d"> d) run_package() <br>
+            </div>
+            <div class="question">
+                <p>25. Which `devtools` function automatically runs all the tests in your package's `tests/` folder?</p>
+                <input type="radio" name="q25" value="a"> a) run_tests() <br>
+                <input type="radio" name="q25" value="b"> b) check() <br>
+                <input type="radio" name="q25" value="c"> c) test() <br>
+                <input type="radio" name="q25" value="d"> d) verify_all() <br>
+            </div>
+            <div class="question">
+                <p>26. What file extension is used for R documentation files in the `man/` directory?</p>
+                <input type="radio" name="q26" value="a"> a) .txt <br>
+                <input type="radio" name="q26" value="b"> b) .md <br>
+                <input type="radio" name="q26" value="c"> c) .Rd <br>
+                <input type="radio" name="q26" value="d"> d) .help <br>
+            </div>
+            <div class="question">
+                <p>27. Which markup tag is used in an `.Rd` file to document function arguments?</p>
+                <input type="radio" name="q27" value="a"> a) \params{} <br>
+                <input type="radio" name="q27" value="b"> b) \inputs{} <br>
+                <input type="radio" name="q27" value="c"> c) \arguments{} <br>
+                <input type="radio" name="q27" value="d"> d) \vars{} <br>
+            </div>
+            <div class="question">
+                <p>28. What command is used to bundle a package into a distributable `.tar.gz` file?</p>
+                <input type="radio" name="q28" value="a"> a) zip() <br>
+                <input type="radio" name="q28" value="b"> b) bundle() <br>
+                <input type="radio" name="q28" value="c"> c) build() <br>
+                <input type="radio" name="q28" value="d"> d) package() <br>
+            </div>
+            <div class="question">
+                <p>29. How do you install a local package bundle file named `mypackage_1.0.tar.gz`?</p>
+                <input type="radio" name="q29" value="a"> a) load("mypackage_1.0.tar.gz") <br>
+                <input type="radio" name="q29" value="b"> b) source("mypackage_1.0.tar.gz") <br>
+                <input type="radio" name="q29" value="c"> c) install.packages("mypackage_1.0.tar.gz") <br>
+                <input type="radio" name="q29" value="d"> d) run("mypackage_1.0.tar.gz") <br>
+            </div>
+            <div class="question">
+                <p>30. What does `expect_match(output, "text")` check for in `testthat`?</p>
+                <input type="radio" name="q30" value="a"> a) If the output is exactly "text" <br>
+                <input type="radio" name="q30" value="b) b) If the output contains the string "text" <br>
+                <input type="radio" name="q30" value="c"> c) If the output is of class "text" <br>
+                <input type="radio" name="q30" value="d"> d) If the output is not NA <br>
             </div>
             <button type="submit">Submit</button>
         </form>

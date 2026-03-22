@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS50 AI Quiz 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS50 AI Quiz 1</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. In AI, what is an 'agent'?</p>
+                <input type="radio" name="q1" value="a"> a) A data structure storing states <br>
+                <input type="radio" name="q1" value="b"> b) An entity that acts on environment <br>
+                <input type="radio" name="q1" value="c"> c) A function calculating path costs <br>
+                <input type="radio" name="q1" value="d"> d) A hardware component of a server <br>
+            </div>
+            <div class="question">
+                <p>2. Which of these describes a 'state' in a search problem?</p>
+                <input type="radio" name="q2" value="a"> a) The sequence of actions taken <br>
+                <input type="radio" name="q2" value="b"> b) The goal the agent must reach <br>
+                <input type="radio" name="q2" value="c"> c) A configuration of the environment <br>
+                <input type="radio" name="q2" value="d"> d) The set of all possible actions <br>
+            </div>
+            <div class="question">
+                <p>3. Depth-First Search (DFS) uses which data structure for its frontier?</p>
+                <input type="radio" name="q3" value="a"> a) Linked List <br>
+                <input type="radio" name="q3" value="b"> b) Hash Table <br>
+                <input type="radio" name="q3" value="c"> c) Queue <br>
+                <input type="radio" name="q3" value="d"> d) Stack <br>
+            </div>
+            <div class="question">
+                <p>4. Which search algorithm is guaranteed to find the optimal solution?</p>
+                <input type="radio" name="q4" value="a"> a) Breadth-First Search <br>
+                <input type="radio" name="q4" value="b"> b) Depth-First Search <br>
+                <input type="radio" name="q4" value="c"> c) Greedy Best-First Search <br>
+                <input type="radio" name="q4" value="d"> d) Randomized Search <br>
+            </div>
+            <div class="question">
+                <p>5. What does a heuristic function h(n) estimate?</p>
+                <input type="radio" name="q5" value="a"> a) Cost from the initial state <br>
+                <input type="radio" name="q5" value="b"> b) Cost to reach the goal state <br>
+                <input type="radio" name="q5" value="c"> c) Number of nodes in the frontier <br>
+                <input type="radio" name="q5" value="d"> d) Total time taken by the agent <br>
+            </div>
+            <div class="question">
+                <p>6. A* search chooses a node based on which value?</p>
+                <input type="radio" name="q6" value="a"> a) h(n) only <br>
+                <input type="radio" name="q6" value="b"> b) g(n) only <br>
+                <input type="radio" name="q6" value="c"> c) g(n) + h(n) <br>
+                <input type="radio" name="q6" value="d"> d) g(n) - h(n) <br>
+            </div>
+            <div class="question">
+                <p>7. What does it mean for a heuristic to be 'admissible'?</p>
+                <input type="radio" name="q7" value="a"> a) It never overestimates the cost <br>
+                <input type="radio" name="q7" value="b"> b) It is always strictly positive <br>
+                <input type="radio" name="q7" value="c"> c) It always finds the goal state <br>
+                <input type="radio" name="q7" value="d"> d) It satisfies the triangle inequality <br>
+            </div>
+            <div class="question">
+                <p>8. Which property ensures a heuristic is 'consistent'?</p>
+                <input type="radio" name="q8" value="a"> a) h(n) is less than the true cost <br>
+                <input type="radio" name="q8" value="b"> b) h(n) <= h(n') + step cost c <br>
+                <input type="radio" name="q8" value="c"> c) h(n) increases at every node <br>
+                <input type="radio" name="q8" value="d"> d) h(n) is zero at the goal state <br>
+            </div>
+            <div class="question">
+                <p>9. In Minimax, what does the minimizing player try to do?</p>
+                <input type="radio" name="q9" value="a"> a) Maximize the opponent's score <br>
+                <input type="radio" name="q9" value="b"> b) Find the shortest path to goal <br>
+                <input type="radio" name="q9" value="c"> c) Minimize the final utility value <br>
+                <input type="radio" name="q9" value="d"> d) Reduce the number of game states <br>
+            </div>
+            <div class="question">
+                <p>10. What is the primary purpose of Alpha-Beta Pruning?</p>
+                <input type="radio" name="q10" value="a"> a) To find a better solution <br>
+                <input type="radio" name="q10" value="b"> b) To reduce the search space <br>
+                <input type="radio" name="q10" value="c"> c) To eliminate random choices <br>
+                <input type="radio" name="q10" value="d"> d) To simplify the goal test <br>
+            </div>
+            <div class="question">
+                <p>11. Depth-limited Minimax relies on what to estimate utility?</p>
+                <input type="radio" name="q11" value="a"> a) A transition model <br>
+                <input type="radio" name="q11" value="b"> b) An evaluation function <br>
+                <input type="radio" name="q11" value="c"> c) A stack data structure <br>
+                <input type="radio" name="q11" value="d"> d) A random number generator <br>
+            </div>
+            <div class="question">
+                <p>12. What is a 'sentence' in the context of knowledge representation?</p>
+                <input type="radio" name="q12" value="a"> a) A sequence of AI actions <br>
+                <input type="radio" name="q12" value="b"> b) An assertion about the world <br>
+                <input type="radio" name="q12" value="c"> c) A list of all known symbols <br>
+                <input type="radio" name="q12" value="d"> d) A terminal state in a game <br>
+            </div>
+            <div class="question">
+                <p>13. In propositional logic, what does the symbol '¬' represent?</p>
+                <input type="radio" name="q13" value="a"> a) And <br>
+                <input type="radio" name="q13" value="b"> b) Or <br>
+                <input type="radio" name="q13" value="c"> c) Not <br>
+                <input type="radio" name="q13" value="d"> d) Implies <br>
+            </div>
+            <div class="question">
+                <p>14. In the implication P → Q, what is P called?</p>
+                <input type="radio" name="q14" value="a"> a) Antecedent <br>
+                <input type="radio" name="q14" value="b"> b) Consequent <br>
+                <input type="radio" name="q14" value="c"> c) Proposition <br>
+                <input type="radio" name="q14" value="d"> d) Conclusion <br>
+            </div>
+            <div class="question">
+                <p>15. What does the biconditional connective ↔ mean?</p>
+                <input type="radio" name="q15" value="a"> a) P or Q but not both <br>
+                <input type="radio" name="q15" value="b"> b) P implies Q always <br>
+                <input type="radio" name="q15" value="c"> c) P if and only if Q <br>
+                <input type="radio" name="q15" value="d"> d) P and Q are both false <br>
+            </div>
+            <div class="question">
+                <p>16. If α ⊨ β, what is the relationship between α and β?</p>
+                <input type="radio" name="q16" value="a"> a) α is equivalent to β <br>
+                <input type="radio" name="q16" value="b"> b) α implies β is false <br>
+                <input type="radio" name="q16" value="c"> c) α entails β <br>
+                <input type="radio" name="q16" value="d"> d) α is a subset of β <br>
+            </div>
+            <div class="question">
+                <p>17. What is 'inference' in AI?</p>
+                <input type="radio" name="q17" value="a"> a) Collecting data from sensors <br>
+                <input type="radio" name="q17" value="b"> b) Deriving new sentences from old <br>
+                <input type="radio" name="q17" value="c"> c) Mapping inputs to outputs <br>
+                <input type="radio" name="q17" value="d"> d) Choosing the best move in game <br>
+            </div>
+            <div class="question">
+                <p>18. How does Model Checking determine if KB ⊨ α?</p>
+                <input type="radio" name="q18" value="a"> a) By following inference rules <br>
+                <input type="radio" name="q18" value="b"> b) By searching the state space <br>
+                <input type="radio" name="q18" value="c"> c) By checking every possible model <br>
+                <input type="radio" name="q18" value="d"> d) By using a heuristic function <br>
+            </div>
+            <div class="question">
+                <p>19. Which inference rule says 'if P → Q and P are true, then Q is true'?</p>
+                <input type="radio" name="q19" value="a"> a) And Elimination <br>
+                <input type="radio" name="q19" value="b"> b) Modus Ponens <br>
+                <input type="radio" name="q19" value="c"> c) De Morgan's Law <br>
+                <input type="radio" name="q19" value="d"> d) Double Negation <br>
+            </div>
+            <div class="question">
+                <p>20. According to De Morgan's Law, ¬(P ∧ Q) is equivalent to what?</p>
+                <input type="radio" name="q20" value="a"> a) ¬P ∧ ¬Q <br>
+                <input type="radio" name="q20" value="b"> b) P ∨ Q <br>
+                <input type="radio" name="q20" value="c"> c) ¬P ∨ ¬Q <br>
+                <input type="radio" name="q20" value="d"> d) P → Q <br>
+            </div>
+            <div class="question">
+                <p>21. Resolution relies on finding which type of literals?</p>
+                <input type="radio" name="q21" value="a"> a) Equivalent literals <br>
+                <input type="radio" name="q21" value="b"> b) Complementary literals <br>
+                <input type="radio" name="q21" value="c"> c) Universal literals <br>
+                <input type="radio" name="q21" value="d"> d) Atomic literals <br>
+            </div>
+            <div class="question">
+                <p>22. What is Conjunctive Normal Form (CNF)?</p>
+                <input type="radio" name="q22" value="a"> a) A disjunction of clauses <br>
+                <input type="radio" name="q22" value="b"> b) A sequence of implications <br>
+                <input type="radio" name="q22" value="c"> c) A conjunction of clauses <br>
+                <input type="radio" name="q22" value="d"> d) A set of truth table values <br>
+            </div>
+            <div class="question">
+                <p>23. In First-Order Logic, what does universal quantification (∀) express?</p>
+                <input type="radio" name="q23" value="a"> a) There exists at least one <br>
+                <input type="radio" name="q23" value="b"> b) For all elements <br>
+                <input type="radio" name="q23" value="c"> c) Only for specific constants <br>
+                <input type="radio" name="q23" value="d"> d) The relationship is false <br>
+            </div>
+            <div class="question">
+                <p>24. Which symbol is used for existential quantification in logic?</p>
+                <input type="radio" name="q24" value="a"> a) ∀ <br>
+                <input type="radio" name="q24" value="b"> b) ∃ <br>
+                <input type="radio" name="q24" value="c"> c) ⊨ <br>
+                <input type="radio" name="q24" value="d"> d) ↔ <br>
+            </div>
+            <div class="question">
+                <p>25. What is the sum of probabilities of all possible events in a sample space?</p>
+                <input type="radio" name="q25" value="a"> a) 0 <br>
+                <input type="radio" name="q25" value="b"> b) 0.5 <br>
+                <input type="radio" name="q25" value="c"> c) 1 <br>
+                <input type="radio" name="q25" value="d"> d) Infinity <br>
+            </div>
+            <div class="question">
+                <p>26. How is the conditional probability P(a | b) calculated?</p>
+                <input type="radio" name="q26" value="a"> a) P(a ∧ b) / P(b) <br>
+                <input type="radio" name="q26" value="b"> b) P(a) * P(b) <br>
+                <input type="radio" name="q26" value="c"> c) P(a) + P(b) <br>
+                <input type="radio" name="q26" value="d"> d) P(a ∨ b) / P(a) <br>
+            </div>
+            <div class="question">
+                <p>27. Bayes' Rule is used to compute what?</p>
+                <input type="radio" name="q27" value="a"> a) Joint probabilities <br>
+                <input type="radio" name="q27" value="b"> b) Marginal probabilities <br>
+                <input type="radio" name="q27" value="c"> c) Conditional probabilities <br>
+                <input type="radio" name="q27" value="d"> d) Unconditional probabilities <br>
+            </div>
+            <div class="question">
+                <p>28. A Bayesian Network is represented as what type of graph?</p>
+                <input type="radio" name="q28" value="a"> a) Undirected Graph <br>
+                <input type="radio" name="q28" value="b"> b) Directed Acyclic Graph <br>
+                <input type="radio" name="q28" value="c"> c) Complete Graph <br>
+                <input type="radio" name="q28" value="d"> d) Cyclic Graph <br>
+            </div>
+            <div class="question">
+                <p>29. What is sampling used for in probability?</p>
+                <input type="radio" name="q29" value="a"> a) Exact inference <br>
+                <input type="radio" name="q29" value="b"> b) Pruning the search tree <br>
+                <input type="radio" name="q29" value="c"> c) Approximate inference <br>
+                <input type="radio" name="q29" value="d"> d) Defining random variables <br>
+            </div>
+            <div class="question">
+                <p>30. In a Hidden Markov Model, what is the 'hidden state'?</p>
+                <input type="radio" name="q30" value="a"> a) The observed evidence <br>
+                <input type="radio" name="q30" value="b"> b) The transition model <br>
+                <input type="radio" name="q30" value="c"> c) The true state of the world <br>
+                <input type="radio" name="q30" value="d"> d) The sensor model data <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

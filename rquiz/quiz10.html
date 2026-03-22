@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS50 Python Quiz - Part 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS50 Python Quiz - Part 2</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. Which statement is commonly used in unit tests to verify that a function returns the expected value?</p>
+                <input type="radio" name="q1" value="a"> a) check <br>
+                <input type="radio" name="q1" value="b"> b) verify <br>
+                <input type="radio" name="q1" value="c"> c) assert <br>
+                <input type="radio" name="q1" value="d"> d) test <br>
+            </div>
+            <div class="question">
+                <p>2. What type of error is raised by the `assert` statement if the condition is False?</p>
+                <input type="radio" name="q2" value="a"> a) ValueError <br>
+                <input type="radio" name="q2" value="b"> b) AssertionError <br>
+                <input type="radio" name="q2" value="c"> c) LogicError <br>
+                <input type="radio" name="q2" value="d"> d) TypeError <br>
+            </div>
+            <div class="question">
+                <p>3. In the context of unit testing, what is `pytest`?</p>
+                <input type="radio" name="q3" value="a"> a) A built-in Python keyword <br>
+                <input type="radio" name="q3" value="b"> b) A browser-based testing tool <br>
+                <input type="radio" name="q3" value="c"> c) A third-party testing framework for Python <br>
+                <input type="radio" name="q3" value="d"> d) A compiler for test code <br>
+            </div>
+            <div class="question">
+                <p>4. How can you test if a function correctly raises a specific exception using `pytest`?</p>
+                <input type="radio" name="q4" value="a"> a) try/except <br>
+                <input type="radio" name="q4" value="b"> b) assert raises <br>
+                <input type="radio" name="q4" value="c"> c) with pytest.raises(Exception): <br>
+                <input type="radio" name="q4" value="d"> d) pytest.check_error() <br>
+            </div>
+            <div class="question">
+                <p>5. What is the purpose of an empty `__init__.py` file in a directory?</p>
+                <input type="radio" name="q5" value="a"> a) To initialize global variables <br>
+                <input type="radio" name="q5" value="b"> b) To tell Python to treat the directory as a package <br>
+                <input type="radio" name="q5" value="c"> c) To store metadata about the project <br>
+                <input type="radio" name="q5" value="d"> d) To speed up file I/O <br>
+            </div>
+            <div class="question">
+                <p>6. Which `open()` mode is used to add data to the end of an existing file?</p>
+                <input type="radio" name="q6" value="a"> a) 'r' <br>
+                <input type="radio" name="q6" value="b"> b) 'w' <br>
+                <input type="radio" name="q6" value="c"> c) 'a' <br>
+                <input type="radio" name="q6" value="d"> d) 'x' <br>
+            </div>
+            <div class="question">
+                <p>7. What is the benefit of using the `with` keyword when opening a file in Python?</p>
+                <input type="radio" name="q7" value="a"> a) It executes the code faster <br>
+                <input type="radio" name="q7" value="b"> b) It automatically closes the file after the block ends <br>
+                <input type="radio" name="q7" value="c"> c) It encrypts the file data <br>
+                <input type="radio" name="q7" value="d"> d) It allows multiple users to edit the file <br>
+            </div>
+            <div class="question">
+                <p>8. Which string method is often used when reading lines from a file to remove the trailing newline character?</p>
+                <input type="radio" name="q8" value="a"> a) strip() <br>
+                <input type="radio" name="q8" value="b"> b) clean() <br>
+                <input type="radio" name="q8" value="c"> c) rstrip() <br>
+                <input type="radio" name="q8" value="d"> d) remove() <br>
+            </div>
+            <div class="question">
+                <p>9. What does `csv.reader` return when iterating over a CSV file?</p>
+                <input type="radio" name="q9" value="a"> a) A single string for each row <br>
+                <input type="radio" name="q9" value="b"> b) A list of strings for each row <br>
+                <input type="radio" name="q9" value="c"> c) A dictionary for each row <br>
+                <input type="radio" name="q9" value="d"> d) A tuple of integers <br>
+            </div>
+            <div class="question">
+                <p>10. Which class in the `csv` module allows you to read rows as dictionaries using header names as keys?</p>
+                <input type="radio" name="q10" value="a"> a) csv.Reader <br>
+                <input type="radio" name="q10" value="b"> b) csv.MapReader <br>
+                <input type="radio" name="q10" value="c"> c) csv.DictReader <br>
+                <input type="radio" name="q10" value="d"> d) csv.HeaderReader <br>
+            </div>
+            <div class="question">
+                <p>11. When using `csv.DictWriter`, what parameter is required to define the order of columns?</p>
+                <input type="radio" name="q11" value="a"> a) columns <br>
+                <input type="radio" name="q11" value="b"> b) headers <br>
+                <input type="radio" name="q11" value="c"> c) fieldnames <br>
+                <input type="radio" name="q11" value="d"> d) keys <br>
+            </div>
+            <div class="question">
+                <p>12. Which library is commonly used in Python for basic image processing, such as creating animated GIFs?</p>
+                <input type="radio" name="q12" value="a"> a) PIL (Pillow) <br>
+                <input type="radio" name="q12" value="b"> b) ImageLib <br>
+                <input type="radio" name="q12" value="c"> c) GraphicsPy <br>
+                <input type="radio" name="q12" value="d"> d) PhotoFilter <br>
+            </div>
+            <div class="question">
+                <p>13. Which function in the `re` module is used to search for a pattern within a string?</p>
+                <input type="radio" name="q13" value="a"> a) re.find() <br>
+                <input type="radio" name="q13" value="b"> b) re.match() <br>
+                <input type="radio" name="q13" value="c"> c) re.search() <br>
+                <input type="radio" name="q13" value="d"> d) re.look() <br>
+            </div>
+            <div class="question">
+                <p>14. In regular expressions, what does the `.` symbol represent?</p>
+                <input type="radio" name="q14" value="a"> a) A literal period <br>
+                <input type="radio" name="q14" value="b"> b) Any character except a newline <br>
+                <input type="radio" name="q14" value="c"> c) The start of a string <br>
+                <input type="radio" name="q14" value="d"> d) A whitespace character <br>
+            </div>
+            <div class="question">
+                <p>15. In regular expressions, which quantifier means "0 or more repetitions"?</p>
+                <input type="radio" name="q15" value="a"> a) + <br>
+                <input type="radio" name="q15" value="b"> b) ? <br>
+                <input type="radio" name="q15" value="c"> c) * <br>
+                <input type="radio" name="q15" value="d"> d) {0,} <br>
+            </div>
+            <div class="question">
+                <p>16. In regular expressions, which quantifier means "1 or more repetitions"?</p>
+                <input type="radio" name="q16" value="a"> a) * <br>
+                <input type="radio" name="q16" value="b"> b) + <br>
+                <input type="radio" name="q16" value="c"> c) ? <br>
+                <input type="radio" name="q16" value="d"> d) {1} <br>
+            </div>
+            <div class="question">
+                <p>17. Which regex symbols are used to anchor a pattern to the start and end of a string, respectively?</p>
+                <input type="radio" name="q17" value="a"> a) [ and ] <br>
+                <input type="radio" name="q17" value="b"> b) ^ and $ <br>
+                <input type="radio" name="q17" value="c"> c) < and > <br>
+                <input type="radio" name="q17" value="d"> d) \s and \S <br>
+            </div>
+            <div class="question">
+                <p>18. Which flag can be passed to `re.search` to make the matching case-insensitive?</p>
+                <input type="radio" name="q18" value="a"> a) re.I <br>
+                <input type="radio" name="q18" value="b"> b) re.IGNORE <br>
+                <input type="radio" name="q18" value="c"> c) re.IGNORECASE <br>
+                <input type="radio" name="q18" value="d"> d) re.CASE_OFF <br>
+            </div>
+            <div class="question">
+                <p>19. What does the walrus operator `:=` allow you to do?</p>
+                <input type="radio" name="q19" value="a"> a) Compare two values for equality <br>
+                <input type="radio" name="q19" value="b"> b) Assign a value to a variable within an expression <br>
+                <input type="radio" name="q19" value="c"> c) Delete a variable from memory <br>
+                <input type="radio" name="q19" value="d"> d) Loop through a dictionary <br>
+            </div>
+            <div class="question">
+                <p>20. In object-oriented programming, what is a "class"?</p>
+                <input type="radio" name="q20" value="a"> a) An instance of a data type <br>
+                <input type="radio" name="q20" value="b"> b) A blueprint or template for creating objects <br>
+                <input type="radio" name="q20" value="c"> c) A collection of functions <br>
+                <input type="radio" name="q20" value="d"> d) A type of loop <br>
+            </div>
+            <div class="question">
+                <p>21. What is the purpose of the `__init__` method in a Python class?</p>
+                <input type="radio" name="q21" value="a"> a) To delete an object <br>
+                <input type="radio" name="q21" value="b"> b) To print an object's details <br>
+                <input type="radio" name="q21" value="c"> c) To initialize an object's attributes when it is created <br>
+                <input type="radio" name="q21" value="d"> d) To inherit from another class <br>
+            </div>
+            <div class="question">
+                <p>22. What does the `self` parameter represent in a class method?</p>
+                <input type="radio" name="q22" value="a"> a) The class itself <br>
+                <input type="radio" name="q22" value="b"> b) The current instance (object) being worked with <br>
+                <input type="radio" name="q22" value="c"> c) A global variable <br>
+                <input type="radio" name="q22" value="d"> d) A private variable <br>
+            </div>
+            <div class="question">
+                <p>23. Which special method is used to define how an object should be represented as a string?</p>
+                <input type="radio" name="q23" value="a"> a) __init__ <br>
+                <input type="radio" name="q23" value="b"> b) __repr__ <br>
+                <input type="radio" name="q23" value="c"> c) __str__ <br>
+                <input type="radio" name="q23" value="d"> d) __print__ <br>
+            </div>
+            <div class="question">
+                <p>24. In Python, what do decorators like `@property` and `@house.setter` allow you to implement?</p>
+                <input type="radio" name="q24" value="a"> a) Global variables <br>
+                <input type="radio" name="q24" value="b"> b) Getters and setters for class attributes <br>
+                <input type="radio" name="q24" value="c"> c) Static methods <br>
+                <input type="radio" name="q24" value="d"> d) Class inheritance <br>
+            </div>
+            <div class="question">
+                <p>25. What is the primary difference between an instance method and a `@classmethod`?</p>
+                <input type="radio" name="q25" value="a"> a) Class methods are faster <br>
+                <input type="radio" name="q25" value="b"> b) Instance methods act on objects, while class methods act on the class itself <br>
+                <input type="radio" name="q25" value="c"> c) Instance methods cannot return values <br>
+                <input type="radio" name="q25" value="d"> d) Class methods are only for integers <br>
+            </div>
+            <div class="question">
+                <p>26. Which function is used in a child class to call a method (like __init__) from its parent class?</p>
+                <input type="radio" name="q26" value="a"> a) parent() <br>
+                <input type="radio" name="q26" value="b"> b) base() <br>
+                <input type="radio" name="q26" value="c"> c) super() <br>
+                <input type="radio" name="q26" value="d"> d) this() <br>
+            </div>
+            <div class="question">
+                <p>27. What is "operator overloading"?</p>
+                <input type="radio" name="q27" value="a"> a) Using too many operators in one line <br>
+                <input type="radio" name="q27" value="b"> b) Defining custom behavior for built-in operators (like +) for your own classes <br>
+                <input type="radio" name="q27" value="c"> c) An error caused by invalid arithmetic <br>
+                <input type="radio" name="q27" value="d"> d) A type of loop optimization <br>
+            </div>
+            <div class="question">
+                <p>28. Which Python data structure automatically removes duplicate values?</p>
+                <input type="radio" name="q28" value="a"> a) list <br>
+                <input type="radio" name="q28" value="b"> b) set <br>
+                <input type="radio" name="q28" value="c"> c) dict <br>
+                <input type="radio" name="q28" value="d"> d) tuple <br>
+            </div>
+            <div class="question">
+                <p>29. What is a "list comprehension" in Python?</p>
+                <input type="radio" name="q29" value="a"> a) A way to explain how lists work <br>
+                <input type="radio" name="q29" value="b"> b) A concise one-liner syntax to create a new list from an existing sequence <br>
+                <input type="radio" name="q29" value="c"> c) A method to sort a list <br>
+                <input type="radio" name="q29" value="d"> d) A type of nested loop <br>
+            </div>
+            <div class="question">
+                <p>30. What does the `yield` keyword do in a Python function?</p>
+                <input type="radio" name="q30" value="a"> a) Stops the function immediately <br>
+                <input type="radio" name="q30" value="b"> b) Returns a final result <br>
+                <input type="radio" name="q30" value="c"> c) Turns the function into a generator, returning values one at a time <br>
+                <input type="radio" name="q30" value="d"> d) Waits for user input <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

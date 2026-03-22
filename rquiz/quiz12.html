@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS50 AI Quiz 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS50 AI Quiz 2</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. Local search algorithms like hill climbing focus on what?</p>
+                <input type="radio" name="q1" value="a"> a) Path to the goal <br>
+                <input type="radio" name="q1" value="b"> b) The current state <br>
+                <input type="radio" name="q1" value="c"> c) The initial state <br>
+                <input type="radio" name="q1" value="d"> d) All possible states <br>
+            </div>
+            <div class="question">
+                <p>2. What function is used when we want to maximize a value?</p>
+                <input type="radio" name="q2" value="a"> a) Cost function <br>
+                <input type="radio" name="q2" value="b"> b) Heuristic function <br>
+                <input type="radio" name="q2" value="c"> c) Objective function <br>
+                <input type="radio" name="q2" value="d"> d) Loss function <br>
+            </div>
+            <div class="question">
+                <p>3. What is a major limitation of simple hill climbing?</p>
+                <input type="radio" name="q3" value="a"> a) It is too slow <br>
+                <input type="radio" name="q3" value="b"> b) It requires a queue <br>
+                <input type="radio" name="q3" value="c"> c) Stuck in local maxima <br>
+                <input type="radio" name="q3" value="d"> d) Needs huge memory <br>
+            </div>
+            <div class="question">
+                <p>4. Simulated annealing uses what to escape local maxima?</p>
+                <input type="radio" name="q4" value="a"> a) Multiple random nodes <br>
+                <input type="radio" name="q4" value="b"> b) A temperature variable <br>
+                <input type="radio" name="q4" value="c"> c) A goal test function <br>
+                <input type="radio" name="q4" value="d"> d) Deep neural networks <br>
+            </div>
+            <div class="question">
+                <p>5. Linear programming optimizes what type of equations?</p>
+                <input type="radio" name="q5" value="a"> a) Quadratic equations <br>
+                <input type="radio" name="q5" value="b"> b) Exponential equations <br>
+                <input type="radio" name="q5" value="c"> c) Linear equations <br>
+                <input type="radio" name="q5" value="d"> d) Logarithmic equations <br>
+            </div>
+            <div class="question">
+                <p>6. What are the three components of a CSP?</p>
+                <input type="radio" name="q6" value="a"> a) States, Actions, Costs <br>
+                <input type="radio" name="q6" value="b"> b) Nodes, Edges, Weights <br>
+                <input type="radio" name="q6" value="c"> c) Variables, Domains, Constraints <br>
+                <input type="radio" name="q6" value="d"> d) Inputs, Outputs, Layers <br>
+            </div>
+            <div class="question">
+                <p>7. A constraint involving two variables is called what?</p>
+                <input type="radio" name="q7" value="a"> a) Unary constraint <br>
+                <input type="radio" name="q7" value="b"> b) Binary constraint <br>
+                <input type="radio" name="q7" value="c"> c) Dual constraint <br>
+                <input type="radio" name="q7" value="d"> d) Soft constraint <br>
+            </div>
+            <div class="question">
+                <p>8. What is node consistency in a CSP?</p>
+                <input type="radio" name="q8" value="a"> a) All variables have values <br>
+                <input type="radio" name="q8" value="b"> b) Domain satisfies unary constraints <br>
+                <input type="radio" name="q8" value="c"> c) All nodes are connected <br>
+                <input type="radio" name="q8" value="d"> d) Binary constraints are met <br>
+            </div>
+            <div class="question">
+                <p>9. The AC-3 algorithm is used to enforce what?</p>
+                <input type="radio" name="q9" value="a"> a) Node consistency <br>
+                <input type="radio" name="q9" value="b"> b) Path optimality <br>
+                <input type="radio" name="q9" value="c"> c) Arc consistency <br>
+                <input type="radio" name="q9" value="d"> d) Backtracking depth <br>
+            </div>
+            <div class="question">
+                <p>10. Backtracking search is a recursive version of what?</p>
+                <input type="radio" name="q10" value="a"> a) Breadth-First Search <br>
+                <input type="radio" name="q10" value="b"> b) Depth-First Search <br>
+                <input type="radio" name="q10" value="c"> c) Greedy Search <br>
+                <input type="radio" name="q10" value="d"> d) Hill Climbing <br>
+            </div>
+            <div class="question">
+                <p>11. The MRV heuristic chooses which variable next?</p>
+                <input type="radio" name="q11" value="a"> a) One with largest domain <br>
+                <input type="radio" name="q11" value="b"> b) One with highest degree <br>
+                <input type="radio" name="q11" value="c"> c) One with fewest values left <br>
+                <input type="radio" name="q11" value="d"> d) One chosen at random <br>
+            </div>
+            <div class="question">
+                <p>12. Supervised learning requires what kind of data?</p>
+                <input type="radio" name="q12" value="a"> a) Unordered data <br>
+                <input type="radio" name="q12" value="b"> b) Labeled data <br>
+                <input type="radio" name="q12" value="c"> c) Unlabeled data <br>
+                <input type="radio" name="q12" value="d"> d) Encrypted data <br>
+            </div>
+            <div class="question">
+                <p>13. Classification maps inputs to what kind of output?</p>
+                <input type="radio" name="q13" value="a"> a) Continuous values <br>
+                <input type="radio" name="q13" value="b"> b) Discrete values <br>
+                <input type="radio" name="q13" value="c"> c) Complex numbers <br>
+                <input type="radio" name="q13" value="d"> d) Probability vectors <br>
+            </div>
+            <div class="question">
+                <p>14. How does k-nearest-neighbors classify a data point?</p>
+                <input type="radio" name="q14" value="a"> a) By average of all points <br>
+                <input type="radio" name="q14" value="b"> b) By using a support vector <br>
+                <input type="radio" name="q14" value="c"> c) By most frequent neighbor <br>
+                <input type="radio" name="q14" value="d"> d) By a linear equation <br>
+            </div>
+            <div class="question">
+                <p>15. The perceptron learning rule updates what?</p>
+                <input type="radio" name="q15" value="a"> a) Input features <br>
+                <input type="radio" name="q15" value="b"> b) Network layers <br>
+                <input type="radio" name="q15" value="c"> c) Weights and biases <br>
+                <input type="radio" name="q15" value="d"> d) Learning coefficients <br>
+            </div>
+            <div class="question">
+                <p>16. What does a Support Vector Machine aim to find?</p>
+                <input type="radio" name="q16" value="a"> a) Average of all data <br>
+                <input type="radio" name="q16" value="b"> b) Maximum margin separator <br>
+                <input type="radio" name="q16" value="c"> c) Minimum loss gradient <br>
+                <input type="radio" name="q16" value="d"> d) Best k-neighbor value <br>
+            </div>
+            <div class="question">
+                <p>17. Which loss function penalizes outliers most harshly?</p>
+                <input type="radio" name="q17" value="a"> a) 0-1 loss <br>
+                <input type="radio" name="q17" value="b"> b) L1 loss <br>
+                <input type="radio" name="q17" value="c"> c) L2 loss <br>
+                <input type="radio" name="q17" value="d"> d) Linear loss <br>
+            </div>
+            <div class="question">
+                <p>18. Overfitting occurs when a model does what?</p>
+                <input type="radio" name="q18" value="a"> a) Fails to learn patterns <br>
+                <input type="radio" name="q18" value="b"> b) Fits training data too well <br>
+                <input type="radio" name="q18" value="c"> c) Uses too few parameters <br>
+                <input type="radio" name="q18" value="d"> d) Ignores hidden layers <br>
+            </div>
+            <div class="question">
+                <p>19. Regularization is used to favor what kind of hypotheses?</p>
+                <input type="radio" name="q19" value="a"> a) Complex hypotheses <br>
+                <input type="radio" name="q19" value="b"> b) Random hypotheses <br>
+                <input type="radio" name="q19" value="c"> c) Simpler hypotheses <br>
+                <input type="radio" name="q19" value="d"> d) Linear hypotheses <br>
+            </div>
+            <div class="question">
+                <p>20. Q-learning estimates the value of what?</p>
+                <input type="radio" name="q20" value="a"> a) A single state <br>
+                <input type="radio" name="q20" value="b"> b) A state-action pair <br>
+                <input type="radio" name="q20" value="c"> c) The reward function <br>
+                <input type="radio" name="q20" value="d"> d) The transition model <br>
+            </div>
+            <div class="question">
+                <p>21. Epsilon-greedy algorithms balance what tradeoff?</p>
+                <input type="radio" name="q21" value="a"> a) Bias vs Variance <br>
+                <input type="radio" name="q21" value="b"> b) Speed vs Accuracy <br>
+                <input type="radio" name="q21" value="c"> c) Explore vs Exploit <br>
+                <input type="radio" name="q21" value="d"> d) Loss vs Complexity <br>
+            </div>
+            <div class="question">
+                <p>22. ReLU activation function outputs what for negative values?</p>
+                <input type="radio" name="q22" value="a"> a) -1 <br>
+                <input type="radio" name="q22" value="b"> b) 1 <br>
+                <input type="radio" name="q22" value="c"> c) 0 <br>
+                <input type="radio" name="q22" value="d"> d) The absolute value <br>
+            </div>
+            <div class="question">
+                <p>23. Backpropagation trains neural networks by doing what?</p>
+                <input type="radio" name="q23" value="a"> a) Moving forward only <br>
+                <input type="radio" name="q23" value="b"> b) Propagating errors back <br>
+                <input type="radio" name="q23" value="c"> c) Dropping random units <br>
+                <input type="radio" name="q23" value="d"> d) Pooling local features <br>
+            </div>
+            <div class="question">
+                <p>24. Dropout is a technique used to combat what?</p>
+                <input type="radio" name="q24" value="a"> a) Underfitting <br>
+                <input type="radio" name="q24" value="b"> b) Large datasets <br>
+                <input type="radio" name="q24" value="c"> c) Overfitting <br>
+                <input type="radio" name="q24" value="d"> d) Slow training <br>
+            </div>
+            <div class="question">
+                <p>25. In computer vision, what is image convolution?</p>
+                <input type="radio" name="q25" value="a"> a) Compressing the image <br>
+                <input type="radio" name="q25" value="b"> b) Flattening the pixels <br>
+                <input type="radio" name="q25" value="c"> c) Applying a filter kernel <br>
+                <input type="radio" name="q25" value="d"> d) Measuring RGB values <br>
+            </div>
+            <div class="question">
+                <p>26. Max-pooling is used to achieve what goal?</p>
+                <input type="radio" name="q26" value="a"> a) Increase resolution <br>
+                <input type="radio" name="q26" value="b"> b) Reduce input size <br>
+                <input type="radio" name="q26" value="c"> c) Add more features <br>
+                <input type="radio" name="q26" value="d"> d) Normalize weights <br>
+            </div>
+            <div class="question">
+                <p>27. Recurrent Neural Networks are best suited for what?</p>
+                <input type="radio" name="q27" value="a"> a) Static images <br>
+                <input type="radio" name="q27" value="b"> b) Linear regression <br>
+                <input type="radio" name="q27" value="c"> c) Sequence data <br>
+                <input type="radio" name="q27" value="d"> d) Small datasets <br>
+            </div>
+            <div class="question">
+                <p>28. What is 'semantics' in natural language processing?</p>
+                <input type="radio" name="q28" value="a"> a) Sentence structure <br>
+                <input type="radio" name="q28" value="b"> b) Part of speech <br>
+                <input type="radio" name="q28" value="c"> c) Meaning of words <br>
+                <input type="radio" name="q28" value="d"> d) Word tokenization <br>
+            </div>
+            <div class="question">
+                <p>29. An 'n-gram' refers to a sequence of how many items?</p>
+                <input type="radio" name="q29" value="a"> a) Exactly one <br>
+                <input type="radio" name="q29" value="b"> b) Exactly two <br>
+                <input type="radio" name="q29" value="c"> c) n items <br>
+                <input type="radio" name="q29" value="d"> d) All items in text <br>
+            </div>
+            <div class="question">
+                <p>30. Transformers use which mechanism to handle context?</p>
+                <input type="radio" name="q30" value="a"> a) Convolution <br>
+                <input type="radio" name="q30" value="b"> b) Max-pooling <br>
+                <input type="radio" name="q30" value="c"> c) Attention <br>
+                <input type="radio" name="q30" value="d"> d) Dropout <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

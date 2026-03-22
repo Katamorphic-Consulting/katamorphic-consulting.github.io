@@ -17,7 +17,8 @@ loginButton.addEventListener('click', function() {
 async function displayResults(password) {
     let results = {};
     try {
-        const response = await fetch(`/api/results?password=${encodeURIComponent(password)}`);
+        // Correcting the path from /api/results to api/results (relative path)
+        const response = await fetch(`api/results?password=${encodeURIComponent(password)}`);
         
         if (response.status === 401) {
             alert('Incorrect password.');
@@ -42,24 +43,29 @@ async function displayResults(password) {
     // Clear previous results
     resultsTableBody.innerHTML = '';
 
+    const quizTitles = [
+        "R Quiz - Part 1", "R Quiz - Part 2", "R Quiz - Part 3", "R Quiz - Part 4", "R Quiz - Part 5",
+        "CS50x Quiz - Part 1", "CS50x Quiz - Part 2", "CS50x Quiz - Part 3",
+        "CS50 Python Quiz - Part 1", "CS50 Python Quiz - Part 2",
+        "CS50 AI Quiz 1", "CS50 AI Quiz 2"
+    ];
+
     for (let firstName in results) {
         const studentResults = results[firstName];
         const row = resultsTableBody.insertRow();
         row.insertCell().textContent = firstName;
 
-        for (let i = 1; i <= 5; i++) {
-            const quizTitle = `R Quiz - Part ${i}`;
+        quizTitles.forEach(quizTitle => {
             const quizResult = studentResults[quizTitle];
             const scoreCell = row.insertCell();
-            const timeCell = row.insertCell();
 
             if (quizResult) {
                 scoreCell.textContent = `${quizResult.score} / ${quizResult.total}`;
-                timeCell.textContent = quizResult.submissionTime;
+                // Optional: Tooltip for submission time
+                scoreCell.title = `Submitted at: ${quizResult.submissionTime}`;
             } else {
-                scoreCell.textContent = "Not taken";
-                timeCell.textContent = "";
+                scoreCell.textContent = "-";
             }
-        }
+        });
     }
 }

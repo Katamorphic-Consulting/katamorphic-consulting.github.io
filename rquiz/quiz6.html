@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS50x Quiz - Part 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS50x Quiz - Part 1</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the basic unit of information in a computer, representing a 0 or a 1?</p>
+                <input type="radio" name="q1" value="a"> a) Byte <br>
+                <input type="radio" name="q1" value="b"> b) Bit <br>
+                <input type="radio" name="q1" value="c"> c) Nibble <br>
+                <input type="radio" name="q1" value="d"> d) Pixel <br>
+            </div>
+            <div class="question">
+                <p>2. How many bits are in a single byte?</p>
+                <input type="radio" name="q2" value="a"> a) 4 <br>
+                <input type="radio" name="q2" value="b"> b) 8 <br>
+                <input type="radio" name="q2" value="c"> c) 16 <br>
+                <input type="radio" name="q2" value="d"> d) 32 <br>
+            </div>
+            <div class="question">
+                <p>3. Which standard was created to map specific letters to specific numbers, like 'A' to 65?</p>
+                <input type="radio" name="q3" value="a"> a) Unicode <br>
+                <input type="radio" name="q3" value="b"> b) ASCII <br>
+                <input type="radio" name="q3" value="c"> c) Binary <br>
+                <input type="radio" name="q3" value="d"> d) RGB <br>
+            </div>
+            <div class="question">
+                <p>4. Which standard expanded the number of bits used for characters to include special characters and emojis?</p>
+                <input type="radio" name="q4" value="a"> a) ASCII <br>
+                <input type="radio" name="q4" value="b"> b) Unicode <br>
+                <input type="radio" name="q4" value="c"> c) UTF-8 <br>
+                <input type="radio" name="q4" value="d"> d) Hexadecimal <br>
+            </div>
+            <div class="question">
+                <p>5. In the RGB color model, what does each letter stand for?</p>
+                <input type="radio" name="q5" value="a"> a) Red, Gray, Blue <br>
+                <input type="radio" name="q5" value="b"> b) Red, Green, Black <br>
+                <input type="radio" name="q5" value="c"> c) Red, Green, Blue <br>
+                <input type="radio" name="q5" value="d"> d) Real, Green, Bright <br>
+            </div>
+            <div class="question">
+                <p>6. What is the Big O notation for an algorithm that searches a phone book by cutting the problem in half each time?</p>
+                <input type="radio" name="q6" value="a"> a) O(n) <br>
+                <input type="radio" name="q6" value="b"> b) O(n^2) <br>
+                <input type="radio" name="q6" value="c"> c) O(log n) <br>
+                <input type="radio" name="q6" value="d"> d) O(1) <br>
+            </div>
+            <div class="question">
+                <p>7. What is "pseudocode"?</p>
+                <input type="radio" name="q7" value="a"> a) Code written in a secret language <br>
+                <input type="radio" name="q7" value="b"> b) Human-readable instructions describing the steps of an algorithm <br>
+                <input type="radio" name="q7" value="c"> c) A type of binary code <br>
+                <input type="radio" name="q7" value="d"> d) An error in a Scratch program <br>
+            </div>
+            <div class="question">
+                <p>8. In the Scratch IDE, what are the coordinates of the center of the stage?</p>
+                <input type="radio" name="q8" value="a"> a) (100, 100) <br>
+                <input type="radio" name="q8" value="b"> b) (0, 0) <br>
+                <input type="radio" name="q8" value="c"> c) (240, 180) <br>
+                <input type="radio" name="q8" value="d"> d) (-240, -180) <br>
+            </div>
+            <div class="question">
+                <p>9. In Scratch, which block is used to store user input from the "ask" block?</p>
+                <input type="radio" name="q9" value="a"> a) say <br>
+                <input type="radio" name="q9" value="b"> b) answer <br>
+                <input type="radio" name="q9" value="c"> c) input <br>
+                <input type="radio" name="q9" value="d"> d) result <br>
+            </div>
+            <div class="question">
+                <p>10. What software is used to convert C source code into machine code?</p>
+                <input type="radio" name="q10" value="a"> a) Interpreter <br>
+                <input type="radio" name="q10" value="b"> b) Compiler <br>
+                <input type="radio" name="q10" value="c"> c) Debugger <br>
+                <input type="radio" name="q10" value="d"> d) Assembler <br>
+            </div>
+            <div class="question">
+                <p>11. In the CS50 terminal, which command is used to compile a file called hello.c into an executable?</p>
+                <input type="radio" name="q11" value="a"> a) run hello <br>
+                <input type="radio" name="q11" value="b"> b) make hello <br>
+                <input type="radio" name="q11" value="c"> c) compile hello.c <br>
+                <input type="radio" name="q11" value="d"> d) gcc hello.c <br>
+            </div>
+            <div class="question">
+                <p>12. What escape character is used in C to create a new line?</p>
+                <input type="radio" name="q12" value="a"> a) \t <br>
+                <input type="radio" name="q12" value="b"> b) \n <br>
+                <input type="radio" name="q12" value="c"> c) \r <br>
+                <input type="radio" name="q12" value="d"> d) \\ <br>
+            </div>
+            <div class="question">
+                <p>13. Which header file must be included to use the printf function in C?</p>
+                <input type="radio" name="q13" value="a"> a) cs50.h <br>
+                <input type="radio" name="q13" value="b"> b) stdio.h <br>
+                <input type="radio" name="q13" value="c"> c) string.h <br>
+                <input type="radio" name="q13" value="d"> d) math.h <br>
+            </div>
+            <div class="question">
+                <p>14. In C, what is the format code used as a placeholder for a string in printf?</p>
+                <input type="radio" name="q14" value="a"> a) %i <br>
+                <input type="radio" name="q14" value="b"> b) %c <br>
+                <input type="radio" name="q14" value="c"> c) %s <br>
+                <input type="radio" name="q14" value="d"> d) %f <br>
+            </div>
+            <div class="question">
+                <p>15. Which Linux command is used to list all the files in the current directory?</p>
+                <input type="radio" name="q15" value="a"> a) cd <br>
+                <input type="radio" name="q15" value="b"> b) ls <br>
+                <input type="radio" name="q15" value="c"> c) mkdir <br>
+                <input type="radio" name="q15" value="d"> d) rm <br>
+            </div>
+            <div class="question">
+                <p>16. Which operator is used in C to check if two values are equal?</p>
+                <input type="radio" name="q16" value="a"> a) = <br>
+                <input type="radio" name="q16" value="b"> b) == <br>
+                <input type="radio" name="q16" value="c"> c) != <br>
+                <input type="radio" name="q16" value="d"> d) === <br>
+            </div>
+            <div class="question">
+                <p>17. What does the "||" operator represent in C?</p>
+                <input type="radio" name="q17" value="a"> a) Logical AND <br>
+                <input type="radio" name="q17" value="b"> b) Logical OR <br>
+                <input type="radio" name="q17" value="c"> c) Bitwise AND <br>
+                <input type="radio" name="q17" value="d"> d) Assignment <br>
+            </div>
+            <div class="question">
+                <p>18. How do you increment an integer variable called counter by 1 in C?</p>
+                <input type="radio" name="q18" value="a"> a) counter + 1 <br>
+                <input type="radio" name="q18" value="b"> b) counter++ <br>
+                <input type="radio" name="q18" value="c"> c) counter = 1 <br>
+                <input type="radio" name="q18" value="d"> d) increment counter <br>
+            </div>
+            <div class="question">
+                <p>19. In a C "for" loop, what are the three parts of the statement in parentheses?</p>
+                <input type="radio" name="q19" value="a"> a) initialization, condition, increment <br>
+                <input type="radio" name="q19" value="b"> b) start, stop, step <br>
+                <input type="radio" name="q19" value="c"> c) variable, value, loop <br>
+                <input type="radio" name="q19" value="d"> d) if, then, else <br>
+            </div>
+            <div class="question">
+                <p>20. What is "rubber duck debugging"?</p>
+                <input type="radio" name="q20" value="a"> a) A type of automated testing <br>
+                <input type="radio" name="q20" value="b"> b) Explaining your code to an inanimate object to find bugs <br>
+                <input type="radio" name="q20" value="c"> c) Using a specific tool called RubberDuck <br>
+                <input type="radio" name="q20" value="d"> d) Cleaning your hardware with a rubber cloth <br>
+            </div>
+            <div class="question">
+                <p>21. Which tool provided in VS Code allows you to pause your program and step through it line by line?</p>
+                <input type="radio" name="q21" value="a"> a) check50 <br>
+                <input type="radio" name="q21" value="b"> b) style50 <br>
+                <input type="radio" name="q21" value="c"> c) debug50 <br>
+                <input type="radio" name="q21" value="d"> d) make <br>
+            </div>
+            <div class="question">
+                <p>22. In the compilation process, what is the step where header files like stdio.h are effectively copied into your code?</p>
+                <input type="radio" name="q22" value="a"> a) Compiling <br>
+                <input type="radio" name="q22" value="b"> b) Preprocessing <br>
+                <input type="radio" name="q22" value="c"> c) Assembling <br>
+                <input type="radio" name="q22" value="d"> d) Linking <br>
+            </div>
+            <div class="question">
+                <p>23. How many bytes of memory does a typical 'int' data type require in C?</p>
+                <input type="radio" name="q23" value="a"> a) 1 <br>
+                <input type="radio" name="q23" value="b"> b) 2 <br>
+                <input type="radio" name="q23" value="c"> c) 4 <br>
+                <input type="radio" name="q23" value="d"> d) 8 <br>
+            </div>
+            <div class="question">
+                <p>24. What is an array in C?</p>
+                <input type="radio" name="q24" value="a"> a) A single variable that can hold multiple values <br>
+                <input type="radio" name="q24" value="b"> b) A sequence of values stored back-to-back in contiguous memory <br>
+                <input type="radio" name="q24" value="c"> c) A type of loop <br>
+                <input type="radio" name="q24" value="d"> d) A function that returns a list <br>
+            </div>
+            <div class="question">
+                <p>25. What is the index of the first element in a C array?</p>
+                <input type="radio" name="q25" value="a"> a) 1 <br>
+                <input type="radio" name="q25" value="b"> b) 0 <br>
+                <input type="radio" name="q25" value="c"> c) -1 <br>
+                <input type="radio" name="q25" value="d"> d) null <br>
+            </div>
+            <div class="question">
+                <p>26. In C, what character is used to indicate the end of a string in memory?</p>
+                <input type="radio" name="q26" value="a"> a) \n <br>
+                <input type="radio" name="q26" value="b"> b) \0 <br>
+                <input type="radio" name="q26" value="c"> c) . <br>
+                <input type="radio" name="q26" value="d"> d) ; <br>
+            </div>
+            <div class="question">
+                <p>27. Which header file provides the strlen function?</p>
+                <input type="radio" name="q27" value="a"> a) stdio.h <br>
+                <input type="radio" name="q27" value="b"> b) cs50.h <br>
+                <input type="radio" name="q27" value="c"> c) string.h <br>
+                <input type="radio" name="q27" value="d"> d) ctype.h <br>
+            </div>
+            <div class="question">
+                <p>28. In the command line arguments `int main(int argc, string argv[])`, what does `argv[0]` typically contain?</p>
+                <input type="radio" name="q28" value="a"> a) The first argument provided by the user <br>
+                <input type="radio" name="q28" value="b"> b) The number of arguments <br>
+                <input type="radio" name="q28" value="c"> c) The name of the program being run <br>
+                <input type="radio" name="q28" value="d"> d) A null pointer <br>
+            </div>
+            <div class="question">
+                <p>29. What is the standard exit status code returned by a program to indicate it ran successfully?</p>
+                <input type="radio" name="q29" value="a"> a) 1 <br>
+                <input type="radio" name="q29" value="b"> b) -1 <br>
+                <input type="radio" name="q29" value="c"> c) 0 <br>
+                <input type="radio" name="q29" value="d"> d) 200 <br>
+            </div>
+            <div class="question">
+                <p>30. What happens if a program attempts to access memory outside the bounds of an array?</p>
+                <input type="radio" name="q30" value="a"> a) It will automatically resize the array <br>
+                <input type="radio" name="q30" value="b"> b) It might result in a "segmentation fault" <br>
+                <input type="radio" name="q30" value="c"> c) It will return 0 <br>
+                <input type="radio" name="q30" value="d"> d) It will ask for more memory <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

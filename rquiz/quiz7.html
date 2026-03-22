@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS50x Quiz - Part 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS50x Quiz - Part 2</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the Big O notation for the worst-case running time of a linear search algorithm?</p>
+                <input type="radio" name="q1" value="a"> a) O(1) <br>
+                <input type="radio" name="q1" value="b"> b) O(log n) <br>
+                <input type="radio" name="q1" value="c"> c) O(n) <br>
+                <input type="radio" name="q1" value="d"> d) O(n^2) <br>
+            </div>
+            <div class="question">
+                <p>2. What is a strict requirement for binary search to function correctly on an array?</p>
+                <input type="radio" name="q2" value="a"> a) The array must contain only integers <br>
+                <input type="radio" name="q2" value="b"> b) The array must be sorted <br>
+                <input type="radio" name="q2" value="c"> c) The array must be randomly shuffled <br>
+                <input type="radio" name="q2" value="d"> d) The array must have an even number of elements <br>
+            </div>
+            <div class="question">
+                <p>3. In algorithm analysis, what does Big O notation describe?</p>
+                <input type="radio" name="q3" value="a"> a) The best-case scenario (lower bound) <br>
+                <input type="radio" name="q3" value="b"> b) The exact running time in seconds <br>
+                <input type="radio" name="q3" value="c"> c) The worst-case scenario (upper bound) <br>
+                <input type="radio" name="q3" value="d"> d) The amount of memory used <br>
+            </div>
+            <div class="question">
+                <p>4. Which symbol is used to denote the lower bound or best-case scenario of an algorithm's running time?</p>
+                <input type="radio" name="q4" value="a"> a) O (Big O) <br>
+                <input type="radio" name="q4" value="b"> b) Ω (Big Omega) <br>
+                <input type="radio" name="q4" value="c"> c) Θ (Big Theta) <br>
+                <input type="radio" name="q4" value="d"> d) Δ (Big Delta) <br>
+            </div>
+            <div class="question">
+                <p>5. What is the Big O notation for the Selection Sort algorithm?</p>
+                <input type="radio" name="q5" value="a"> a) O(n) <br>
+                <input type="radio" name="q5" value="b"> b) O(log n) <br>
+                <input type="radio" name="q5" value="c"> c) O(n log n) <br>
+                <input type="radio" name="q5" value="d"> d) O(n^2) <br>
+            </div>
+            <div class="question">
+                <p>6. What is the Big O notation for the Bubble Sort algorithm?</p>
+                <input type="radio" name="q6" value="a"> a) O(n) <br>
+                <input type="radio" name="q6" value="b"> b) O(log n) <br>
+                <input type="radio" name="q6" value="c"> c) O(n^2) <br>
+                <input type="radio" name="q6" value="d"> d) O(n log n) <br>
+            </div>
+            <div class="question">
+                <p>7. Which of the following sorting algorithms typically has the best worst-case running time, O(n log n)?</p>
+                <input type="radio" name="q7" value="a"> a) Selection Sort <br>
+                <input type="radio" name="q7" value="b"> b) Bubble Sort <br>
+                <input type="radio" name="q7" value="c"> c) Merge Sort <br>
+                <input type="radio" name="q7" value="d"> d) Linear Sort <br>
+            </div>
+            <div class="question">
+                <p>8. In a recursive function, what is the purpose of the "base case"?</p>
+                <input type="radio" name="q8" value="a"> a) To start the recursion <br>
+                <input type="radio" name="q8" value="b"> b) To stop the recursion and prevent infinite loops <br>
+                <input type="radio" name="q8" value="c"> c) To call the function again <br>
+                <input type="radio" name="q8" value="d"> d) To declare variables <br>
+            </div>
+            <div class="question">
+                <p>9. In a recursive function, what is the "recursive case"?</p>
+                <input type="radio" name="q9" value="a"> a) The condition where the function stops <br>
+                <input type="radio" name="q9" value="b"> b) The part of the function that calls itself with a modified input <br>
+                <input type="radio" name="q9" value="c"> c) An error that occurs during execution <br>
+                <input type="radio" name="q9" value="d"> d) The return value of the function <br>
+            </div>
+            <div class="question">
+                <p>10. What does the `typedef struct` syntax in C allow you to do?</p>
+                <input type="radio" name="q10" value="a"> a) Define a new data type combining multiple variables <br>
+                <input type="radio" name="q10" value="b"> b) Create an array of strings <br>
+                <input type="radio" name="q10" value="c"> c) Allocate memory on the heap <br>
+                <input type="radio" name="q10" value="d"> d) Compare two strings <br>
+            </div>
+            <div class="question">
+                <p>11. In C, what is a pointer?</p>
+                <input type="radio" name="q11" value="a"> a) A variable that stores a floating-point number <br>
+                <input type="radio" name="q11" value="b"> b) A variable that stores the memory address of another value <br>
+                <input type="radio" name="q11" value="c"> c) A built-in function to print output <br>
+                <input type="radio" name="q11" value="d"> d) A character string <br>
+            </div>
+            <div class="question">
+                <p>12. Which operator in C is used to get the memory address of a variable?</p>
+                <input type="radio" name="q12" value="a"> a) * <br>
+                <input type="radio" name="q12" value="b"> b) &amp; <br>
+                <input type="radio" name="q12" value="c"> c) % <br>
+                <input type="radio" name="q12" value="d"> d) # <br>
+            </div>
+            <div class="question">
+                <p>13. Which operator in C is used to dereference a pointer (go to the memory location it points to)?</p>
+                <input type="radio" name="q13" value="a"> a) * <br>
+                <input type="radio" name="q13" value="b"> b) &amp; <br>
+                <input type="radio" name="q13" value="c"> c) -&gt; <br>
+                <input type="radio" name="q13" value="d"> d) . <br>
+            </div>
+            <div class="question">
+                <p>14. What is the primary purpose of the `malloc` function in C?</p>
+                <input type="radio" name="q14" value="a"> a) To free unused memory <br>
+                <input type="radio" name="q14" value="b"> b) To calculate the length of an array <br>
+                <input type="radio" name="q14" value="c"> c) To dynamically allocate a block of memory <br>
+                <input type="radio" name="q14" value="d"> d) To copy a string <br>
+            </div>
+            <div class="question">
+                <p>15. What function must be called to release memory previously allocated by `malloc`?</p>
+                <input type="radio" name="q15" value="a"> a) delete <br>
+                <input type="radio" name="q15" value="b"> b) free <br>
+                <input type="radio" name="q15" value="c"> c) clear <br>
+                <input type="radio" name="q15" value="d"> d) release <br>
+            </div>
+            <div class="question">
+                <p>16. What special value indicates that a pointer does not point to a valid memory location?</p>
+                <input type="radio" name="q16" value="a"> a) NUL <br>
+                <input type="radio" name="q16" value="b"> b) NULL <br>
+                <input type="radio" name="q16" value="c"> c) 0x0 <br>
+                <input type="radio" name="q16" value="d"> d) VOID <br>
+            </div>
+            <div class="question">
+                <p>17. If `s` is a pointer to a string "HI!", what does the pointer arithmetic `s + 1` point to?</p>
+                <input type="radio" name="q17" value="a"> a) The entire string "HI!" <br>
+                <input type="radio" name="q17" value="b"> b) The memory address of 'H' <br>
+                <input type="radio" name="q17" value="c"> c) The memory address of 'I' <br>
+                <input type="radio" name="q17" value="d"> d) The NUL terminator <br>
+            </div>
+            <div class="question">
+                <p>18. When using `strcmp` to compare two strings in C, what return value indicates they are identical?</p>
+                <input type="radio" name="q18" value="a"> a) 1 <br>
+                <input type="radio" name="q18" value="b"> b) -1 <br>
+                <input type="radio" name="q18" value="c"> c) True <br>
+                <input type="radio" name="q18" value="d"> d) 0 <br>
+            </div>
+            <div class="question">
+                <p>19. What is the primary use of the `valgrind` tool in CS50?</p>
+                <input type="radio" name="q19" value="a"> a) To compile C code faster <br>
+                <input type="radio" name="q19" value="b"> b) To detect memory leaks and errors <br>
+                <input type="radio" name="q19" value="c"> c) To format code style <br>
+                <input type="radio" name="q19" value="d"> d) To execute Python scripts <br>
+            </div>
+            <div class="question">
+                <p>20. What is a "garbage value" in C?</p>
+                <input type="radio" name="q20" value="a"> a) A variable that is no longer needed <br>
+                <input type="radio" name="q20" value="b"> b) The leftover data present in an uninitialized block of memory <br>
+                <input type="radio" name="q20" value="c"> c) Memory that has been freed <br>
+                <input type="radio" name="q20" value="d"> d) A syntax error <br>
+            </div>
+            <div class="question">
+                <p>21. When writing a function to swap the values of two variables in C, why must you pass the variables by reference (using pointers)?</p>
+                <input type="radio" name="q21" value="a"> a) Pointers use less memory <br>
+                <input type="radio" name="q21" value="b"> b) Passing by value only provides copies, so the original variables won't change <br>
+                <input type="radio" name="q21" value="c"> c) Passing by value causes a segmentation fault <br>
+                <input type="radio" name="q21" value="d"> d) Pointers execute faster <br>
+            </div>
+            <div class="question">
+                <p>22. What causes a "stack overflow"?</p>
+                <input type="radio" name="q22" value="a"> a) Accessing an array index out of bounds <br>
+                <input type="radio" name="q22" value="b"> b) Forgetting to free memory allocated by malloc <br>
+                <input type="radio" name="q22" value="c"> c) Calling too many functions (e.g., infinite recursion) exhausting stack memory <br>
+                <input type="radio" name="q22" value="d"> d) Dividing a number by zero <br>
+            </div>
+            <div class="question">
+                <p>23. What abstract data structure operates on a First In, First Out (FIFO) principle?</p>
+                <input type="radio" name="q23" value="a"> a) Stack <br>
+                <input type="radio" name="q23" value="b"> b) Array <br>
+                <input type="radio" name="q23" value="c"> c) Queue <br>
+                <input type="radio" name="q23" value="d"> d) Tree <br>
+            </div>
+            <div class="question">
+                <p>24. What abstract data structure operates on a Last In, First Out (LIFO) principle?</p>
+                <input type="radio" name="q24" value="a"> a) Stack <br>
+                <input type="radio" name="q24" value="b"> b) Queue <br>
+                <input type="radio" name="q24" value="c"> c) Linked List <br>
+                <input type="radio" name="q24" value="d"> d) Hash Table <br>
+            </div>
+            <div class="question">
+                <p>25. In a typical linked list implementation, what does a "node" contain?</p>
+                <input type="radio" name="q25" value="a"> a) Only a value <br>
+                <input type="radio" name="q25" value="b"> b) Only a pointer to another node <br>
+                <input type="radio" name="q25" value="c"> c) An array of values <br>
+                <input type="radio" name="q25" value="d"> d) A value and a pointer to the next node <br>
+            </div>
+            <div class="question">
+                <p>26. What is the Big O search time for a standard singly linked list?</p>
+                <input type="radio" name="q26" value="a"> a) O(1) <br>
+                <input type="radio" name="q26" value="b"> b) O(log n) <br>
+                <input type="radio" name="q26" value="c"> c) O(n) <br>
+                <input type="radio" name="q26" value="d"> d) O(n^2) <br>
+            </div>
+            <div class="question">
+                <p>27. What is the Big O search time for a perfectly balanced Binary Search Tree?</p>
+                <input type="radio" name="q27" value="a"> a) O(1) <br>
+                <input type="radio" name="q27" value="b"> b) O(log n) <br>
+                <input type="radio" name="q27" value="c"> c) O(n) <br>
+                <input type="radio" name="q27" value="d"> d) O(n log n) <br>
+            </div>
+            <div class="question">
+                <p>28. In a Hash Table, what is a "collision"?</p>
+                <input type="radio" name="q28" value="a"> a) When two elements have the same value <br>
+                <input type="radio" name="q28" value="b"> b) When the hash table runs out of memory <br>
+                <input type="radio" name="q28" value="c"> c) When the hash function maps two different items to the same index <br>
+                <input type="radio" name="q28" value="d"> d) When a search function crashes <br>
+            </div>
+            <div class="question">
+                <p>29. What is the search time for a Trie data structure?</p>
+                <input type="radio" name="q29" value="a"> a) O(1) (constant time) <br>
+                <input type="radio" name="q29" value="b"> b) O(log n) <br>
+                <input type="radio" name="q29" value="c"> c) O(n) <br>
+                <input type="radio" name="q29" value="d"> d) O(n^2) <br>
+            </div>
+            <div class="question">
+                <p>30. What is a common disadvantage of using a Trie data structure?</p>
+                <input type="radio" name="q30" value="a"> a) It is very slow to search <br>
+                <input type="radio" name="q30" value="b"> b) It only stores numbers <br>
+                <input type="radio" name="q30" value="c"> c) It consumes a large amount of memory <br>
+                <input type="radio" name="q30" value="d"> d) It cannot handle duplicate values <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>

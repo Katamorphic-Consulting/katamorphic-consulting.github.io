@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS50x Quiz - Part 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CS50x Quiz - Part 3</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. Unlike C which is a compiled language, Python is considered a(n) ________ language.</p>
+                <input type="radio" name="q1" value="a"> a) Assembled <br>
+                <input type="radio" name="q1" value="b"> b) Machine <br>
+                <input type="radio" name="q1" value="c"> c) Interpreted <br>
+                <input type="radio" name="q1" value="d"> d) Transpiled <br>
+            </div>
+            <div class="question">
+                <p>2. In Python, how do you declare the type of a variable when assigning it a value like `x = 5`?</p>
+                <input type="radio" name="q2" value="a"> a) You must use `int x = 5` <br>
+                <input type="radio" name="q2" value="b"> b) You do not need to explicitly declare the type <br>
+                <input type="radio" name="q2" value="c"> c) You use `var x: int = 5` <br>
+                <input type="radio" name="q2" value="d"> d) You use `let x = 5` <br>
+            </div>
+            <div class="question">
+                <p>3. In Python, which syntax allows you to easily interpolate variables into a string, e.g., `print(f"hello, {name}")`?</p>
+                <input type="radio" name="q3" value="a"> a) f-strings <br>
+                <input type="radio" name="q3" value="b"> b) c-strings <br>
+                <input type="radio" name="q3" value="c"> c) format codes <br>
+                <input type="radio" name="q3" value="d"> d) template literals <br>
+            </div>
+            <div class="question">
+                <p>4. In a relational database, what does CRUD stand for?</p>
+                <input type="radio" name="q4" value="a"> a) Compute, Read, Upload, Delete <br>
+                <input type="radio" name="q4" value="b"> b) Create, Read, Update, Delete <br>
+                <input type="radio" name="q4" value="c"> c) Copy, Replace, Undo, Drop <br>
+                <input type="radio" name="q4" value="d"> d) Create, Relate, Use, Drop <br>
+            </div>
+            <div class="question">
+                <p>5. Which SQL command is used to read data from a table?</p>
+                <input type="radio" name="q5" value="a"> a) GET <br>
+                <input type="radio" name="q5" value="b"> b) FETCH <br>
+                <input type="radio" name="q5" value="c"> c) READ <br>
+                <input type="radio" name="q5" value="d"> d) SELECT <br>
+            </div>
+            <div class="question">
+                <p>6. Which SQL clause is used to filter results based on a Boolean expression?</p>
+                <input type="radio" name="q6" value="a"> a) FILTER <br>
+                <input type="radio" name="q6" value="b"> b) WHERE <br>
+                <input type="radio" name="q6" value="c"> c) MATCH <br>
+                <input type="radio" name="q6" value="d"> d) LIMIT <br>
+            </div>
+            <div class="question">
+                <p>7. What SQL command is used to insert a new row into a table?</p>
+                <input type="radio" name="q7" value="a"> a) ADD INTO <br>
+                <input type="radio" name="q7" value="b"> b) PUT IN <br>
+                <input type="radio" name="q7" value="c"> c) INSERT INTO <br>
+                <input type="radio" name="q7" value="d"> d) CREATE ROW <br>
+            </div>
+            <div class="question">
+                <p>8. What SQL command is used to temporarily combine rows from two different tables based on a related column?</p>
+                <input type="radio" name="q8" value="a"> a) MERGE <br>
+                <input type="radio" name="q8" value="b"> b) COMBINE <br>
+                <input type="radio" name="q8" value="c"> c) LINK <br>
+                <input type="radio" name="q8" value="d"> d) JOIN <br>
+            </div>
+            <div class="question">
+                <p>9. What is a "Foreign Key" in a relational database?</p>
+                <input type="radio" name="q9" value="a"> a) A key used to encrypt the database <br>
+                <input type="radio" name="q9" value="b"> b) A column that points to the primary key in another table <br>
+                <input type="radio" name="q9" value="c"> c) The main identifier for a row in its own table <br>
+                <input type="radio" name="q9" value="d"> d) An index used for faster searching <br>
+            </div>
+            <div class="question">
+                <p>10. Creating an index on a SQL table column speeds up queries by often creating what underlying data structure?</p>
+                <input type="radio" name="q10" value="a"> a) Hash Table <br>
+                <input type="radio" name="q10" value="b"> b) Linked List <br>
+                <input type="radio" name="q10" value="c"> c) B-Tree <br>
+                <input type="radio" name="q10" value="d"> d) Stack <br>
+            </div>
+            <div class="question">
+                <p>11. Using the CS50 Python library, what symbol is used as a placeholder in `db.execute` to prevent SQL injection attacks?</p>
+                <input type="radio" name="q11" value="a"> a) * <br>
+                <input type="radio" name="q11" value="b"> b) % <br>
+                <input type="radio" name="q11" value="c"> c) $ <br>
+                <input type="radio" name="q11" value="d"> d) ? <br>
+            </div>
+            <div class="question">
+                <p>12. Which two protocols primarily allow computers to transfer data between them over the internet?</p>
+                <input type="radio" name="q12" value="a"> a) HTTP/FTP <br>
+                <input type="radio" name="q12" value="b"> b) TCP/IP <br>
+                <input type="radio" name="q12" value="c"> c) UDP/DNS <br>
+                <input type="radio" name="q12" value="d"> d) DHCP/MAC <br>
+            </div>
+            <div class="question">
+                <p>13. What is the default port number for HTTPS traffic?</p>
+                <input type="radio" name="q13" value="a"> a) 80 <br>
+                <input type="radio" name="q13" value="b"> b) 21 <br>
+                <input type="radio" name="q13" value="c"> c) 443 <br>
+                <input type="radio" name="q13" value="d"> d) 8080 <br>
+            </div>
+            <div class="question">
+                <p>14. What HTTP status code typically means "Not Found"?</p>
+                <input type="radio" name="q14" value="a"> a) 200 <br>
+                <input type="radio" name="q14" value="b"> b) 301 <br>
+                <input type="radio" name="q14" value="c"> c) 404 <br>
+                <input type="radio" name="q14" value="d"> d) 500 <br>
+            </div>
+            <div class="question">
+                <p>15. What is the purpose of the `<!DOCTYPE html>` declaration at the top of an HTML file?</p>
+                <input type="radio" name="q15" value="a"> a) It links the CSS stylesheet <br>
+                <input type="radio" name="q15" value="b"> b) It declares the document type to the browser <br>
+                <input type="radio" name="q15" value="c"> c) It starts a JavaScript block <br>
+                <input type="radio" name="q15" value="d"> d) It imports the Bootstrap framework <br>
+            </div>
+            <div class="question">
+                <p>16. In HTML, which tag is used to create an unordered (bulleted) list?</p>
+                <input type="radio" name="q16" value="a"> a) &lt;ul&gt; <br>
+                <input type="radio" name="q16" value="b"> b) &lt;ol&gt; <br>
+                <input type="radio" name="q16" value="c"> c) &lt;li&gt; <br>
+                <input type="radio" name="q16" value="d"> d) &lt;list&gt; <br>
+            </div>
+            <div class="question">
+                <p>17. In HTML, which attribute of an `<a>` (anchor) tag specifies the URL of the link?</p>
+                <input type="radio" name="q17" value="a"> a) src <br>
+                <input type="radio" name="q17" value="b"> b) link <br>
+                <input type="radio" name="q17" value="c"> c) href <br>
+                <input type="radio" name="q17" value="d"> d) path <br>
+            </div>
+            <div class="question">
+                <p>18. Which language is used to style the visual presentation of an HTML document?</p>
+                <input type="radio" name="q18" value="a"> a) Python <br>
+                <input type="radio" name="q18" value="b"> b) SQL <br>
+                <input type="radio" name="q18" value="c"> c) JavaScript <br>
+                <input type="radio" name="q18" value="d"> d) CSS <br>
+            </div>
+            <div class="question">
+                <p>19. In CSS, how do you select an HTML element that has `class="centered"`?</p>
+                <input type="radio" name="q19" value="a"> a) #centered <br>
+                <input type="radio" name="q19" value="b"> b) .centered <br>
+                <input type="radio" name="q19" value="c"> c) *centered <br>
+                <input type="radio" name="q19" value="d"> d) &centered <br>
+            </div>
+            <div class="question">
+                <p>20. What is Bootstrap in the context of web development?</p>
+                <input type="radio" name="q20" value="a"> a) A server-side Python framework <br>
+                <input type="radio" name="q20" value="b"> b) A database engine <br>
+                <input type="radio" name="q20" value="c"> c) A popular CSS framework for styling <br>
+                <input type="radio" name="q20" value="d"> d) A type of JavaScript variable <br>
+            </div>
+            <div class="question">
+                <p>21. Which programming language is primarily executed by the user's web browser to provide interactivity?</p>
+                <input type="radio" name="q21" value="a"> a) Python <br>
+                <input type="radio" name="q21" value="b"> b) C <br>
+                <input type="radio" name="q21" value="c"> c) JavaScript <br>
+                <input type="radio" name="q21" value="d"> d) SQL <br>
+            </div>
+            <div class="question">
+                <p>22. In JavaScript, which function can be used to listen for events like clicks or key presses on an HTML element?</p>
+                <input type="radio" name="q22" value="a"> a) onEvent <br>
+                <input type="radio" name="q22" value="b"> b) addEventListener <br>
+                <input type="radio" name="q22" value="c"> c) attachListener <br>
+                <input type="radio" name="q22" value="d"> d) listenTo <br>
+            </div>
+            <div class="question">
+                <p>23. What is Flask?</p>
+                <input type="radio" name="q23" value="a"> a) A JavaScript library for DOM manipulation <br>
+                <input type="radio" name="q23" value="b"> b) A third-party Python micro-framework for building web applications <br>
+                <input type="radio" name="q23" value="c"> c) A database management system <br>
+                <input type="radio" name="q23" value="d"> d) A CSS styling tool <br>
+            </div>
+            <div class="question">
+                <p>24. In a Flask application, what decorator is used to map a URL path to a Python function?</p>
+                <input type="radio" name="q24" value="a"> a) @app.map <br>
+                <input type="radio" name="q24" value="b"> b) @app.path <br>
+                <input type="radio" name="q24" value="c"> c) @app.route <br>
+                <input type="radio" name="q24" value="d"> d) @app.url <br>
+            </div>
+            <div class="question">
+                <p>25. In Flask, which function is used to load and send an HTML file to the browser?</p>
+                <input type="radio" name="q25" value="a"> a) render_html() <br>
+                <input type="radio" name="q25" value="b"> b) send_file() <br>
+                <input type="radio" name="q25" value="c"> c) load_template() <br>
+                <input type="radio" name="q25" value="d"> d) render_template() <br>
+            </div>
+            <div class="question">
+                <p>26. Which HTTP method is generally used when submitting a form that contains sensitive information like a password?</p>
+                <input type="radio" name="q26" value="a"> a) GET <br>
+                <input type="radio" name="q26" value="b"> b) POST <br>
+                <input type="radio" name="q26" value="c"> c) PUT <br>
+                <input type="radio" name="q26" value="d"> d) DELETE <br>
+            </div>
+            <div class="question">
+                <p>27. In Flask, if a form is submitted via POST, how do you access the input data named "q"?</p>
+                <input type="radio" name="q27" value="a"> a) request.args.get("q") <br>
+                <input type="radio" name="q27" value="b"> b) request.data.get("q") <br>
+                <input type="radio" name="q27" value="c"> c) request.form.get("q") <br>
+                <input type="radio" name="q27" value="d"> d) request.post.get("q") <br>
+            </div>
+            <div class="question">
+                <p>28. What are "cookies" in web development?</p>
+                <input type="radio" name="q28" value="a"> a) Small pieces of data stored in the browser to remember state (like a session) <br>
+                <input type="radio" name="q28" value="b"> b) Temporary HTML files <br>
+                <input type="radio" name="q28" value="c"> c) JavaScript functions that track clicks <br>
+                <input type="radio" name="q28" value="d"> d) Cached images <br>
+            </div>
+            <div class="question">
+                <p>29. What does JSON stand for?</p>
+                <input type="radio" name="q29" value="a"> a) Java Standard Output Network <br>
+                <input type="radio" name="q29" value="b"> b) JavaScript Object Notation <br>
+                <input type="radio" name="q29" value="c"> c) Joined String Output Node <br>
+                <input type="radio" name="q29" value="d"> d) JavaScript Ordered Nodes <br>
+            </div>
+            <div class="question">
+                <p>30. What function in Flask converts a Python dictionary or list into a JSON response?</p>
+                <input type="radio" name="q30" value="a"> a) to_json() <br>
+                <input type="radio" name="q30" value="b"> b) json.dumps() <br>
+                <input type="radio" name="q30" value="c"> c) jsonify() <br>
+                <input type="radio" name="q30" value="d"> d) make_json() <br>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="quiz.js"></script>
+</body>
+</html>
