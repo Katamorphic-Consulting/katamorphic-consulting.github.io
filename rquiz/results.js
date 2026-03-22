@@ -17,7 +17,6 @@ loginButton.addEventListener('click', function() {
 async function displayResults(password) {
     let results = {};
     try {
-        // Correcting the path from /api/results to api/results (relative path)
         const response = await fetch(`api/results?password=${encodeURIComponent(password)}`);
         
         if (response.status === 401) {
@@ -50,8 +49,20 @@ async function displayResults(password) {
         "CS50 AI Quiz 1", "CS50 AI Quiz 2"
     ];
 
-    for (let firstName in results) {
-        const studentResults = results[firstName];
+    // Helper function to get the latest submission timestamp for a student
+    const getLatestTimestamp = (studentData) => {
+        const timestamps = Object.values(studentData)
+            .map(res => new Date(res.submissionTime).getTime())
+            .filter(t => !isNaN(t));
+        return timestamps.length > 0 ? Math.max(...timestamps) : 0;
+    };
+
+    // Sort students by their most recent submission (descending)
+    const sortedStudents = Object.entries(results).sort((a, b) => {
+        return getLatestTimestamp(b[1]) - getLatestTimestamp(a[1]);
+    });
+
+    sortedStudents.forEach(([firstName, studentResults]) => {
         const row = resultsTableBody.insertRow();
         row.insertCell().textContent = firstName;
 
@@ -61,11 +72,10 @@ async function displayResults(password) {
 
             if (quizResult) {
                 scoreCell.textContent = `${quizResult.score} / ${quizResult.total}`;
-                // Optional: Tooltip for submission time
                 scoreCell.title = `Submitted at: ${quizResult.submissionTime}`;
             } else {
                 scoreCell.textContent = "-";
             }
         });
-    }
+    });
 }
