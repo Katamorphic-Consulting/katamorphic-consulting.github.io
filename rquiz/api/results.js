@@ -1,5 +1,20 @@
 // api/results.js
 
+export function mergeResultsByName(results) {
+    const merged = {};
+    for (const firstName in results) {
+        const existingName = Object.keys(merged).find(
+            key => key.toLowerCase() === firstName.toLowerCase()
+        );
+        if (existingName) {
+            Object.assign(merged[existingName], results[firstName]);
+        } else {
+            merged[firstName] = results[firstName];
+        }
+    }
+    return merged;
+}
+
 export default async function handler(request, response) {
     if (request.method !== 'GET') {
         return response.status(405).json({ message: 'Method Not Allowed' });
@@ -8,7 +23,6 @@ export default async function handler(request, response) {
     const { JSONBIN_API_KEY, JSONBIN_BIN_ID, RESULTS_PASSWORD } = process.env;
     const { password } = request.query;
 
-    // Check password
     if (password !== RESULTS_PASSWORD) {
         return response.status(401).json({ message: 'Unauthorized' });
     }
@@ -21,21 +35,7 @@ export default async function handler(request, response) {
         });
         if (fetchResponse.ok) {
             const data = await fetchResponse.json();
-            const results = data.record;
-            const mergedResults = {};
-
-            for (const firstName in results) {
-                const existingName = Object.keys(mergedResults).find(key => key.toLowerCase() === firstName.toLowerCase());
-                if (existingName) {
-                    // Merge the quiz results
-                    Object.assign(mergedResults[existingName], results[firstName]);
-                } else {
-                    // Add the new entry
-                    mergedResults[firstName] = results[firstName];
-                }
-            }
-
-            return response.status(200).json(mergedResults);
+            return response.status(200).json(mergeResultsByName(data.record));
         } else {
             return response.status(fetchResponse.status).json({ message: 'Error fetching results' });
         }
