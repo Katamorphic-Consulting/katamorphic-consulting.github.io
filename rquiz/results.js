@@ -7,6 +7,7 @@ const archivedTableBody = document.querySelector('#archived-table tbody');
 const archivedSection = document.getElementById('archived-section');
 
 let currentPassword = '';
+let currentResults = {};
 
 const quizTitles = [
     "R Quiz - Part 1", "R Quiz - Part 2", "R Quiz - Part 3", "R Quiz - Part 4", "R Quiz - Part 5",
@@ -15,25 +16,150 @@ const quizTitles = [
     "CS50 AI Quiz 1", "CS50 AI Quiz 2"
 ];
 
+// ── Event listeners ───────────────────────────────────────────────────────────
+
 loginButton.addEventListener('click', function() {
     const password = passwordInput.value;
-    if (!password) {
-        alert('Please enter the password.');
-        return;
-    }
+    if (!password) { alert('Please enter the password.'); return; }
     currentPassword = password;
     displayResults(password);
 });
 
-function addQuizScoreCells(row, studentResults) {
-    quizTitles.forEach(quizTitle => {
-        const quizResult = studentResults[quizTitle];
-        const scoreCell = row.insertCell();
-        if (quizResult) {
-            scoreCell.textContent = `${quizResult.score} / ${quizResult.total}`;
-            scoreCell.title = `Submitted at: ${quizResult.submissionTime}`;
+document.getElementById('export-btn').addEventListener('click', exportToCSV);
+
+document.getElementById('import-btn').addEventListener('click', () => {
+    document.getElementById('import-input').click();
+});
+
+document.getElementById('import-input').addEventListener('change', handleImport);
+
+// ── CSV utilities ─────────────────────────────────────────────────────────────
+
+function escapeCSV(value) {
+    if (value == null) return '';
+    const str = String(value);
+    return (str.includes(',') || str.includes('"') || str.includes('\n'))
+        ? `"${str.replace(/"/g, '""')}"`
+        : str;
+}
+
+function parseCSVRow(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+            if (inQuotes && line[i + 1] === '"') { current += '"'; i++; }
+            else { inQuotes = !inQuotes; }
+        } else if (ch === ',' && !inQuotes) {
+            result.push(current); current = '';
         } else {
-            scoreCell.textContent = '-';
+            current += ch;
+        }
+    }
+    result.push(current);
+    return result;
+}
+
+function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = parseCSVRow(lines[0]);
+    return lines.slice(1).map(line => {
+        const values = parseCSVRow(line);
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = values[i] ?? ''; });
+        return obj;
+    });
+}
+
+function csvToRecords(rows) {
+    const records = {};
+    rows.forEach(row => {
+        const firstName = row['firstName'];
+        if (!firstName) return;
+        records[firstName] = {};
+        quizTitles.forEach(title => {
+            const score = row[`${title} Score`];
+            const total = row[`${title} Total`];
+            if (score !== '' && total !== '') {
+                records[firstName][title] = { score: parseInt(score, 10), total: parseInt(total, 10) };
+            }
+        });
+        if (row['Archived On']) {
+            records[firstName]._archivedAt = row['Archived On'];
+        }
+    });
+    return records;
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
+
+function exportToCSV() {
+    const headers = ['firstName'];
+    quizTitles.forEach(title => headers.push(`${title} Score`, `${title} Total`));
+    headers.push('Archived On');
+
+    const rows = [headers.map(escapeCSV).join(',')];
+
+    Object.entries(currentResults).forEach(([firstName, studentResults]) => {
+        const row = [escapeCSV(firstName)];
+        quizTitles.forEach(title => {
+            const result = studentResults[title];
+            row.push(result ? escapeCSV(result.score) : '', result ? escapeCSV(result.total) : '');
+        });
+        row.push(escapeCSV(studentResults._archivedAt || ''));
+        rows.push(row.join(','));
+    });
+
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `quiz-results-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// ── Import ────────────────────────────────────────────────────────────────────
+
+async function handleImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const text = await file.text();
+    const importedRecords = csvToRecords(parseCSV(text));
+
+    try {
+        const response = await fetch('api/import', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: currentPassword, records: importedRecords })
+        });
+        if (response.ok) {
+            currentResults = await response.json();
+            renderResults(currentResults);
+        } else {
+            alert('Error importing results. Status: ' + response.status);
+        }
+    } catch {
+        alert('Error importing results.');
+    }
+
+    event.target.value = '';
+}
+
+// ── Row builders ──────────────────────────────────────────────────────────────
+
+function addQuizScoreCells(row, studentResults) {
+    quizTitles.forEach(title => {
+        const result = studentResults[title];
+        const cell = row.insertCell();
+        if (result) {
+            cell.textContent = `${result.score} / ${result.total}`;
+            cell.title = `Submitted at: ${result.submissionTime}`;
+        } else {
+            cell.textContent = '-';
         }
     });
 }
@@ -82,6 +208,8 @@ function addArchivedRow(firstName, studentResults, archivedAt) {
     actionsCell.appendChild(deleteBtn);
 }
 
+// ── Actions ───────────────────────────────────────────────────────────────────
+
 async function deleteStudent(firstName, row) {
     if (!confirm(`Delete all results for "${firstName}"? This cannot be undone.`)) return;
     try {
@@ -90,10 +218,9 @@ async function deleteStudent(firstName, row) {
             { method: 'DELETE' }
         );
         if (response.ok) {
+            delete currentResults[firstName];
             row.remove();
-            if (archivedTableBody.rows.length === 0) {
-                archivedSection.style.display = 'none';
-            }
+            if (archivedTableBody.rows.length === 0) archivedSection.style.display = 'none';
         } else {
             alert('Error deleting student. Status: ' + response.status);
         }
@@ -111,6 +238,7 @@ async function archiveStudent(firstName, studentResults, row) {
         });
         if (response.ok) {
             const { archivedAt } = await response.json();
+            currentResults[firstName]._archivedAt = archivedAt;
             row.remove();
             addArchivedRow(firstName, studentResults, archivedAt);
             archivedSection.style.display = 'block';
@@ -130,11 +258,10 @@ async function unarchiveStudent(firstName, studentResults, row) {
             body: JSON.stringify({ firstName, password: currentPassword })
         });
         if (response.ok) {
+            delete currentResults[firstName]._archivedAt;
             row.remove();
             addActiveRow(firstName, studentResults);
-            if (archivedTableBody.rows.length === 0) {
-                archivedSection.style.display = 'none';
-            }
+            if (archivedTableBody.rows.length === 0) archivedSection.style.display = 'none';
         } else {
             alert('Error unarchiving student. Status: ' + response.status);
         }
@@ -142,6 +269,8 @@ async function unarchiveStudent(firstName, studentResults, row) {
         alert('Error unarchiving student.');
     }
 }
+
+// ── Render / display ──────────────────────────────────────────────────────────
 
 function getLatestTimestamp(studentData) {
     const timestamps = Object.values(studentData)
@@ -151,20 +280,29 @@ function getLatestTimestamp(studentData) {
     return timestamps.length > 0 ? Math.max(...timestamps) : 0;
 }
 
+function renderResults(results) {
+    resultsTableBody.innerHTML = '';
+    archivedTableBody.innerHTML = '';
+
+    const sorted = Object.entries(results).sort((a, b) =>
+        getLatestTimestamp(b[1]) - getLatestTimestamp(a[1])
+    );
+
+    const active = sorted.filter(([, d]) => !d._archivedAt);
+    const archived = sorted.filter(([, d]) => d._archivedAt);
+
+    active.forEach(([firstName, data]) => addActiveRow(firstName, data));
+    archived.forEach(([firstName, data]) => addArchivedRow(firstName, data, data._archivedAt));
+
+    archivedSection.style.display = archived.length > 0 ? 'block' : 'none';
+}
+
 async function displayResults(password) {
-    let results = {};
     try {
         const response = await fetch(`api/results?password=${encodeURIComponent(password)}`);
-        if (response.status === 401) {
-            alert('Incorrect password.');
-            return;
-        }
-        if (response.ok) {
-            results = await response.json();
-        } else {
-            alert('Error fetching results. Status: ' + response.status);
-            return;
-        }
+        if (response.status === 401) { alert('Incorrect password.'); return; }
+        if (!response.ok) { alert('Error fetching results. Status: ' + response.status); return; }
+        currentResults = await response.json();
     } catch {
         alert('Error fetching results.');
         return;
@@ -172,20 +310,5 @@ async function displayResults(password) {
 
     loginContainer.style.display = 'none';
     resultsContainer.style.display = 'block';
-    resultsTableBody.innerHTML = '';
-    archivedTableBody.innerHTML = '';
-
-    const sortedStudents = Object.entries(results).sort((a, b) =>
-        getLatestTimestamp(b[1]) - getLatestTimestamp(a[1])
-    );
-
-    const activeStudents = sortedStudents.filter(([, data]) => !data._archivedAt);
-    const archivedStudents = sortedStudents.filter(([, data]) => data._archivedAt);
-
-    activeStudents.forEach(([firstName, studentResults]) => addActiveRow(firstName, studentResults));
-    archivedStudents.forEach(([firstName, studentResults]) =>
-        addArchivedRow(firstName, studentResults, studentResults._archivedAt)
-    );
-
-    archivedSection.style.display = archivedStudents.length > 0 ? 'block' : 'none';
+    renderResults(currentResults);
 }
