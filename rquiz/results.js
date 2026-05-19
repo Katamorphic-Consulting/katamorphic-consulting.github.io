@@ -38,6 +38,50 @@ function addQuizScoreCells(row, studentResults) {
     });
 }
 
+function addActiveRow(firstName, studentResults) {
+    const row = resultsTableBody.insertRow();
+    row.insertCell().textContent = firstName;
+    addQuizScoreCells(row, studentResults);
+
+    const actionsCell = row.insertCell();
+
+    const archiveBtn = document.createElement('button');
+    archiveBtn.textContent = 'Archive';
+    archiveBtn.className = 'btn-archive';
+    archiveBtn.onclick = () => archiveStudent(firstName, studentResults, row);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'btn-delete';
+    deleteBtn.onclick = () => deleteStudent(firstName, row);
+
+    actionsCell.appendChild(archiveBtn);
+    actionsCell.appendChild(deleteBtn);
+}
+
+function addArchivedRow(firstName, studentResults, archivedAt) {
+    const row = archivedTableBody.insertRow();
+    row.classList.add('archived-row');
+    row.insertCell().textContent = firstName;
+    addQuizScoreCells(row, studentResults);
+    row.insertCell().textContent = new Date(archivedAt).toLocaleString();
+
+    const actionsCell = row.insertCell();
+
+    const unarchiveBtn = document.createElement('button');
+    unarchiveBtn.textContent = 'Unarchive';
+    unarchiveBtn.className = 'btn-unarchive';
+    unarchiveBtn.onclick = () => unarchiveStudent(firstName, studentResults, row);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'btn-delete';
+    deleteBtn.onclick = () => deleteStudent(firstName, row);
+
+    actionsCell.appendChild(unarchiveBtn);
+    actionsCell.appendChild(deleteBtn);
+}
+
 async function deleteStudent(firstName, row) {
     if (!confirm(`Delete all results for "${firstName}"? This cannot be undone.`)) return;
     try {
@@ -47,6 +91,9 @@ async function deleteStudent(firstName, row) {
         );
         if (response.ok) {
             row.remove();
+            if (archivedTableBody.rows.length === 0) {
+                archivedSection.style.display = 'none';
+            }
         } else {
             alert('Error deleting student. Status: ' + response.status);
         }
@@ -56,7 +103,6 @@ async function deleteStudent(firstName, row) {
 }
 
 async function archiveStudent(firstName, studentResults, row) {
-    if (!confirm(`Archive "${firstName}"? They will be moved to the archived section.`)) return;
     try {
         const response = await fetch('api/archive', {
             method: 'POST',
@@ -76,19 +122,25 @@ async function archiveStudent(firstName, studentResults, row) {
     }
 }
 
-function addArchivedRow(firstName, studentResults, archivedAt) {
-    const row = archivedTableBody.insertRow();
-    row.classList.add('archived-row');
-    row.insertCell().textContent = firstName;
-    addQuizScoreCells(row, studentResults);
-    row.insertCell().textContent = new Date(archivedAt).toLocaleString();
-
-    const actionsCell = row.insertCell();
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.className = 'btn-delete';
-    deleteBtn.onclick = () => deleteStudent(firstName, row);
-    actionsCell.appendChild(deleteBtn);
+async function unarchiveStudent(firstName, studentResults, row) {
+    try {
+        const response = await fetch('api/unarchive', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firstName, password: currentPassword })
+        });
+        if (response.ok) {
+            row.remove();
+            addActiveRow(firstName, studentResults);
+            if (archivedTableBody.rows.length === 0) {
+                archivedSection.style.display = 'none';
+            }
+        } else {
+            alert('Error unarchiving student. Status: ' + response.status);
+        }
+    } catch {
+        alert('Error unarchiving student.');
+    }
 }
 
 function getLatestTimestamp(studentData) {
@@ -130,30 +182,10 @@ async function displayResults(password) {
     const activeStudents = sortedStudents.filter(([, data]) => !data._archivedAt);
     const archivedStudents = sortedStudents.filter(([, data]) => data._archivedAt);
 
-    activeStudents.forEach(([firstName, studentResults]) => {
-        const row = resultsTableBody.insertRow();
-        row.insertCell().textContent = firstName;
-        addQuizScoreCells(row, studentResults);
-
-        const actionsCell = row.insertCell();
-
-        const archiveBtn = document.createElement('button');
-        archiveBtn.textContent = 'Archive';
-        archiveBtn.className = 'btn-archive';
-        archiveBtn.onclick = () => archiveStudent(firstName, studentResults, row);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.className = 'btn-delete';
-        deleteBtn.onclick = () => deleteStudent(firstName, row);
-
-        actionsCell.appendChild(archiveBtn);
-        actionsCell.appendChild(deleteBtn);
-    });
-
-    archivedStudents.forEach(([firstName, studentResults]) => {
-        addArchivedRow(firstName, studentResults, studentResults._archivedAt);
-    });
+    activeStudents.forEach(([firstName, studentResults]) => addActiveRow(firstName, studentResults));
+    archivedStudents.forEach(([firstName, studentResults]) =>
+        addArchivedRow(firstName, studentResults, studentResults._archivedAt)
+    );
 
     archivedSection.style.display = archivedStudents.length > 0 ? 'block' : 'none';
 }
