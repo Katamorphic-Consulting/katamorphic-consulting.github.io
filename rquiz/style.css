@@ -66,6 +66,14 @@ tr:hover {
     background-color: #28a745;
 }
 
+.btn-export {
+    background-color: #17a2b8;
+}
+
+.btn-import {
+    background-color: #6f42c1;
+}
+
 .btn-delete {
     background-color: #dc3545;
 }
