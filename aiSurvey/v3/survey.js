@@ -25,14 +25,14 @@ const NEVER5  = ["Never", "Rarely", "Sometimes", "Often", "Always"];
 const sections = [
     /* -------------------------------------------------------------------- */
     { id: "meta", title: "About this response", description:
-        "These items help us link pre- and post-course responses without identifying you.",
+        "A couple of items so we can group responses sensibly. Your answers stay anonymous.",
       questions: [
         { id: "survey_mode", type: "radio", required: true,
-          text: "Which version of the survey are you taking?",
+          text: "When in the course are you answering this?",
           options: ["Start of course (pre)", "End of course (post)", "One-off / not part of a pre-post pair"] },
-        { id: "course_identifier", type: "text", required: true,
-          text: "Which course or learning context are you answering about? (e.g., \"Bachelor Year 2 — Research Methods\")",
-          placeholder: "Course name and year (any subject)" },
+        { id: "course_identifier", type: "radio", required: true,
+          text: "Which course are you taking?",
+          options: ["Minor", "BRM", "BigData", "CS Y1", "CS Y2"] },
         { id: "course_involves_coding", type: "radio", required: true,
           text: "Does this course involve any programming or data analysis?",
           options: [
@@ -40,16 +40,7 @@ const sections = [
             "Yes — programming or data analysis is part of it but not the main focus",
             "No, but the course uses digital tools (spreadsheets, simulators, etc.)",
             "No — no programming or computational work"
-          ] },
-        { id: "participant_code", type: "code_builder", required: true,
-          text: "Self-generated participant code",
-          note: "We combine three things you'll remember the same way next time. Nobody but you can reconstruct it.",
-          parts: [
-            { id: "code_p1", label: "First two letters of your mother's first name (e.g., MA for Maria)", maxlength: 2 },
-            { id: "code_p2", label: "Day of your birth, two digits (e.g., 07)", maxlength: 2 },
-            { id: "code_p3", label: "Last two digits of your phone number", maxlength: 2 }
-          ]
-        }
+          ] }
       ]
     },
 
@@ -63,25 +54,7 @@ const sections = [
           options: ["Under 18", "18–20", "21–23", "24–26", "27 or older", "Prefer not to say"] },
         { id: "gender", type: "radio", required: true,
           text: "Gender:",
-          options: ["Woman", "Man", "Non-binary", "Self-describe / Other", "Prefer not to say"] },
-        { id: "year_of_study", type: "radio", required: true,
-          text: "Level of study:",
-          options: ["Bachelor — Year 1", "Bachelor — Year 2", "Bachelor — Year 3", "Bachelor — Year 4+", "Master's", "PhD", "Other"] },
-        { id: "field_of_study", type: "radio", required: true,
-          text: "Broad field of study:",
-          options: [
-            "Computing / Data Science / AI",
-            "Engineering (non-computing)",
-            "Natural sciences (physics, chemistry, biology, etc.)",
-            "Social sciences (psychology, sociology, economics, etc.)",
-            "Humanities (history, languages, philosophy, etc.)",
-            "Health and life sciences (medicine, nursing, public health, etc.)",
-            "Arts and design",
-            "Business and management",
-            "Education",
-            "Law",
-            "Other / Interdisciplinary"
-          ] }
+          options: ["Woman", "Man", "Non-binary", "Self-describe / Other", "Prefer not to say"] }
       ]
     },
 
@@ -400,16 +373,16 @@ const sections = [
       description: "Only shown if you indicated this is the post (end-of-course) survey.",
       postOnly: true,
       questions: [
-        { id: "post_view_changed", type: "radio", required: false,
+        { id: "post_view_changed", type: "radio",
           text: "Compared to the start of the course, my overall view of GenAI in my studies has:",
           options: ["Become much more negative", "Become somewhat more negative", "Not changed", "Become somewhat more positive", "Become much more positive"] },
-        { id: "post_skills_changed", type: "radio", required: false,
+        { id: "post_skills_changed", type: "radio",
           text: "Compared to the start of the course, my ability to use GenAI effectively has:",
           options: ["Decreased", "Stayed about the same", "Improved a little", "Improved a lot"] },
-        { id: "post_activity_useful", type: "radio", required: false,
+        { id: "post_activity_useful", type: "radio",
           text: "If the course included a specific activity about GenAI (e.g., a workshop, a prompting exercise, a critique-the-output task), how useful was it?",
           options: ["Not useful", "Slightly useful", "Moderately useful", "Very useful", "Extremely useful", "There was no such activity"] },
-        { id: "post_required_reflection", type: "radio", required: false,
+        { id: "post_required_reflection", type: "radio",
           text: "If GenAI was required or encouraged in this course, looking back, how do you feel about that requirement/encouragement?",
           options: ["Very negative", "Somewhat negative", "Neutral", "Somewhat positive", "Very positive", "Not applicable"] },
         { id: "post_activity_describe", type: "textarea", required: false,
@@ -453,7 +426,76 @@ document.addEventListener('DOMContentLoaded', async () => {
         surveyForm.classList.remove('hidden');
         renderQuestions();
         updateProgress();
+        setupDevMode();
     });
+
+    let DEV_MODE = false;
+
+    function setupDevMode() {
+        // ?dev=9876 in the URL reveals the dev-fill button and tags every
+        // submission with isTest=true so the dashboard can filter them out.
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('dev') !== '9876') return;
+        DEV_MODE = true;
+        const btn = document.getElementById('devFillButton');
+        if (!btn) return;
+        btn.classList.remove('hidden');
+        btn.addEventListener('click', devFillRandom);
+    }
+
+    function devFillRandom() {
+        // 1. Pick survey_mode first so the post-only / pre-only visibility settles.
+        const modeOpts = ["Start of course (pre)", "End of course (post)", "One-off / not part of a pre-post pair"];
+        const chosenMode = modeOpts[Math.floor(Math.random() * modeOpts.length)];
+        const modeInput = document.querySelector(`input[name="survey_mode"][value="${cssEscape(chosenMode)}"]`);
+        if (modeInput) {
+            modeInput.checked = true;
+            modeInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        applyModeVisibility();
+
+        // 2. Walk every visible section and fill every question.
+        sections.forEach(section => {
+            const sectionEl = document.querySelector(`[data-section-id="${section.id}"]`);
+            if (!sectionEl || sectionEl.classList.contains('hidden')) return;
+
+            section.questions.forEach(q => {
+                if (q.id === 'survey_mode') return;
+
+                // Attention check: always pick the expected answer.
+                if (q.attentionCheck) {
+                    const inp = document.querySelector(`input[name="${q.id}"][value="${cssEscape(q.expected)}"]`);
+                    if (inp) inp.checked = true;
+                    return;
+                }
+
+                const scale = section.matrix ? section.matrix.scale : q.options;
+
+                if (q.type === 'matrix_row' || q.type === 'radio') {
+                    const choice = scale[Math.floor(Math.random() * scale.length)];
+                    const inp = document.querySelector(`input[name="${q.id}"][value="${cssEscape(choice)}"]`);
+                    if (inp) inp.checked = true;
+                } else if (q.type === 'checkbox') {
+                    const inputs = document.querySelectorAll(`input[name="${q.id}"]`);
+                    if (!inputs.length) return;
+                    const n = 1 + Math.floor(Math.random() * Math.min(3, inputs.length));
+                    const shuffled = [...inputs.keys()].sort(() => Math.random() - 0.5).slice(0, n);
+                    shuffled.forEach(i => { inputs[i].checked = true; });
+                } else if (q.type === 'textarea') {
+                    const ta = document.querySelector(`textarea[name="${q.id}"]`);
+                    if (ta) ta.value = `[dev-fill ${Math.floor(Math.random() * 1000)}]`;
+                }
+            });
+        });
+
+        updateProgress();
+    }
+
+    function cssEscape(value) {
+        // Native CSS.escape is widely supported; fall back to a simple replacement.
+        if (window.CSS && CSS.escape) return CSS.escape(value);
+        return String(value).replace(/(["'\\\[\]])/g, '\\$1');
+    }
 
     function renderQuestions() {
         sections.forEach(section => {
@@ -723,20 +765,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
 
-        const p1 = (responses.code_p1 || '').toUpperCase();
-        const p2 = (responses.code_p2 || '').toUpperCase();
-        const p3 = (responses.code_p3 || '').toUpperCase();
-        const participantCode = `${p1}-${p2}-${p3}`;
-        delete responses.code_p1; delete responses.code_p2; delete responses.code_p3;
-
         const attentionPass = responses.lb_attention_check === 'Somewhat agree';
 
         return {
             instrumentVersion: 'v3',
-            participantCode,
             surveyMode: responses.survey_mode,
             courseIdentifier: responses.course_identifier,
             attentionCheckPassed: attentionPass,
+            isTest: DEV_MODE,
             submittedAt: new Date().toISOString(),
             language: navigator.language,
             responses

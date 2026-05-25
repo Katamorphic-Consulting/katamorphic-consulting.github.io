@@ -189,3 +189,21 @@
     margin-top: -6px;
     margin-bottom: 10px;
 }
+
+/* Dev-only fill button — revealed only when the URL has ?dev=1 */
+.dev-button {
+    display: block;
+    margin-bottom: 16px;
+    padding: 6px 12px;
+    background: #f1f3f5;
+    color: #555;
+    border: 1px dashed #aaa;
+    border-radius: 4px;
+    font-size: 0.85em;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.dev-button:hover {
+    background: #e9ecef;
+}

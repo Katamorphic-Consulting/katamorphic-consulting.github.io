@@ -35,7 +35,6 @@
             <ul class="consent-list">
                 <li><strong>Voluntary.</strong> Participation is voluntary. You can stop at any time by closing the page; no partial data is stored until you press Submit.</li>
                 <li><strong>Anonymous.</strong> We do not ask for your name, email, or student ID. Responses are stored without direct identifiers.</li>
-                <li><strong>Self-generated code.</strong> You will create a short non-identifying code so that, if you complete this survey twice (start and end of term), we can link your two responses without knowing who you are.</li>
                 <li><strong>Use of data.</strong> Aggregated, de-identified data may be used in academic publications, presentations, and improvements to teaching.</li>
                 <li><strong>Time.</strong> About 10–15 minutes.</li>
                 <li><strong>Risks.</strong> Minimal. No questions ask about academic misconduct in a way that can be linked to you personally.</li>
@@ -49,6 +48,7 @@
         </section>
 
         <form id="surveyForm" class="hidden">
+            <button type="button" id="devFillButton" class="dev-button hidden" title="Fills every question with a random valid answer for testing. Only visible when ?dev=1 is in the URL.">⚙ Fill with random answers (dev)</button>
             <div id="progressBar" class="progress-bar"><div id="progressFill"></div></div>
             <div id="questionsContainer"></div>
             <button type="submit">Submit survey</button>

@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const modeRangeEl    = document.getElementById('modeRange');
     const attentionRangeEl = document.getElementById('attentionRange');
     const courseRangeEl  = document.getElementById('courseRange');
+    const testRangeEl    = document.getElementById('testRange');
 
     let allV3 = [];
 
@@ -63,6 +64,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         return '';
     }
 
+    // -------------------------------------------------------------------
+    // Password handling: if /api/v3-list returns 403, prompt for the
+    // RESULTS_PASSWORD value and retry. Store in sessionStorage so the
+    // user only types it once per tab.
+    async function fetchWithPassword(url) {
+        let password = sessionStorage.getItem('v3-results-password') || '';
+        for (let attempt = 0; attempt < 3; attempt++) {
+            const fullUrl = password
+                ? url + (url.includes('?') ? '&' : '?') + 'password=' + encodeURIComponent(password)
+                : url;
+            const resp = await fetch(fullUrl);
+            if (resp.status !== 403) return resp;
+            // 403 → wrong or missing password. Prompt and retry.
+            sessionStorage.removeItem('v3-results-password');
+            password = window.prompt('This dashboard is password-protected. Enter the RESULTS_PASSWORD set in Vercel env vars:') || '';
+            if (!password) return resp; // user cancelled → propagate 403
+            sessionStorage.setItem('v3-results-password', password);
+        }
+        return new Response(null, { status: 403 });
+    }
+
     await fetchResults();
 
     timeRangeEl.addEventListener('change', () => {
@@ -76,14 +98,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     modeRangeEl.addEventListener('change', render);
     attentionRangeEl.addEventListener('change', render);
     courseRangeEl.addEventListener('change', render);
+    testRangeEl.addEventListener('change', render);
 
     async function fetchResults() {
         showLoading(true);
 
         try {
-            // Optional password gate: if /api/v3-list requires one, append ?password=…
-            // by setting RESULTS_PASSWORD in your env vars and adjusting the URL here.
-            const resp = await fetch('/api/v3-list');
+            const resp = await fetchWithPassword('/api/v3-list');
             if (!resp.ok) {
                 let detail = '';
                 try { detail = (await resp.json()).detail || ''; } catch (_) {}
@@ -150,6 +171,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (courseRangeEl.value !== 'all') {
             rows = rows.filter(r => r.courseIdentifier === courseRangeEl.value);
         }
+        const testMode = testRangeEl.value;
+        if (testMode === 'hide') {
+            rows = rows.filter(r => r.isTest !== true);
+        } else if (testMode === 'only') {
+            rows = rows.filter(r => r.isTest === true);
+        }
         return rows;
     }
 
@@ -167,34 +194,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function renderSummary(rows) {
-        const total = rows.length;
-        const pre   = rows.filter(r => r.surveyMode === 'Start of course (pre)').length;
-        const post  = rows.filter(r => r.surveyMode === 'End of course (post)').length;
+        const total  = rows.length;
+        const pre    = rows.filter(r => r.surveyMode === 'Start of course (pre)').length;
+        const post   = rows.filter(r => r.surveyMode === 'End of course (post)').length;
         const oneoff = rows.filter(r => r.surveyMode === 'One-off / not part of a pre-post pair').length;
         const passed = rows.filter(r => r.attentionCheckPassed === true).length;
         const failed = rows.filter(r => r.attentionCheckPassed === false).length;
-        const uniquePCs = new Set(rows.map(r => r.participantCode).filter(Boolean)).size;
-        const paired = (() => {
-            const codeToModes = new Map();
-            rows.forEach(r => {
-                if (!r.participantCode) return;
-                if (!codeToModes.has(r.participantCode)) codeToModes.set(r.participantCode, new Set());
-                codeToModes.get(r.participantCode).add(r.surveyMode);
-            });
-            let n = 0;
-            for (const modes of codeToModes.values()) {
-                if (modes.has('Start of course (pre)') && modes.has('End of course (post)')) n++;
-            }
-            return n;
-        })();
+        const uniqueCourses = new Set(rows.map(r => r.courseIdentifier).filter(Boolean)).size;
 
         const cards = [
             { v: total,  l: 'Total v3 responses' },
             { v: pre,    l: 'Pre' },
             { v: post,   l: 'Post' },
             { v: oneoff, l: 'One-off' },
-            { v: uniquePCs, l: 'Unique participant codes' },
-            { v: paired,    l: 'Matched pre+post pairs' },
+            { v: uniqueCourses, l: 'Distinct courses' },
             { v: passed, l: 'Attention check passed' },
             { v: failed, l: 'Attention check failed', warn: failed > 0 }
         ];
