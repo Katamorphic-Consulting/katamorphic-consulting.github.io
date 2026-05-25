@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generative AI in Higher Education — Student Survey (v3)</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="survey.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/v3/survey.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8PQ0P2F31V"></script>
     <script>
@@ -48,16 +48,21 @@
         </section>
 
         <form id="surveyForm" class="hidden">
-            <button type="button" id="devFillButton" class="dev-button hidden" title="Fills every question with a random valid answer for testing. Only visible when ?dev=1 is in the URL.">⚙ Fill with random answers (dev)</button>
             <div id="progressBar" class="progress-bar"><div id="progressFill"></div></div>
             <div id="questionsContainer"></div>
             <button type="submit">Submit survey</button>
         </form>
 
+        <!-- Dev-only auto-fill button. Hidden by default. ?dev=9876 in the URL
+             reveals it. Clicking it bypasses consent and fills the entire
+             survey with random valid answers. -->
+        <button type="button" id="devFillButton" class="dev-button hidden"
+                title="Auto-fills every question with a random valid answer for testing. Only visible when ?dev=9876 is in the URL.">⚙ Fill with random answers (dev)</button>
+
         <div id="responseMessage"></div>
     </div>
 
-    <script src="survey.js"></script>
+    <script src="/v3/survey.js"></script>
 
     <div id="confirmationModal" class="modal">
         <div class="modal-content">

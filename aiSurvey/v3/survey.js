@@ -417,6 +417,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // No credentials needed: submissions POST to /api/v3-submit, which stores
     // the row in Netlify Blobs server-side.
 
+    // Sync Continue button with checkbox state on load — handles the case
+    // where the browser restored the checked state after a reload (the
+    // "change" event doesn't fire in that case).
+    consentContinue.disabled = !consentCheckbox.checked;
+
     consentCheckbox.addEventListener('change', () => {
         consentContinue.disabled = !consentCheckbox.checked;
     });
@@ -426,21 +431,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         surveyForm.classList.remove('hidden');
         renderQuestions();
         updateProgress();
-        setupDevMode();
     });
 
     let DEV_MODE = false;
+    setupDevMode();
 
     function setupDevMode() {
-        // ?dev=9876 in the URL reveals the dev-fill button and tags every
-        // submission with isTest=true so the dashboard can filter them out.
+        // ?dev=9876 in the URL enables the floating dev-fill button. Every
+        // submission made in this mode is tagged isTest=true so the dashboard
+        // can filter them out.
         const params = new URLSearchParams(window.location.search);
         if (params.get('dev') !== '9876') return;
         DEV_MODE = true;
         const btn = document.getElementById('devFillButton');
         if (!btn) return;
         btn.classList.remove('hidden');
-        btn.addEventListener('click', devFillRandom);
+        btn.addEventListener('click', () => {
+            // If still on consent screen, auto-tick consent and continue.
+            if (!consentScreen.classList.contains('hidden')) {
+                consentCheckbox.checked = true;
+                consentContinue.disabled = false;
+                consentContinue.click();
+            }
+            devFillRandom();
+        });
     }
 
     function devFillRandom() {

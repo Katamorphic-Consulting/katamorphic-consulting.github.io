@@ -190,20 +190,25 @@
     margin-bottom: 10px;
 }
 
-/* Dev-only fill button — revealed only when the URL has ?dev=1 */
+/* Dev-only fill button — fixed-position so it works on both the consent
+ * screen and the survey, and never disturbs the form layout. Revealed only
+ * when the URL has ?dev=9876. */
 .dev-button {
-    display: block;
-    margin-bottom: 16px;
-    padding: 6px 12px;
-    background: #f1f3f5;
-    color: #555;
-    border: 1px dashed #aaa;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    z-index: 9999;
+    padding: 8px 14px;
+    background: #fff8e1;
+    color: #5a4500;
+    border: 1px dashed #c89a00;
     border-radius: 4px;
     font-size: 0.85em;
     cursor: pointer;
     font-family: monospace;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .dev-button:hover {
-    background: #e9ecef;
+    background: #fff3cd;
 }

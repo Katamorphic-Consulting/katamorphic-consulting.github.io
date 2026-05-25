@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey v3 Results</title>
-    <link rel="stylesheet" href="results.css">
+    <link rel="stylesheet" href="/v3/results.css">
 </head>
 <body>
     <div class="container">
@@ -78,14 +78,14 @@
         <div id="errorMessage" class="hidden"></div>
 
         <p class="back-link-row">
-            <a href="index.html" class="back-link">→ Take the v3 survey</a>
-            <a href="../results.html" class="back-link">→ v1 results dashboard</a>
+            <a href="/v3/" class="back-link">→ Take the v3 survey</a>
+            <a href="/results.html" class="back-link">→ v1 results dashboard</a>
         </p>
     </div>
 
     <!-- survey.js exposes window.SURVEY_V3_SCHEMA and bails out of UI setup
          when there's no #surveyForm on the page. -->
-    <script src="survey.js"></script>
-    <script src="results.script.js"></script>
+    <script src="/v3/survey.js"></script>
+    <script src="/v3/results.script.js"></script>
 </body>
 </html>
