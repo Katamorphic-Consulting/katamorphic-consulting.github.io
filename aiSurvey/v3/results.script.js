@@ -289,6 +289,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const list = document.createElement('div');
         list.classList.add('stat-results');
 
+        // Ordering guarantees (deliberate, not random):
+        //   1. Sections render in schema order (sections.forEach in renderSections).
+        //   2. Questions within a section render in schema order.
+        //   3. Answer options within a question render in their original
+        //      options order (from section.matrix.scale or q.options).
+        //   4. Any answer value not in the option list (legacy/unknown) is
+        //      appended at the end in insertion order, NOT alphabetical.
         let answers = Object.keys(counts);
         if (meta.optionOrder) {
             answers.sort((a, b) => {
@@ -297,11 +304,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (ia !== -1 && ib !== -1) return ia - ib;
                 if (ia !== -1) return -1;
                 if (ib !== -1) return 1;
-                return a.localeCompare(b);
+                return 0; // both unknown: leave in insertion order
             });
-        } else {
-            answers.sort();
         }
+        // No fallback sort when optionOrder is missing — preserve insertion order.
 
         if (!answers.length) {
             list.innerHTML = '<div class="no-data">No answers yet for this question.</div>';

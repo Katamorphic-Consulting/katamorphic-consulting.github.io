@@ -166,8 +166,63 @@ const sections = [
         { id: "verify_run_test",    type: "matrix_row", text: "If it produces code, I run or test it before submitting." },
         { id: "verify_modify",      type: "matrix_row", text: "I modify GenAI output rather than copying it verbatim." },
         { id: "verify_cross_check", type: "matrix_row", text: "I cross-check GenAI claims against another source." },
-        { id: "verify_paste_blind", type: "matrix_row", text: "I paste GenAI output straight into my assignment without changes.",
-          reverseCoded: true, note: "Reverse-coded relative to the items above." }
+        { id: "verify_paste_blind", type: "matrix_row", text: "I paste GenAI output straight into my assignment without changes." }
+      ]
+    },
+
+    /* -------------------------------------------------------------------- */
+    { id: "detection_confidence", title: "Spotting AI-generated work",
+      description: "Some students are confident they can tell AI output from human work; others aren't sure. Both are valid. Rate your agreement with each statement.",
+      matrix: { scale: LIKERT5 },
+      questions: [
+        { id: "det_conf_text",   type: "matrix_row", text: "I can usually tell if a piece of writing was produced by AI." },
+        { id: "det_conf_code",   type: "matrix_row", text: "I can usually tell if a piece of code was produced by AI." },
+        { id: "det_conf_image",  type: "matrix_row", text: "I can usually tell if an image was produced by AI." },
+        { id: "det_attention",   type: "matrix_row", text: "When I read something for class, I think about whether it might be AI-generated." },
+        { id: "det_taught",      type: "matrix_row", text: "I have been taught (formally or informally) how to spot AI-generated content." }
+      ]
+    },
+
+    /* -------------------------------------------------------------------- */
+    { id: "detection_signs", title: "Detection experiences and signs you look for",
+      questions: [
+        { id: "det_accused", type: "radio", required: true,
+          text: "Have you ever been (wrongly) accused of using AI on work that was your own?",
+          options: ["Never", "Once", "More than once", "Prefer not to say"] },
+        { id: "det_suspected", type: "radio", required: true,
+          text: "Have you ever suspected a classmate of using AI on submitted work?",
+          options: ["Never", "Once", "More than once", "Prefer not to say"] },
+        { id: "det_signs_text", type: "checkbox", required: true,
+          text: "Which of these do you use as signs that a piece of TEXT may be AI-generated? (Select all that apply.)",
+          options: [
+            "Overly polished or generic style",
+            "Specific buzzwords (e.g., \"delve\", \"tapestry\", \"ever-evolving\", \"navigate\")",
+            "Frequent em-dashes (\"—\")",
+            "Suspiciously perfect grammar / no typos",
+            "Confident statements that are factually wrong",
+            "Lack of specific examples or personal voice",
+            "Bullet-point-heavy formatting",
+            "Citations or quotes that don't check out",
+            "Sudden shifts in style or vocabulary",
+            "It \"just feels off\"",
+            "I don't try to identify AI-generated text",
+            "Other"
+          ] },
+        { id: "det_signs_code", type: "checkbox", required: true,
+          text: "Which of these do you use as signs that a piece of CODE may be AI-generated? (Select all that apply.)",
+          options: [
+            "Comments that explain the obvious",
+            "Idioms or libraries not covered in the course",
+            "Overly defensive error handling",
+            "Patterns more typical of a different language",
+            "Variable names that feel textbook-perfect",
+            "Imports of libraries that aren't actually used",
+            "Inconsistent style across functions",
+            "It \"just feels off\"",
+            "I don't try to identify AI-generated code",
+            "Not applicable — I don't read code",
+            "Other"
+          ] }
       ]
     },
 
@@ -204,7 +259,6 @@ const sections = [
      * rest of the instrument; this is a known acceptable adaptation. */
     { id: "atai", title: "General attitudes towards AI",
       description: "Rate your agreement with each statement.",
-      citeNote: "Items adapted from the ATAI scale (Sindermann et al., 2021).",
       matrix: { scale: LIKERT5 },
       questions: [
         { id: "atai_fear",         type: "matrix_row", text: "I fear artificial intelligence." },
@@ -237,8 +291,7 @@ const sections = [
         { id: "lb_dependency",      type: "matrix_row", text: "I worry I will become too dependent on GenAI." },
         { id: "lb_attention_check", type: "matrix_row", text: "This is an attention check — please choose \"Somewhat agree\".",
           attentionCheck: true, expected: "Somewhat agree" },
-        { id: "lb_without_same",    type: "matrix_row", text: "Without GenAI, I would have learned the same amount in this course.",
-          reverseCoded: true }
+        { id: "lb_without_same",    type: "matrix_row", text: "Without GenAI, I would have learned the same amount in this course." }
       ]
     },
 
@@ -278,7 +331,7 @@ const sections = [
 
     /* -------------------------------------------------------------------- */
     { id: "autonomy_and_pressure", title: "How required / encouraged use feels to you",
-      description: "Only relevant if you have ever been asked or required to use GenAI in a course. If never, just mark \"Strongly disagree\" / \"Not applicable\".",
+      description: "If you have never been required or encouraged to use GenAI in a course, mark each statement \"Strongly disagree\" (i.e., this has not happened to you).",
       matrix: { scale: LIKERT5 },
       questions: [
         { id: "aut_prefer_choose",       type: "matrix_row", text: "I would prefer to choose for myself whether to use GenAI, rather than have it required." },
@@ -357,13 +410,15 @@ const sections = [
     { id: "open_ended", title: "In your own words",
       description: "Short answers are fine — even one sentence is valuable.",
       questions: [
-        { id: "open_helped",  type: "textarea", required: false,
+        { id: "open_helped",    type: "textarea", required: false,
           text: "Describe one moment in this course where GenAI helped your learning." },
-        { id: "open_hurt",    type: "textarea", required: false,
+        { id: "open_hurt",      type: "textarea", required: false,
           text: "Describe one moment where GenAI hurt your learning or got in your way." },
-        { id: "open_required",type: "textarea", required: false,
+        { id: "open_required",  type: "textarea", required: false,
           text: "If GenAI use was required or strongly encouraged in this course, how did you feel about that?" },
-        { id: "open_change",  type: "textarea", required: false,
+        { id: "open_detection", type: "textarea", required: false,
+          text: "Describe a time you spotted (or thought you spotted) AI-generated work — yours or someone else's. What gave it away?" },
+        { id: "open_change",    type: "textarea", required: false,
           text: "What would you change about how GenAI is handled in this course?" }
       ]
     },
@@ -429,9 +484,147 @@ document.addEventListener('DOMContentLoaded', async () => {
     consentContinue.addEventListener('click', () => {
         consentScreen.classList.add('hidden');
         surveyForm.classList.remove('hidden');
+        document.body.classList.add('in-survey');
         renderQuestions();
+        renderSectionNav();
+        setupMobileNav();
+        setupSectionTracking();
         updateProgress();
     });
+
+    // ----------------------------------------------------------------
+    // Section nav — groups sections into themes for orientation.
+    // Order is preserved: themes appear in the order their sections
+    // first appear in the schema.
+    // ----------------------------------------------------------------
+
+    const SECTION_THEMES = {
+        meta:                     'About you',
+        demographics:             'About you',
+        programming_background:   'About you',
+        tools_used:               'How you use GenAI',
+        usage_frequency:          'How you use GenAI',
+        help_seeking:             'How you use GenAI',
+        self_efficacy:            'Skills & checking',
+        verification:             'Skills & checking',
+        detection_confidence:     'Skills & checking',
+        detection_signs:          'Skills & checking',
+        tam_usefulness:           'Beliefs & attitudes',
+        tam_ease:                 'Beliefs & attitudes',
+        atai:                     'Beliefs & attitudes',
+        trust_use:                'Beliefs & attitudes',
+        learning_beliefs:         'Beliefs & attitudes',
+        policy_and_encouragement: 'Your course',
+        autonomy_and_pressure:    'Your course',
+        ethics_acceptability:     'Your course',
+        self_reported_behaviour:  'Your behaviour',
+        career:                   'Your behaviour',
+        open_ended:               'Reflections',
+        post_reflection:          'Reflections'
+    };
+
+    function renderSectionNav() {
+        const nav = document.getElementById('sectionNav');
+        if (!nav) return;
+        nav.innerHTML = '';
+
+        // Group sections by theme in schema order
+        const themeOrder = [];
+        const themeMap = new Map();
+        sections.forEach(s => {
+            const theme = SECTION_THEMES[s.id] || 'Other';
+            if (!themeMap.has(theme)) {
+                themeOrder.push(theme);
+                themeMap.set(theme, []);
+            }
+            themeMap.get(theme).push(s);
+        });
+
+        // Mobile close button at the top of the drawer
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'nav-close';
+        close.setAttribute('aria-label', 'Close section list');
+        close.textContent = '×';
+        close.addEventListener('click', closeMobileNav);
+        nav.appendChild(close);
+
+        themeOrder.forEach(theme => {
+            const group = document.createElement('div');
+            group.className = 'nav-group';
+            const heading = document.createElement('div');
+            heading.className = 'nav-heading';
+            heading.textContent = theme;
+            group.appendChild(heading);
+
+            const list = document.createElement('ul');
+            themeMap.get(theme).forEach(s => {
+                const li = document.createElement('li');
+                if (s.postOnly) li.classList.add('nav-post-only');
+                if (s.preOnly)  li.classList.add('nav-pre-only');
+                const link = document.createElement('a');
+                link.href = '#section-' + s.id;
+                link.textContent = s.title;
+                link.dataset.sectionId = s.id;
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(`[data-section-id="${s.id}"]`);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeMobileNav();
+                });
+                li.appendChild(link);
+                list.appendChild(li);
+            });
+            group.appendChild(list);
+            nav.appendChild(group);
+        });
+
+        applyNavVisibility();
+    }
+
+    function applyNavVisibility() {
+        // Hide pre-only / post-only nav items based on selected survey mode.
+        const mode = document.querySelector('input[name="survey_mode"]:checked')?.value;
+        document.querySelectorAll('.nav-post-only').forEach(li => {
+            li.style.display = mode === 'End of course (post)' ? '' : 'none';
+        });
+        document.querySelectorAll('.nav-pre-only').forEach(li => {
+            li.style.display = mode === 'End of course (post)' ? 'none' : '';
+        });
+    }
+
+    function setupSectionTracking() {
+        // Highlight the section currently nearest the top of the viewport.
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const id = entry.target.dataset.sectionId;
+                if (!id) return;
+                document.querySelectorAll('#sectionNav a.active').forEach(a => a.classList.remove('active'));
+                const link = document.querySelector(`#sectionNav a[data-section-id="${id}"]`);
+                if (link) link.classList.add('active');
+            });
+        }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+        document.querySelectorAll('[data-section-id]').forEach(s => observer.observe(s));
+    }
+
+    function setupMobileNav() {
+        const toggle = document.getElementById('navToggle');
+        const nav = document.getElementById('sectionNav');
+        const backdrop = document.getElementById('navBackdrop');
+        if (!toggle || !nav || !backdrop) return;
+        toggle.addEventListener('click', () => {
+            nav.classList.add('open');
+            backdrop.classList.add('visible');
+        });
+        backdrop.addEventListener('click', closeMobileNav);
+    }
+
+    function closeMobileNav() {
+        document.getElementById('sectionNav')?.classList.remove('open');
+        document.getElementById('navBackdrop')?.classList.remove('visible');
+    }
 
     let DEV_MODE = false;
     setupDevMode();
@@ -688,6 +881,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.pre-only').forEach(el => {
             el.classList.toggle('hidden', mode === 'End of course (post)');
         });
+        applyNavVisibility();
         updateProgress();
     }
 

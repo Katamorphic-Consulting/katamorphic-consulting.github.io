@@ -19,7 +19,7 @@
     <div class="container">
         <header class="survey-header">
             <h1>Generative AI in Higher Education</h1>
-            <p class="subtitle">Student survey — version 3 (research instrument)</p>
+            <p class="subtitle">Student survey — version 3</p>
         </header>
 
         <section id="consentScreen" class="consent-screen">
@@ -48,9 +48,22 @@
         </section>
 
         <form id="surveyForm" class="hidden">
-            <div id="progressBar" class="progress-bar"><div id="progressFill"></div></div>
-            <div id="questionsContainer"></div>
-            <button type="submit">Submit survey</button>
+            <!-- Mobile-only hamburger that opens the section list -->
+            <button type="button" id="navToggle" class="nav-toggle" aria-label="Open section list">
+                <span class="nav-toggle-icon">☰</span>
+                <span class="nav-toggle-label">Jump to a section</span>
+            </button>
+
+            <div class="survey-body">
+                <aside id="sectionNav" class="section-nav" aria-label="Survey sections"></aside>
+                <div id="navBackdrop" class="nav-backdrop"></div>
+
+                <div class="survey-main">
+                    <div id="progressBar" class="progress-bar"><div id="progressFill"></div></div>
+                    <div id="questionsContainer"></div>
+                    <button type="submit">Submit survey</button>
+                </div>
+            </div>
         </form>
 
         <!-- Dev-only auto-fill button. Hidden by default. ?dev=9876 in the URL

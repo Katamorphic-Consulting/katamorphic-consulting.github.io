@@ -190,6 +190,166 @@
     margin-bottom: 10px;
 }
 
+/* ============================================================
+ * Section nav (sidebar on desktop, off-canvas drawer on mobile)
+ * ============================================================ */
+
+/* The container is normally 800px (good for consent). Once the form
+ * shows, widen it so the sidebar + main content fit comfortably. */
+body.in-survey .container {
+    max-width: 1100px;
+}
+
+.survey-body {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    position: relative;
+}
+
+.survey-main {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.section-nav {
+    flex: 0 0 220px;
+    position: sticky;
+    top: 12px;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+    padding: 12px 0;
+    border-right: 1px solid #eaeaea;
+    font-size: 0.9em;
+}
+
+.nav-group { margin-bottom: 18px; }
+
+.nav-heading {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    padding: 0 12px 6px;
+    font-weight: 600;
+}
+
+.section-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-nav li { margin: 0; }
+
+.section-nav a {
+    display: block;
+    padding: 6px 12px;
+    color: #333;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    line-height: 1.3;
+    font-size: 0.92em;
+}
+
+.section-nav a:hover {
+    background: #f6f8fc;
+    border-left-color: #c4d4ee;
+}
+
+.section-nav a.active {
+    background: #e8f0fe;
+    border-left-color: #2a4d8f;
+    color: #2a4d8f;
+    font-weight: 600;
+}
+
+.nav-toggle {
+    display: none; /* shown only on mobile via media query */
+}
+
+.nav-backdrop {
+    display: none;
+}
+
+/* Mobile: hamburger toggle + off-canvas slide-in drawer */
+@media (max-width: 760px) {
+    body.in-survey .container { max-width: 100%; padding: 16px; }
+    .survey-body { display: block; gap: 0; }
+    .survey-main { flex: none; }
+
+    .nav-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: sticky;
+        top: 8px;
+        z-index: 100;
+        background: #fff;
+        border: 1px solid #cfd6e4;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        cursor: pointer;
+        font-size: 0.95em;
+        font-family: inherit;
+        border-radius: 6px;
+        width: 100%;
+        text-align: left;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        color: #2a4d8f;
+        font-weight: 600;
+    }
+
+    .nav-toggle-icon { font-size: 1.2em; }
+
+    .section-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 290px;
+        max-width: 85%;
+        background: #fff;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 2px 0 14px rgba(0,0,0,0.2);
+        border-right: none;
+        padding: 60px 0 16px;
+        max-height: 100vh;
+    }
+
+    .section-nav.open { transform: translateX(0); }
+
+    .section-nav .nav-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 1.6em;
+        cursor: pointer;
+        color: #555;
+        padding: 4px 10px;
+    }
+
+    .nav-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 150;
+        display: none;
+    }
+
+    .nav-backdrop.visible { display: block; }
+}
+
+/* Section anchor offset so the sticky header on mobile doesn't cover the
+ * heading when you jump via the nav. */
+.question-group {
+    scroll-margin-top: 70px;
+}
+
 /* Dev-only fill button — fixed-position so it works on both the consent
  * screen and the survey, and never disturbs the form layout. Revealed only
  * when the URL has ?dev=9876. */
