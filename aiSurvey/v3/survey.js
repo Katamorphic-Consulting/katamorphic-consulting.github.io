@@ -565,10 +565,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const link = document.createElement('a');
                 link.href = '#section-' + s.id;
                 link.textContent = s.title;
-                link.dataset.sectionId = s.id;
+                // Use a different attribute name so the sidebar link doesn't
+                // collide with the section content div (which uses
+                // data-section-id) in IntersectionObserver and querySelector.
+                link.dataset.navTo = s.id;
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const target = document.querySelector(`[data-section-id="${s.id}"]`);
+                    // Scope to the questions container so we don't match the
+                    // sidebar link itself (which also has data-section-id).
+                    const target = document.querySelector(`.question-group[data-section-id="${s.id}"]`);
                     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     closeMobileNav();
                 });
@@ -601,7 +606,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const id = entry.target.dataset.sectionId;
                 if (!id) return;
                 document.querySelectorAll('#sectionNav a.active').forEach(a => a.classList.remove('active'));
-                const link = document.querySelector(`#sectionNav a[data-section-id="${id}"]`);
+                const link = document.querySelector(`#sectionNav a[data-nav-to="${id}"]`);
                 if (link) link.classList.add('active');
             });
         }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
