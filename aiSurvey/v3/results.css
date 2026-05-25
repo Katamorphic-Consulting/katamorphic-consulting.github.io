@@ -1,0 +1,467 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.filter-period {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex-basis: 45%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.filter-period h3 {
+    margin-top: 0;
+    text-align: center;
+    color: #333;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+#compareBtn {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 12px 25px;
+    background-color: #ff7f50; /* Coral color for contrast */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#compareBtn:hover {
+    background-color: #ff6347; /* Tomato color on hover */
+}
+
+#timeFilter, #comparisonTimeFilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#timeFilter label, #comparisonTimeFilter label {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+#timeFilter select, #comparisonTimeFilter select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    background-color: #fff;
+}
+
+#dateRangeFilter, #comparisonDateRangeFilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#dateRangeFilter label, #comparisonDateRangeFilter label {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+#dateRangeFilter input[type="date"], #comparisonDateRangeFilter input[type="date"] {
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#dateRangeFilter span, #comparisonDateRangeFilter span {
+    margin: 0 5px;
+}
+
+#dateRangeFilter button, #comparisonDateRangeFilter button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#dateRangeFilter button:hover, #comparisonDateRangeFilter button:hover {
+    background-color: #0056b3;
+}
+
+#loadResultsBtn {
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#loadResultsBtn:hover {
+    background-color: #218838;
+}
+
+.instructions {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+#resultsContainer {
+    display: block; /* Changed from grid */
+}
+
+#resultsContainer h2 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-block {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.stat-block h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.stat-label {
+    width: 25%;
+    flex-shrink: 0;
+    padding-right: 10px;
+    text-align: right;
+    color: #555;
+}
+
+.stat-bar-container {
+    flex-grow: 1;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    height: 20px;
+}
+
+.stat-bar {
+    background-color: #007bff;
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease-in-out;
+}
+
+.stat-value {
+    width: 15%;
+    flex-shrink: 0;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Comparison View Styles */
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
+.comparison-item .stat-bar-container {
+    position: relative;
+    height: 25px; /* Make bars a bit thicker for comparison */
+}
+
+.comparison-item .stat-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    opacity: 0.7;
+}
+
+.comparison-item .base-bar {
+    background-color: #007bff;
+    z-index: 1;
+}
+
+.comparison-item .comp-bar {
+    background-color: #ff7f50;
+    z-index: 2; /* Comparison bar on top */
+}
+
+.stat-value-group {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.stat-value-group .stat-value {
+    width: 100%;
+    padding-left: 0;
+    font-size: 0.9em;
+}
+
+.base-value {
+    color: #007bff;
+}
+
+.comp-value {
+    color: #ff7f50;
+}
+
+
+
+.hidden {
+    display: none;
+}
+
+#loadingMessage, #errorMessage {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#loadingMessage {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+
+#errorMessage {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+/* Additions on top of results.style.css for the v3 dashboard. */
+
+.page-subtitle {
+    text-align: center;
+    color: #666;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-style: italic;
+    font-size: 0.95em;
+}
+
+.page-subtitle code {
+    background: #f0f0f0;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.9em;
+    font-style: normal;
+}
+
+.extra-filter {
+    margin-top: 10px;
+}
+
+.extra-filter label {
+    display: inline-block;
+    min-width: 120px;
+}
+
+.summary-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 20px 0 30px;
+}
+
+.summary-strip .summary-card {
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    padding: 14px 16px;
+    text-align: center;
+}
+
+.summary-strip .summary-card .v {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: #2a4d8f;
+    line-height: 1.1;
+}
+
+.summary-strip .summary-card .l {
+    font-size: 0.8em;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+}
+
+.summary-strip .summary-card.warn .v {
+    color: #c89a00;
+}
+
+.section-header {
+    background: #f6f8fc;
+    padding: 14px 18px;
+    margin: 26px 0 12px;
+    border-left: 4px solid #2a4d8f;
+    border-radius: 4px;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: #2a4d8f;
+    font-size: 1.15em;
+}
+
+.section-header p {
+    margin: 4px 0 0;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.qualitative-container {
+    margin-top: 40px;
+}
+
+.qualitative-container h2 {
+    color: #2a4d8f;
+    border-bottom: 2px solid #e4e4e4;
+    padding-bottom: 6px;
+}
+
+.qualitative-block {
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+}
+
+.qualitative-block h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1em;
+}
+
+.qualitative-block details {
+    margin-top: 8px;
+}
+
+.qualitative-block details summary {
+    cursor: pointer;
+    color: #2a4d8f;
+    font-weight: 600;
+    padding: 4px 0;
+}
+
+.qualitative-block .response-item {
+    background: #f9f9f9;
+    border-left: 3px solid #2a4d8f;
+    padding: 8px 12px;
+    margin: 6px 0;
+    font-size: 0.93em;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.qualitative-block .response-item .meta {
+    color: #999;
+    font-size: 0.8em;
+    margin-bottom: 4px;
+}
+
+.back-link-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.no-data {
+    color: #888;
+    font-style: italic;
+}
+
+.scale-marker {
+    font-size: 0.78em;
+    color: #999;
+    margin-left: 6px;
+}

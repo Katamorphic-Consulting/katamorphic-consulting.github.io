@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey v3 Results</title>
+    <link rel="stylesheet" href="results.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Survey v3 Results</h1>
+        <p class="page-subtitle">Reads from Netlify Blobs (<code>survey-v3</code> store). v1 data is unaffected.</p>
+
+        <div id="controls">
+            <div class="filter-period" id="basePeriod">
+                <h3>Filters</h3>
+                <div id="timeFilter">
+                    <label for="timeRange">Filter by time:</label>
+                    <select id="timeRange">
+                        <option value="all">All time</option>
+                        <option value="24h">Last 24 hours</option>
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                    </select>
+                </div>
+                <div id="dateRangeFilter">
+                    <label for="startDate">Or select a range:</label>
+                    <input type="date" id="startDate">
+                    <span>-</span>
+                    <input type="date" id="endDate">
+                    <button id="applyDateRangeBtn">Apply</button>
+                </div>
+                <div id="modeFilter" class="extra-filter">
+                    <label for="modeRange">Survey mode:</label>
+                    <select id="modeRange">
+                        <option value="all">All</option>
+                        <option value="Start of course (pre)">Pre only</option>
+                        <option value="End of course (post)">Post only</option>
+                        <option value="One-off / not part of a pre-post pair">One-off only</option>
+                    </select>
+                </div>
+                <div id="attentionFilter" class="extra-filter">
+                    <label for="attentionRange">Attention check:</label>
+                    <select id="attentionRange">
+                        <option value="all">Include all</option>
+                        <option value="passed">Only passed</option>
+                        <option value="failed">Only failed</option>
+                    </select>
+                </div>
+                <div id="courseFilter" class="extra-filter">
+                    <label for="courseRange">Course:</label>
+                    <select id="courseRange">
+                        <option value="all">All courses</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="summaryStrip" class="summary-strip hidden"></div>
+
+        <div id="resultsContainer">
+            <!-- Stats rendered here -->
+        </div>
+
+        <div id="qualitativeContainer" class="qualitative-container">
+            <!-- Open-ended responses rendered here -->
+        </div>
+
+        <div id="loadingMessage" class="hidden">Loading...</div>
+        <div id="errorMessage" class="hidden"></div>
+
+        <p class="back-link-row">
+            <a href="index.html" class="back-link">→ Take the v3 survey</a>
+            <a href="../results.html" class="back-link">→ v1 results dashboard</a>
+        </p>
+    </div>
+
+    <!-- survey.js exposes window.SURVEY_V3_SCHEMA and bails out of UI setup
+         when there's no #surveyForm on the page. -->
+    <script src="survey.js"></script>
+    <script src="results.script.js"></script>
+</body>
+</html>

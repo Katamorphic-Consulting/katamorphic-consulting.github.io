@@ -1,0 +1,9 @@
+{
+  "name": "aisurvey",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Vercel project root for the aiSurvey deployment. Dependency is for the Neon Postgres serverless functions in api/v3-*.js.",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}

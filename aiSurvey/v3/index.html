@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI in Higher Education — Student Survey (v3)</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="survey.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8PQ0P2F31V"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8PQ0P2F31V');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="survey-header">
+            <h1>Generative AI in Higher Education</h1>
+            <p class="subtitle">Student survey — version 3 (research instrument)</p>
+        </header>
+
+        <section id="consentScreen" class="consent-screen">
+            <h2>Information &amp; consent</h2>
+            <p>
+                You are invited to take part in a study about how university and
+                college students use generative AI (GenAI) tools — such as
+                ChatGPT, Copilot, Gemini, or Claude — in their studies. The
+                survey is open to students in <strong>any field</strong>, not just
+                computing. We ask about your programming background because it
+                may shape how you use these tools.
+            </p>
+            <ul class="consent-list">
+                <li><strong>Voluntary.</strong> Participation is voluntary. You can stop at any time by closing the page; no partial data is stored until you press Submit.</li>
+                <li><strong>Anonymous.</strong> We do not ask for your name, email, or student ID. Responses are stored without direct identifiers.</li>
+                <li><strong>Self-generated code.</strong> You will create a short non-identifying code so that, if you complete this survey twice (start and end of term), we can link your two responses without knowing who you are.</li>
+                <li><strong>Use of data.</strong> Aggregated, de-identified data may be used in academic publications, presentations, and improvements to teaching.</li>
+                <li><strong>Time.</strong> About 10–15 minutes.</li>
+                <li><strong>Risks.</strong> Minimal. No questions ask about academic misconduct in a way that can be linked to you personally.</li>
+                <li><strong>Contact.</strong> Questions? Contact the lecturer or the research lead listed on the course page.</li>
+            </ul>
+            <label class="consent-confirm">
+                <input type="checkbox" id="consentCheckbox">
+                I am 16 or older, I have read the information above, and I consent to participate.
+            </label>
+            <button type="button" id="consentContinue" disabled>Continue to survey</button>
+        </section>
+
+        <form id="surveyForm" class="hidden">
+            <div id="progressBar" class="progress-bar"><div id="progressFill"></div></div>
+            <div id="questionsContainer"></div>
+            <button type="submit">Submit survey</button>
+        </form>
+
+        <div id="responseMessage"></div>
+    </div>
+
+    <script src="survey.js"></script>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Thank you — submission received</h2>
+            <p id="completionSummary">You have answered X out of Y questions.</p>
+            <p class="instructions">
+                If your lecturer asked for proof of completion, please take a
+                screenshot of this confirmation and send it via your course's
+                usual channel (e.g., Microsoft Teams or Brightspace).
+            </p>
+        </div>
+    </div>
+</body>
+</html>

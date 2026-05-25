@@ -1,0 +1,191 @@
+/* survey-v3.css — same styling base as v2; kept as a separate file so future
+ * tweaks to v3 don't affect v2.
+ */
+
+.survey-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.survey-header .subtitle {
+    color: #666;
+    font-style: italic;
+    margin-top: -15px;
+}
+
+.consent-screen {
+    background: #f9fbff;
+    border: 1px solid #d6e4ff;
+    border-radius: 6px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.consent-screen h2 {
+    margin-top: 0;
+    color: #2a4d8f;
+}
+
+.consent-list {
+    padding-left: 20px;
+}
+
+.consent-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.consent-confirm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0 15px;
+    font-weight: 500;
+}
+
+.consent-confirm input {
+    width: 18px;
+    height: 18px;
+}
+
+#consentContinue {
+    padding: 10px 20px;
+    background: #2a4d8f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#consentContinue:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+#progressFill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2a4d8f, #007bff);
+    transition: width 0.3s ease;
+}
+
+.likert-row {
+    display: grid;
+    grid-template-columns: 1fr repeat(var(--n-cols, 5), minmax(60px, 1fr));
+    gap: 6px;
+    align-items: center;
+    padding: 8px 4px;
+    border-bottom: 1px solid #eee;
+}
+
+.likert-row:last-child {
+    border-bottom: none;
+}
+
+.likert-row .likert-label {
+    font-weight: normal;
+    font-size: 0.95em;
+}
+
+.likert-row .likert-option {
+    display: flex;
+    justify-content: center;
+}
+
+.likert-header {
+    display: grid;
+    grid-template-columns: 1fr repeat(var(--n-cols, 5), minmax(60px, 1fr));
+    gap: 6px;
+    font-size: 0.78em;
+    color: #666;
+    text-align: center;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 6px;
+}
+
+@media (max-width: 640px) {
+    .likert-header { display: none; }
+    .likert-row {
+        grid-template-columns: 1fr;
+    }
+    .likert-row .likert-label {
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+    .likert-row .likert-option {
+        justify-content: flex-start;
+    }
+    .likert-row .likert-option::after {
+        content: attr(data-option-label);
+        margin-left: 8px;
+    }
+}
+
+.section-intro {
+    color: #555;
+    font-size: 0.95em;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.question-note {
+    font-size: 0.85em;
+    color: #777;
+    font-style: italic;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.code-builder {
+    background: #f4f7fb;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 8px;
+}
+
+.code-builder label {
+    font-weight: normal;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.code-builder .code-preview {
+    font-family: monospace;
+    background: #fff;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+.attention-check { /* deliberately same as normal */ }
+
+.post-only {
+    border-left: 4px solid #2a4d8f;
+    padding-left: 12px;
+}
+
+/* v3 additions */
+.cite-note {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: -6px;
+    margin-bottom: 10px;
+}
