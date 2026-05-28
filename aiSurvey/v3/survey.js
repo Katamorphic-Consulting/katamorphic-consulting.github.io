@@ -910,6 +910,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     surveyForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Guard against double-submission: if an earlier click is still in
+        // flight, ignore subsequent clicks. The button is also disabled below
+        // once validation passes, so two real clicks within the same tick get
+        // caught here too.
+        const submitBtn = surveyForm.querySelector('button[type="submit"]');
+        if (submitBtn.disabled) return;
+
         document.querySelectorAll('.question-item.highlight').forEach(el => el.classList.remove('highlight'));
         responseMessage.classList.remove('is-visible');
 
@@ -945,6 +953,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const payload = collectPayload(formData);
 
+        // Lock the Submit button once we're actually going to POST.
+        const originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
         try {
             const res = await fetch('/api/v3-submit', {
                 method: 'POST',
@@ -961,9 +974,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const answered = Object.keys(payload.responses || {}).length;
             completionSummary.textContent = `You answered ${answered} of ${totalQuestions} applicable questions.`;
             modal.classList.add('is-visible');
+            // Keep the button disabled on success so the user can't re-submit
+            // the same row by clicking again before the modal closes.
+            submitBtn.textContent = 'Submitted';
         } catch (err) {
             console.error(err);
             showError(`Submission error: ${err.message}`);
+            // Restore the button only on failure so the user can try again.
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
         }
     });
 
@@ -1011,6 +1030,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         modal.classList.remove('is-visible');
         surveyForm.reset();
         progressFill.style.width = '0%';
+        // Re-enable Submit so the form can be used again (handy for dev testing
+        // and for the unlikely case where a respondent submits twice on purpose).
+        const submitBtn = surveyForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit survey';
+        }
     });
 
     window.addEventListener('click', (e) => {
