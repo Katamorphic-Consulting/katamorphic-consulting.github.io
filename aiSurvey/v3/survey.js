@@ -986,9 +986,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    // Single source of truth for "which questions are applicable given a
+     // chosen survey_mode". Used by both collectPayload (to drop stale answers
+     // from sections the respondent toggled away from) and countTotalQuestions
+     // (so the "X of Y answered" message can never exceed Y).
+    function visibleQuestionIds(mode) {
+        const set = new Set();
+        sections.forEach(s => {
+            if (s.postOnly && mode !== 'End of course (post)') return;
+            if (s.preOnly  && mode === 'End of course (post)') return;
+            s.questions.forEach(q => set.add(q.id));
+        });
+        return set;
+    }
+
     function collectPayload(formData) {
+        const mode = formData.get('survey_mode');
+        const visible = visibleQuestionIds(mode);
+
         const responses = {};
         for (const [name, value] of formData.entries()) {
+            // Skip stale answers from sections that are now hidden (e.g. if
+            // the respondent answered demographics in pre mode then switched
+            // to post mode — those values would otherwise inflate the count).
+            if (!visible.has(name)) continue;
             if (name in responses) {
                 if (!Array.isArray(responses[name])) responses[name] = [responses[name]];
                 responses[name].push(value);
@@ -1012,12 +1033,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function countTotalQuestions(payload) {
-        const mode = payload.surveyMode;
-        return sections.reduce((total, s) => {
-            if (s.postOnly && mode !== 'End of course (post)') return total;
-            if (s.preOnly  && mode === 'End of course (post)') return total;
-            return total + s.questions.length;
-        }, 0);
+        return visibleQuestionIds(payload.surveyMode).size;
     }
 
     function showError(msg) {
