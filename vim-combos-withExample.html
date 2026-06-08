@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vim Combos</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--bg4:#21262d;
+  --t:#e6edf3;--t2:#8b949e;--t3:#484f58;
+  --blue:#58a6ff;--green:#3fb950;--amber:#e3b341;--red:#f85149;--purple:#bc8cff;
+  --border:#30363d;
+  --mono:'Cascadia Code','Fira Code','JetBrains Mono','Courier New',monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--t);font-family:var(--mono);font-size:13px;line-height:1.5;overflow:hidden}
+button{font-family:var(--mono);cursor:pointer}
+#app{display:flex;flex-direction:column;height:100vh}
+
+/* ── header ── */
+#hdr{display:flex;align-items:center;gap:8px;padding:6px 14px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;min-height:40px}
+#hdr-title{font-size:13px;font-weight:600;letter-spacing:.03em;margin-right:4px}
+.navbtn{padding:3px 10px;border-radius:3px;border:1px solid transparent;font-size:11px;background:transparent;color:var(--t2)}
+.navbtn:hover{color:var(--t);background:var(--bg4)}
+.navbtn.active{color:var(--t);border-color:var(--border);background:var(--bg3)}
+.navdiv{width:1px;height:14px;background:var(--border);flex-shrink:0}
+#hdr-right{margin-left:auto;display:flex;align-items:center;gap:7px}
+.hpill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:10px;border:1px solid var(--border);color:var(--t2)}
+.hpill .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+#progbar{height:3px;background:var(--border);border-radius:2px;width:80px;display:inline-block;vertical-align:middle;overflow:hidden}
+#progfill{height:100%;background:var(--green);transition:width .3s;border-radius:2px}
+.hbtn{padding:3px 9px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--t2);font-size:11px}
+.hbtn:hover{color:var(--t);border-color:var(--t2)}
+.hbtn.ok{color:var(--green);border-color:#196932}
+
+/* ── body ── */
+#body{display:flex;flex:1;overflow:hidden}
+
+/* ── sidebar ── */
+#sb{width:188px;flex-shrink:0;overflow-y:auto;background:var(--bg2);border-right:1px solid var(--border);padding:6px 0}
+.sh{padding:5px 10px 3px;font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;gap:4px;user-select:none}
+.sh:hover{color:var(--t2)}
+.sh .arr{font-size:8px;transition:transform .15s;display:inline-block}
+.sh.open .arr{transform:rotate(90deg)}
+.si{display:none}
+.sh.open+.si{display:block}
+.sitem{padding:3px 10px 3px 18px;font-size:11px;cursor:pointer;color:var(--t2);display:flex;align-items:center;gap:5px;border-left:2px solid transparent}
+.sitem:hover{color:var(--t);background:var(--bg4)}
+.sdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;background:var(--t3)}
+.sdot.l{background:var(--green)}
+.sdot.f{background:var(--amber)}
+
+/* ── pages ── */
+.page{display:none;flex:1;overflow-y:auto}
+.page.active{display:flex;flex-direction:column}
+
+/* ── reference page ── */
+#pg-ref{padding:18px 22px}
+#fbar{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap}
+.fbtn{padding:3px 11px;border-radius:20px;border:1px solid var(--border);font-size:11px;background:transparent;color:var(--t2);font-family:var(--mono)}
+.fbtn:hover{color:var(--t);border-color:var(--t2)}
+.fbtn.on{background:var(--t);color:var(--bg);border-color:var(--t)}
+.stage-hdr{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.stage-hdr em{color:var(--t2);font-style:normal;font-weight:400;margin-left:8px;letter-spacing:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:11px;margin-bottom:32px}
+
+/* ── cards ── */
+.card{border-radius:7px;border:1px solid var(--border);background:var(--bg2);display:flex;flex-direction:column;transition:border-color .15s,background .15s}
+.card.learnt{border-color:#196932;background:#091a10}
+.card.foreign{border-color:#7d3a0a;background:#1e0f04}
+.card-top{padding:12px 13px 10px;display:flex;align-items:flex-start;gap:7px;border-bottom:1px solid var(--border)}
+.card-keys{display:flex;flex-wrap:wrap;gap:4px;flex:1}
+.kk{padding:3px 9px;border:1px solid var(--border);border-radius:4px;background:var(--bg4);font-size:13px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.card.learnt .kk{border-color:#196932;background:rgba(63,185,80,.1);color:#7ee89a}
+.card.foreign .kk{border-color:#7d3a0a;background:rgba(227,179,65,.1);color:#f0c060}
+.mbadge{padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.06em;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.mn{background:#162032;color:var(--blue)}
+.mi{background:#102518;color:var(--green)}
+.mv{background:#2d2008;color:var(--amber)}
+.mc{background:#21142b;color:var(--purple)}
+.card-body{padding:11px 13px 9px;flex:1}
+.card-desc{font-size:13px;font-weight:600;color:var(--t);margin-bottom:10px;line-height:1.4}
+.ba{display:grid;grid-template-columns:1fr 16px 1fr;gap:4px;align-items:center;margin-bottom:9px}
+.ba-lbl{font-size:9px;color:var(--t3);letter-spacing:.07em;margin-bottom:2px}
+.ba-buf{font-size:11px;background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:5px 7px;white-space:pre;overflow-x:auto;line-height:1.55;min-height:24px}
+.ba-arr{text-align:center;color:var(--t3);font-size:12px}
+.cur{background:var(--blue);color:var(--bg);border-radius:2px;padding:0 1px}
+.tip{font-size:11px;color:var(--t2);border-left:2px solid var(--border);padding:3px 8px;line-height:1.55;margin-bottom:9px}
+.card.learnt .tip{border-left-color:#196932}
+.card.foreign .tip{border-left-color:#7d3a0a}
+.tryit{font-size:11px;background:var(--bg3);border-radius:3px;border:1px solid var(--border);padding:7px 9px;line-height:1.55;color:var(--t2)}
+.tryit strong{color:var(--amber)}
+.card-foot{padding:9px 13px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:7px}
+.state-lbl{font-size:10px;font-weight:700;letter-spacing:.05em;min-width:50px}
+.s-n{color:var(--t3)}.s-l{color:var(--green)}.s-f{color:var(--amber)}
+.toggle{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.tbtn{padding:4px 10px;font-size:10px;font-weight:700;background:transparent;border:none;color:var(--t3);transition:background .1s,color .1s;letter-spacing:.04em;border-right:1px solid var(--border)}
+.tbtn:last-child{border-right:none}
+.tbtn:hover{color:var(--t2);background:var(--bg4)}
+.tbtn.on-n{background:var(--bg4);color:var(--t2)}
+.tbtn.on-l{background:rgba(63,185,80,.2);color:var(--green)}
+.tbtn.on-f{background:rgba(227,179,65,.2);color:var(--amber)}
+
+/* ── practice page ── */
+.prac-wrap{display:flex;flex:1;overflow:hidden;min-height:0}
+.prac-left{width:340px;flex-shrink:0;overflow-y:auto;padding:20px 18px;border-right:1px solid var(--border)}
+.prac-right{flex:1;overflow-y:auto;padding:20px 22px;min-width:0}
+.prac-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.prac-sub{font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.5}
+.ex-list{display:flex;flex-direction:column;gap:12px}
+.ex{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:11px 13px}
+.ex-num{font-size:10px;color:var(--t3);letter-spacing:.06em;margin-bottom:4px}
+.ex-title{font-size:12px;font-weight:600;color:var(--t);margin-bottom:5px;line-height:1.4}
+.ex-desc{font-size:11px;color:var(--t2);line-height:1.55;margin-bottom:8px}
+.ex-cmds{display:flex;flex-direction:column;gap:4px}
+.cmd-row{display:flex;align-items:center;gap:7px}
+.cmd-lbl{font-size:10px;color:var(--t3);width:42px;flex-shrink:0}
+.cmd-key{font-size:12px;font-weight:600;background:var(--bg4);border:1px solid var(--border);border-radius:3px;padding:2px 8px;color:var(--t);letter-spacing:.02em;white-space:nowrap}
+.cmd-arrow{font-size:11px;color:var(--t3)}
+.cmd-result{font-size:11px;color:var(--t2);font-style:italic}
+/* practice buffer */
+.buf-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.buf-label{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.08em}
+.buf-actions{display:flex;gap:6px}
+.copy-btn{padding:3px 10px;font-size:11px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--t2);transition:color .1s,border-color .1s}
+.copy-btn:hover{color:var(--t);border-color:var(--t2)}
+.copy-btn.copied{color:var(--green);border-color:#196932}
+.dl-btn{padding:3px 10px;font-size:11px;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--t2)}
+.dl-btn:hover{color:var(--t);border-color:var(--t2)}
+.buf-block{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:14px 16px;font-size:12px;line-height:1.8;white-space:pre;overflow-x:auto;tab-size:4;color:var(--t)}
+.buf-block .ln{color:var(--t3);user-select:none;display:inline-block;width:28px;text-align:right;margin-right:10px;font-size:11px}
+.buf-note{margin-top:10px;font-size:11px;color:var(--t2);line-height:1.6;padding:8px 10px;background:var(--bg3);border-radius:4px;border:1px solid var(--border)}
+.buf-note strong{color:var(--amber)}
+/* scrollbar */
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--t3);border-radius:3px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="hdr">
+    <span id="hdr-title">⌨ Vim Combos</span>
+    <div class="navdiv"></div>
+    <button class="navbtn active" onclick="goPage('ref',this)">Reference</button>
+    <button class="navbtn" onclick="goPage('p-s1',this)">Survival</button>
+    <button class="navbtn" onclick="goPage('p-s2',this)">Navigation</button>
+    <button class="navbtn" onclick="goPage('p-s3',this)">Insert</button>
+    <button class="navbtn" onclick="goPage('p-s4',this)">Operators</button>
+    <button class="navbtn" onclick="goPage('p-s5',this)">Text Objects</button>
+    <button class="navbtn" onclick="goPage('p-s6',this)">Visual</button>
+    <button class="navbtn" onclick="goPage('p-s7',this)">Search</button>
+    <button class="navbtn" onclick="goPage('p-s8',this)">Power</button>
+    <div id="hdr-right">
+      <span class="hpill"><span class="dot" style="background:var(--green)"></span><span id="cnt-l">0</span></span>
+      <span class="hpill"><span class="dot" style="background:var(--amber)"></span><span id="cnt-f">0</span></span>
+      <span class="hpill"><span class="dot" style="background:var(--t3)"></span><span id="cnt-n">0</span></span>
+      <span id="progbar"><span id="progfill" style="width:0%"></span></span>
+      <span id="progtxt" style="font-size:10px;color:var(--t2)">0/0</span>
+      <button class="hbtn" id="save-btn" onclick="saveProgress()" title="Download progress as JSON">↓ save</button>
+      <label class="hbtn" style="cursor:pointer" title="Load progress from JSON">↑ load<input type="file" accept=".json" style="display:none" onchange="loadProgress(event)"></label>
+      <button class="hbtn" onclick="resetAll()">reset</button>
+    </div>
+  </div>
+  <div id="body">
+    <nav id="sb"></nav>
+    <!-- pages -->
+    <div id="pg-ref" class="page active">
+      <div id="fbar">
+        <button class="fbtn on" onclick="setFilter('all',this)">All</button>
+        <button class="fbtn" onclick="setFilter('n',this)">Not yet</button>
+        <button class="fbtn" onclick="setFilter('f',this)">Foreign</button>
+        <button class="fbtn" onclick="setFilter('l',this)">Learnt</button>
+      </div>
+      <div id="cards"></div>
+    </div>
+    <!-- practice pages rendered by JS -->
+  </div>
+</div>
+<script>
+// ════════════════════════════════════════════
+// CURRICULUM DATA
+// ════════════════════════════════════════════
+const STAGES=[
+{id:'s1',title:'Survival',combos:[
+  {id:'hjkl',keys:['h','j','k','l'],mode:'n',desc:'Navigate left/down/up/right',before:'hel|lo world',after:'hell|o world',tip:'Replace arrow keys permanently. 5j moves 5 lines down. Muscle memory takes ~1 week.',try:'Navigate to "DELETE" on the last line using j/k and h/l only — no arrow keys.'},
+  {id:'i_esc',keys:['i','Esc'],mode:'n',desc:'Enter insert mode / return to normal',before:'|hello',after:'hel|lo  ← insert',tip:'Esc is the most important key. Ctrl+[ is identical and ergonomically superior.',try:'Press i, type a few characters, then Esc. Watch the mode label change.'},
+  {id:'colon_cmds',keys:[':w',':q',':wq'],mode:'c',desc:'Save / quit / save-and-quit',before:'(unsaved)',after:'(written)',tip:':q! discards changes. :e! reloads from disk. All require Enter to execute.',try:'Press : to enter command mode. Type w and Enter. Then try :noh.'},
+  {id:'x_del',keys:['x'],mode:'n',desc:'Delete character under cursor',before:'hell|xo world',after:'hell|o world',tip:'X deletes before cursor. 5x deletes five characters forward.',try:'Navigate to the spurious "x" in "hellxo" and press x to remove it.'},
+  {id:'dd_p',keys:['dd','p'],mode:'n',desc:'Delete (cut) line / paste below',before:'keep\n|remove me\nkeep',after:'keep\n|keep',tip:'Content lands in the default register. p pastes below, P above. 3dd deletes three.',try:'Cursor on "DELETE THIS LINE". Press dd, move up, press p.'},
+  {id:'u_redo',keys:['u','Ctrl+r'],mode:'n',desc:'Undo / redo',before:'(wrong state)',after:'(restored)',tip:'Vim maintains a full undo tree. u undoes; Ctrl+r redoes.',try:'Delete a character with x. Press u to undo. Press Ctrl+r to redo.'},
+  {id:'yy',keys:['yy','p'],mode:'n',desc:'Yank (copy) current line / paste below',before:'|copy me\nnext',after:'copy me\n|copy me\nnext',tip:'p pastes below, P above. Line stays in the default register.',try:'Cursor on the greet function. Press yy to copy. Press G then p to paste at end.'},
+]},
+{id:'s2',title:'Navigation',combos:[
+  {id:'wbe',keys:['w','b','e'],mode:'n',desc:'Next word / prev word / word end',before:'|hello world foo',after:'hello |world foo',tip:'W B E use whitespace-only as delimiter. 3w hops three words forward.',try:'Press w repeatedly to hop words. Use b to go back. Use e to land on ends.'},
+  {id:'line_pos',keys:['0','^','$'],mode:'n',desc:'Column 0 / first non-blank / end of line',before:'    hell|o world',after:'    |hello world',tip:'^ is more useful than 0 in indented code. d$ deletes to end of line.',try:'Press ^ to reach first non-blank. Press $ to jump to end. Try 0.'},
+  {id:'gg_G',keys:['gg','G'],mode:'n',desc:'Jump to first line / last line',before:'(anywhere)',after:'|first line',tip:'5gg jumps to line 5. dG deletes from cursor to end of file.',try:'Press G to reach last line. Press gg to return. Try 4gg.'},
+  {id:'percent',keys:['%'],mode:'n',desc:'Jump to matching bracket',before:'greet(|name) {',after:'greet(name|) {',tip:'Works with () [] {}. One keypress for deeply nested traversal.',try:'Place cursor on any ( or { in code. Press % to jump to its pair.'},
+  {id:'fx',keys:['fx','Fx'],mode:'n',desc:'Find character forward/backward on line',before:'|function greet(name)',after:'function greet(name|)',tip:'; repeats the last find in same direction. , reverses it.',try:'On function line, press f( to jump to paren. Press ; to find the next.'},
+  {id:'tx',keys:['tx','Tx'],mode:'n',desc:'Move till (one before) character on line',before:'|function greet(name)',after:'function greet(name|)',tip:'dt; deletes till semicolon, ct( changes till paren.',try:'Press t) to land just before closing paren. Try ct{ to change till brace.'},
+  {id:'para',keys:['{','}'],mode:'n',desc:'Jump to prev/next blank-line boundary',before:'|block1\n\nblock2',after:'block1\n|\nblock2',tip:'d} deletes to end of current block.',try:'Press } to jump over blank line to next function block. Use { to go back.'},
+]},
+{id:'s3',title:'Insert Mastery',combos:[
+  {id:'a_append',keys:['a'],mode:'n',desc:'Append — insert after cursor character',before:'hel|lo',after:'hell|o',tip:'i goes before; a goes after the character. Matters most at line ends.',try:'Navigate to end of a word. Press a to append text immediately after.'},
+  {id:'IA',keys:['I','A'],mode:'n',desc:'Insert at first non-blank / append at line end',before:'    hell|o world',after:'    |  ← insert',tip:'I = ^i. A = $a. A is one of the most frequently used commands.',try:'Press A to jump to end of line and enter insert. Try I for start.'},
+  {id:'oO',keys:['o','O'],mode:'n',desc:'Open new line below/above, enter insert',before:'|line 1\nline 2',after:'line 1\n|  ← new\nline 2',tip:'Much faster than End → Enter. Correct indentation preserved.',try:'Press o to open new line below. Press Esc then O to open one above.'},
+  {id:'cw',keys:['cw'],mode:'n',desc:'Change word — delete forward and enter insert',before:'hello |world foo',after:'hello |  foo',tip:'cW changes WORD. ce changes to word end. One of the most-used combos.',try:'Navigate cursor into "world". Press cw to delete it and type a replacement.'},
+  {id:'cc_line',keys:['cc'],mode:'n',desc:'Change entire line — wipe and enter insert',before:'|old content here',after:'|  ← insert',tip:'Cursor stays at correct indentation. Faster than dd then i.',try:'Press cc on any line to clear it and type replacement content.'},
+  {id:'ctrl_w_ins',keys:['Ctrl+w'],mode:'i',desc:'Delete previous word in insert mode',before:'hello wor|  ← insert',after:'hello |  ← insert',tip:'Works in insert mode only. Useful for correcting a mistyped word.',try:'Press i, type several words, then Ctrl+w to delete the last typed word.'},
+]},
+{id:'s4',title:'Operators + Motions',combos:[
+  {id:'dmotion',keys:['dw','db','d$'],mode:'n',desc:'Delete: next word / prev word / to line end',before:'|hello world foo',after:'|world foo',tip:'The grammar: operator + motion = act on that range. d3w deletes three words.',try:'Press dw to delete "hello". Press db to delete word before cursor. Try d$.'},
+  {id:'yw',keys:['yw','y$'],mode:'n',desc:'Yank word / yank to end of line',before:'|hello world',after:'|hello world  (reg: hello)',tip:'y accepts all motions: y$ to end, yG to file end, y3w for three words.',try:'Press yw on a word. Navigate elsewhere. Press p to paste it.'},
+  {id:'dot',keys:['.'],mode:'n',desc:'Repeat last change at current position',before:'|word word word',after:'word |word word',tip:'The most powerful primitive in Vim. Works after any change. Combine with n or f.',try:'Delete a word with dw. Move to another word. Press . to delete it too.'},
+  {id:'DC',keys:['D','C'],mode:'n',desc:'Delete/change from cursor to end of line',before:'keep |delete this',after:'keep|',tip:'D = d$. C = c$. C enters insert mode.',try:'Press D to delete from cursor to end. Undo, then press C to change instead.'},
+  {id:'indent_ops',keys:['>>','<<'],mode:'n',desc:'Indent / dedent current line',before:'|code here',after:'    |code here',tip:'In visual mode: V then > indents an entire selected range.',try:'Press >> to indent. Press << to dedent. Try V j > in visual mode.'},
+  {id:'tilde',keys:['~'],mode:'n',desc:'Toggle case of character under cursor',before:'hello |World',after:'hello |world',tip:'g~ + motion toggles a range. gU uppercases, gu lowercases.',try:'Navigate to a letter and press ~ to flip case. Press . to repeat.'},
+]},
+{id:'s5',title:'Text Objects',combos:[
+  {id:'iw_aw',keys:['diw','daw'],mode:'n',desc:'Delete inner word / around word (+space)',before:'hello |world foo',after:'hello | foo',tip:'"inner" excludes space. "around" removes content + adjacent space.',try:'On "world": try diw (space remains) then undo, then daw (space removed).'},
+  {id:'ci_quote',keys:['ci"',"ci'"],mode:'n',desc:'Change inside double/single quotes',before:'return "|hello" + name',after:'return "|"  ← insert',tip:'Works with any pair. Cursor may be anywhere inside the pair.',try:'Put cursor inside quoted string. Press ci" and type a new value.'},
+  {id:'da_quote',keys:['da"'],mode:'n',desc:'Delete around quotes — removes delimiters too',before:'say "|hello"',after:'say |',tip:'"around" for pairs always includes the delimiter characters.',try:'Press da" to delete quoted string including both quote marks.'},
+  {id:'ci_paren',keys:['ci(','da('],mode:'n',desc:'Change inside / delete around parentheses',before:'greet(|"Alice")',after:'greet(|)  ← insert',tip:'Also ci) or cib. Works across multiple lines.',try:'Cursor inside function-call parens. Press ci( to replace all arguments.'},
+  {id:'ci_brace',keys:['ci{','da{'],mode:'n',desc:'Change inside / delete around curly braces',before:'if (x) {\n  |code\n}',after:'if (x) {\n  |\n}  ← insert',tip:'Also ci} or ciB. Essential for rewriting function bodies.',try:'Cursor inside braces. Press ci{ to clear body and retype.'},
+  {id:'yip',keys:['yip','yap'],mode:'n',desc:'Yank inner / around paragraph',before:'\n|function...\n\n',after:'\n|function...  (yanked)',tip:'yap includes surrounding blank lines. dip, cip also available.',try:'Cursor in first function. Press yip to copy it. Press G p to paste.'},
+]},
+{id:'s6',title:'Visual Mode',combos:[
+  {id:'v_char',keys:['v'],mode:'n',desc:'Enter character-wise visual mode',before:'|hello world',after:'[h]  ← extend with motions',tip:'Navigate to extend, then apply operator: d y c > < = ~',try:'Press v, then w to select words. Press d to delete or y to yank.'},
+  {id:'V_line',keys:['V'],mode:'n',desc:'Enter line-wise visual mode',before:'|function greet...',after:'[function greet...]  ← selected',tip:'Selects entire lines. Extend with j/k.',try:'Press V, extend with j, then y to copy all selected lines.'},
+  {id:'ctrl_v',keys:['Ctrl+v'],mode:'n',desc:'Enter block (column) visual mode',before:'|item1  val1\nitem2  val2',after:'[i]tem1\n[i]tem2  ← block',tip:'I then type inserts on every line simultaneously.',try:'Press Ctrl+v, extend with j, then I to insert text on every line.'},
+  {id:'v_o',keys:['o'],mode:'v',desc:'Move cursor to other end of selection',before:'hel[lo wo|r]ld',after:'hel|[lo wor]ld',tip:'Adjust the start boundary without losing the selection.',try:'Make a visual selection, then press o to swap to the other end.'},
+  {id:'gv',keys:['gv'],mode:'n',desc:'Reselect last visual selection',before:'(after exiting visual)',after:'(selection restored)',tip:'Apply a second operator to exactly the same region.',try:'Select text, press Esc, then press gv to restore immediately.'},
+]},
+{id:'s7',title:'Search',combos:[
+  {id:'fwd_srch',keys:['/pattern'],mode:'n',desc:'Search forward (supports full regex)',before:'|find me here',after:'find |me here',tip:'n jumps to next match, N to previous. Wraps at file boundaries.',try:'Press /, type "function", press Enter. Use n/N to cycle matches.'},
+  {id:'n_N',keys:['n','N'],mode:'n',desc:'Jump to next/previous search match',before:'|match  match  match',after:'match  |match  match',tip:'Combine with . : n to find, . to apply last change — elegant multi-site edits.',try:'After any search, press n to advance and N to go back.'},
+  {id:'star',keys:['*','#'],mode:'n',desc:'Search forward/backward for word under cursor',before:'hello |world hello world',after:'hello world hello |world',tip:'Put cursor on any identifier and * instantly highlights all usages.',try:'Cursor on "filter" or "reduce" in code. Press * to find all occurrences.'},
+  {id:'subst',keys:[':%s/old/new/g'],mode:'c',desc:'Replace all occurrences across file',before:'foo foo foo',after:'bar bar bar',tip:':s// operates on current line only. /c confirms each match. /i ignores case.',try:'Press : then type %s/function/fn/g and Enter to rename all "function" to "fn".'},
+  {id:'noh',keys:[':noh'],mode:'c',desc:'Clear search highlighting',before:'(highlights visible)',after:'(highlights dismissed)',tip:'Often mapped to a dedicated key in init.lua / .vimrc.',try:'After a search, type :noh and Enter to dismiss highlights.'},
+]},
+{id:'s8',title:'Power Combos',combos:[
+  {id:'named_reg',keys:['"ayy','"ap'],mode:'n',desc:'Yank into named register a / paste from it',before:'|line to preserve',after:'(reg a holds it)',tip:'26 named registers a–z. Capital A appends. Registers outlive dd.',try:'Press "ayy to yank into register a. Navigate. Press "ap to paste.'},
+  {id:'marks',keys:["ma","'a"],mode:'n',desc:'Set mark a / jump to line of mark a',before:'|mark this spot\n...far...',after:'|mark this spot  (returned)',tip:'Backtick-a jumps to exact row+column. Marks persist for the session.',try:"Press ma to mark here. Navigate far. Press 'a to return instantly."},
+  {id:'macros',keys:['qa','@a'],mode:'n',desc:'Record macro into register a / replay it',before:'(repetitive multi-step edit)',after:'(applied N times)',tip:'@@ replays last macro. 10@a replays ten times. The ultimate automation.',try:'Press qa, make a small edit, press q to stop. Press @a to replay.'},
+  {id:'count_pfx',keys:['5j','d3w'],mode:'n',desc:'Count prefix on any motion or operator',before:'|line 1\n...\nline 6',after:'line 1\n...\n|line 6',tip:'Every motion and most operators accept a count. 5dd, y3j, 10@a.',try:'Press 5j to jump five lines. Press 3w to skip three words.'},
+  {id:'dot_star',keys:['*','ciw','.'],mode:'n',desc:'* + ciw + dot: multi-site word replacement',before:'|old old old',after:'new new new',tip:'* to find, ciw + type + Esc, then n . for each instance.',try:'Cursor on repeated word. Press *. Press ciw, type replacement, Esc. Then n .'},
+  {id:'g_case',keys:['g~','gU','gu'],mode:'n',desc:'Toggle/uppercase/lowercase a motion range',before:'hello |WORLD',after:'hello |world',tip:'g~ + motion toggles. gU uppercases. gu lowercases. All work with text objects.',try:'Select mixed-case word with V. Press ~ to toggle case.'},
+]},
+];
+
+// ════════════════════════════════════════════
+// PRACTICE PAGES DATA
+// ════════════════════════════════════════════
+const PRACTICE={
+s1:{
+buf:`-- SURVIVAL PRACTICE
+-- Open this file in Vim: vim survival.txt
+-- Then follow the exercises on the left.
+
+Helo worldd — there are two typos on this line.
+This lne has a misssing letter and doubled letters.
+Corect this sentance two.
+
+Keep this line.
+Remove this entire line from the buffer.
+Keep this line too.
+
+The quick brown fox jumps over the lazy dog.
+Pack my box with five dozen liquor jugs.
+How vexingly quick daft zebras jump.
+
+-- Section break
+NOTE: this note should be deleted.
+NOTE: this one should be kept.
+NOTE: this one should be moved to the top.
+
+Append the word END here:
+Prepend the word START here:`,
+exercises:[
+  {num:'01',title:'Fix a typo with x',desc:'Navigate to the first typo on line 4 ("Helo" is missing a letter, "worldd" has an extra one). Fix each with x.',cmds:[{k:'fx',r:'jump to x in "Helo"'},{k:'i → type l → Esc',r:'insert missing letter'},{k:'fdd → x',r:'delete the extra d'}]},
+  {num:'02',title:'Delete and paste a line',desc:'Delete "Remove this entire line" with dd. Then move the cursor to line 8 and paste it below with p.',cmds:[{k:'dd',r:'cut current line'},{k:'p',r:'paste below cursor'}]},
+  {num:'03',title:'Yank and duplicate a line',desc:'Yank the fox sentence (yy). Move below it. Paste it twice.',cmds:[{k:'yy',r:'copy current line'},{k:'p',r:'paste below'},{k:'.',r:'paste again'}]},
+  {num:'04',title:'Undo a sequence of changes',desc:'Make three x deletions in a row on any line. Then press u three times to step back through each.',cmds:[{k:'x x x',r:'three deletions'},{k:'u u u',r:'undo each one'}]},
+  {num:'05',title:'Enter and exit insert mode',desc:'Navigate to the "Append" line, press A to jump to end, type " → DONE", then Esc to return to normal.',cmds:[{k:'A',r:'append at end of line'},{k:'i → type → Esc',r:'return to normal mode'}]},
+  {num:'06',title:'Save and quit',desc:'Write the buffer with :w, then quit with :q. Or use :wq to do both at once.',cmds:[{k:':w',r:'write/save'},{k:':q',r:'quit'},{k:':wq',r:'write + quit'}]},
+]},
+s2:{
+buf:`-- NAVIGATION PRACTICE
+-- Open this file in Vim: vim navigation.txt
+
+function calculateTax(income, rate, deductions) {
+    let taxableIncome = income - deductions;
+    let rawTax = taxableIncome * rate;
+    let finalTax = Math.max(0, rawTax - 500);
+    return finalTax;
+}
+
+function formatCurrency(amount, symbol, decimals) {
+    let rounded = Math.round(amount * 100) / 100;
+    let formatted = rounded.toFixed(decimals);
+    return symbol + formatted;
+}
+
+function validateInput(value, min, max, required) {
+    if (required && value === null) return false;
+    if (value < min || value > max) return false;
+    return true;
+}
+
+-- Long line for f/t practice:
+config = { host: "localhost", port: 8080, debug: true, timeout: 30 }
+
+-- Bracket practice:
+result = calculate(transform(input, [filter(a), filter(b)]), options)
+
+-- Paragraphs for { } jumps:
+First paragraph line one.
+First paragraph line two.
+First paragraph line three.
+
+Second paragraph line one.
+Second paragraph line two.
+
+Third paragraph line one.`,
+exercises:[
+  {num:'01',title:'Word hopping with w / b / e',desc:'Start at the beginning of the calculateTax line. Use w to hop word by word to "deductions". Then b back to "income". Then e to the end of "rate".',cmds:[{k:'w',r:'next word start'},{k:'b',r:'prev word start'},{k:'e',r:'word end'},{k:'3w',r:'3 words at once'}]},
+  {num:'02',title:'Line positions: 0 ^ $',desc:'On the "let taxableIncome" line, press ^ to reach the first non-blank. Press $ to jump to the end. Press 0 to go to column 0.',cmds:[{k:'^',r:'first non-blank char'},{k:'$',r:'end of line'},{k:'0',r:'column 0'}]},
+  {num:'03',title:'File top and bottom with gg / G',desc:'Press G to jump to the very last line. Press gg to return to line 1. Then type 21G to jump to line 21.',cmds:[{k:'G',r:'last line'},{k:'gg',r:'first line'},{k:'21G',r:'line 21'}]},
+  {num:'04',title:'Bracket matching with %',desc:'Place the cursor on the opening ( in calculateTax(. Press % to jump to the matching closing ). Repeat inside the nested call on the bracket-practice line.',cmds:[{k:'%',r:'jump to matching bracket'}]},
+  {num:'05',title:'Find on line with f and t',desc:'On the config = { line, press f" to find the first quote. Press ; to jump to the next quote. Press , to go back. Then try t, to land just before a comma.',cmds:[{k:'f"',r:'find next "'},{k:';',r:'repeat forward'},{k:',',r:'repeat backward'},{k:'t,',r:'till before comma'}]},
+  {num:'06',title:'Paragraph jumps with { and }',desc:'Position anywhere in the file. Press } to jump to the next blank-line boundary. Press { to go back. Count how many blocks there are.',cmds:[{k:'}',r:'next blank-line boundary'},{k:'{',r:'prev blank-line boundary'}]},
+]},
+s3:{
+buf:`-- INSERT MASTERY PRACTICE
+-- Open this file in Vim: vim insert.txt
+
+// Incomplete function signatures — add the missing bodies:
+function greet(name) {
+}
+
+function add(a, b) {
+}
+
+function repeat(str, n) {
+}
+
+// Lines missing endings — append what is indicated:
+const greeting =
+const multiplier =
+const DEBUG_MODE =
+
+// Lines missing prefixes — prepend what is indicated:
+name = "Alice"
+value = 42
+items = []
+
+// Words to change in place:
+The quick WRONGWORD jumps over the lazy ALSOWTONG.
+Replace PLACEHOLDER with something meaningful here.
+This sentence ends INCORRECTLY with a number: 99999.
+
+// Mistyped words to fix in insert mode:
+The progrm has a bgu that needs fixin.
+Implmentaton detials are importnat.`,
+exercises:[
+  {num:'01',title:'Open new lines with o and O',desc:'Place cursor on "function greet(name) {". Press o to open a line below it, type "    return \"Hello, \" + name;", then Esc. Try O to open a line above.',cmds:[{k:'o',r:'new line below, enter insert'},{k:'O',r:'new line above, enter insert'}]},
+  {num:'02',title:'Append at end of line with A',desc:'Navigate to "const greeting =". Press A to jump to line end, type \' "Hello"\', then Esc. Repeat for multiplier and DEBUG_MODE.',cmds:[{k:'A',r:'append at end of line'}]},
+  {num:'03',title:'Insert at line start with I',desc:'Navigate to \'name = "Alice"\'. Press I to jump to first non-blank, type "const ", then Esc.',cmds:[{k:'I',r:'insert at first non-blank'}]},
+  {num:'04',title:'Change a word with cw',desc:'Navigate to "WRONGWORD" on the The quick… line. Press cw to delete it and type "fox". Move to "ALSOWTONG" and repeat.',cmds:[{k:'cw',r:'delete word, enter insert'},{k:'ce',r:'delete to word end'}]},
+  {num:'05',title:'Change entire line with cc',desc:'Navigate to "Replace PLACEHOLDER…". Press cc to wipe the line, type a better sentence, then Esc.',cmds:[{k:'cc',r:'wipe line, enter insert'}]},
+  {num:'06',title:'Delete word in insert mode with Ctrl+w',desc:'Navigate to "progrm" on the last block. Press i to enter insert, place cursor after "progrm", then Ctrl+w to delete it, retype "program".',cmds:[{k:'Ctrl+w',r:'delete previous word in insert mode'}]},
+]},
+s4:{
+buf:`-- OPERATORS + MOTIONS PRACTICE
+-- Open this file in Vim: vim operators.txt
+
+// Delete exercises:
+Remove everything after this colon: THIS SHOULD GO AWAY NOW.
+    Remove this leading whitespace line by dedenting it.
+Delete this whole line entirely from the file.
+Delete just the first word here and keep the rest.
+delete_backwards from this point← delete_backwards here.
+
+// Yank and paste exercises:
+Original: function processData(input) { return input.map(transform); }
+Target:   [paste the function here]
+
+// Indent exercises — these need indenting:
+if (condition) {
+line_a = needs_indent;
+line_b = needs_indent;
+line_c = needs_indent;
+}
+
+// Case toggle exercises:
+hello WORLD mixed CASE text here.
+ALL UPPERCASE LINE THAT SHOULD BE LOWERCASE.
+all lowercase line that should be uppercase.
+
+// Dot repeat exercise:
+Remove: apple
+Remove: banana
+Remove: cherry
+Remove: date
+Remove: elderberry`,
+exercises:[
+  {num:'01',title:'Delete to end of line with D',desc:'Navigate to the "Remove everything after this colon" line. Place cursor on the space after the colon. Press D to delete from cursor to end.',cmds:[{k:'D',r:'delete to end of line'},{k:'d$',r:'identical alternative'}]},
+  {num:'02',title:'Delete word with dw',desc:'Navigate to "Delete just the first word". Place cursor at start. Press dw to delete "Delete " (word + space).',cmds:[{k:'dw',r:'delete next word'},{k:'db',r:'delete previous word'},{k:'d3w',r:'delete three words'}]},
+  {num:'03',title:'Yank and paste a line',desc:'Yank the "function processData" line with yy. Move to the Target: line. Press A then Enter, then p to paste below.',cmds:[{k:'yy',r:'copy current line'},{k:'p',r:'paste below'}]},
+  {num:'04',title:'Indent a block with >>',desc:'Navigate to "line_a = needs_indent". Press >> to indent it. Press j >> for line_b. Then try selecting all three with Vjj and pressing > once.',cmds:[{k:'>>',r:'indent one level'},{k:'<<',r:'dedent one level'},{k:'Vjj>',r:'indent 3 lines visually'}]},
+  {num:'05',title:'Toggle case with ~',desc:'Navigate to "hello WORLD". Press ~ on each capital letter to toggle it down. Use . to repeat the toggle on the next character.',cmds:[{k:'~',r:'toggle case under cursor'},{k:'g~$',r:'toggle case to end of line'},{k:'gU$',r:'uppercase to end of line'}]},
+  {num:'06',title:'Dot repeat with .',desc:'On the Remove: apple line, delete the word "apple" with dw. Press j to go to banana. Press . to repeat. Continue with . for each fruit.',cmds:[{k:'dw',r:'delete word'},{k:'.',r:'repeat last change'},{k:'j.',r:'next line + repeat'}]},
+]},
+s5:{
+buf:`-- TEXT OBJECTS PRACTICE
+-- Open this file in Vim: vim textobjects.txt
+
+// String editing:
+let msg = "Hello, World!";
+let path = "/usr/local/bin/node";
+let query = 'SELECT * FROM users WHERE active = true';
+let template = \`Welcome back, \${username}!\`;
+
+// Function arguments:
+processUser(getUserById(42), getConfig("prod"), validateToken(req.headers.auth));
+renderComponent(props, { key: item.id, ref: myRef }, children);
+
+// Object / block editing:
+const config = {
+    host: "localhost",
+    port: 3000,
+    debug: false,
+    timeout: 5000
+};
+
+function transform(data) {
+    return data
+        .filter(item => item.active)
+        .map(item => item.value);
+}
+
+// HTML tag editing:
+<div class="container">
+    <h1>Page Title Here</h1>
+    <p>Some paragraph text that needs changing.</p>
+    <span class="badge">Status: Active</span>
+</div>
+
+// Paragraph text object practice:
+First block starts here.
+This is the second line.
+Third line of first block.
+
+Second block of text.
+Another line here.`,
+exercises:[
+  {num:'01',title:'Change inside quotes with ci"',desc:'Navigate to let msg = "Hello, World!". Place cursor anywhere inside the quotes. Press ci" to clear them and type a new message.',cmds:[{k:'ci"',r:'change inside double quotes'},{k:"ci'",r:'change inside single quotes'},{k:'ci`',r:'change inside backtick'}]},
+  {num:'02',title:'Delete around quotes with da"',desc:'On the let path line, place cursor inside the path string. Press da" to delete the entire string including both quote marks.',cmds:[{k:'da"',r:'delete around double quotes'}]},
+  {num:'03',title:'Change inside parentheses with ci(',desc:'Navigate to processUser(…). Place cursor anywhere inside the outer parens. Press ci( to clear all arguments and type new ones.',cmds:[{k:'ci(',r:'change inside parens'},{k:'da(',r:'delete around parens incl. brackets'}]},
+  {num:'04',title:'Change inside curly braces with ci{',desc:'Navigate inside the config = { … } block. Press ci{ to clear the entire body. Type new properties.',cmds:[{k:'ci{',r:'change inside braces'},{k:'da{',r:'delete around braces'}]},
+  {num:'05',title:'Change inside HTML tags with cit',desc:'Place cursor inside the <h1> tag content. Press cit to clear the tag body and type new content.',cmds:[{k:'cit',r:'change inside tag'},{k:'dat',r:'delete tag + content'}]},
+  {num:'06',title:'Yank paragraph with yip',desc:'Place cursor in the "First block" paragraph. Press yip to yank it. Move below the second paragraph. Press p to paste.',cmds:[{k:'yip',r:'yank inner paragraph'},{k:'yap',r:'yank with blank lines'},{k:'dip',r:'delete inner paragraph'}]},
+]},
+s6:{
+buf:`-- VISUAL MODE PRACTICE
+-- Open this file in Vim: vim visual.txt
+
+// Character visual — select and operate:
+The quick brown fox jumps over the lazy dog.
+Pack my box with five dozen liquor jugs.
+Select any range in this sentence and delete it.
+
+// Line visual — select multiple lines:
+line one: alpha
+line two: beta
+line three: gamma
+line four: delta
+line five: epsilon
+
+// Block visual — column editing (Ctrl+v):
+| item     | qty  | price  |
+| apple    | 12   | 0.99   |
+| banana   | 5    | 0.49   |
+| cherry   | 100  | 2.99   |
+| date     | 8    | 4.50   |
+
+// Add prefix to each item — use block insert:
+apple
+banana
+cherry
+date
+elderberry
+
+// Reselect practice:
+Yank this sentence with vy$ then paste it twice.
+Then use gv to reselect and delete.
+
+// Swap ends of selection with o:
+"select from HERE to THERE and then move start point"`,
+exercises:[
+  {num:'01',title:'Character-wise visual selection',desc:'On "The quick brown fox" line, press v, then w w w to select "quick brown fox". Press d to delete the selection.',cmds:[{k:'v',r:'enter char visual'},{k:'www',r:'extend 3 words'},{k:'d',r:'delete selection'},{k:'y',r:'yank instead'}]},
+  {num:'02',title:'Line-wise visual selection',desc:'Navigate to "line one: alpha". Press V, then 4j to select five lines. Press y to yank them. Move below. Press p to paste.',cmds:[{k:'V',r:'enter line visual'},{k:'4j',r:'extend 4 lines down'},{k:'y',r:'yank selection'},{k:'>',r:'indent selection'}]},
+  {num:'03',title:'Block visual with Ctrl+v',desc:'In the table, navigate to the | before "apple". Press Ctrl+v, then 3j to select a column block, then x to delete the leading | from each row.',cmds:[{k:'Ctrl+v',r:'enter block visual'},{k:'3j',r:'extend 3 lines down'},{k:'x',r:'delete column'}]},
+  {num:'04',title:'Add prefix to each line with block insert',desc:'Navigate to "apple" in the list. Press Ctrl+v, select all 5 lines with 4j, press I, type "- " (dash space), then Esc.',cmds:[{k:'Ctrl+v',r:'block visual'},{k:'4j',r:'select 5 lines'},{k:'I',r:'block insert at left edge'},{k:'Esc',r:'apply to all lines'}]},
+  {num:'05',title:'Reselect last selection with gv',desc:'Select 3 lines with Vjj and yank them (y). Navigate elsewhere. Press gv to reselect those same 3 lines. Press d to delete.',cmds:[{k:'gv',r:'reselect last visual selection'}]},
+  {num:'06',title:'Swap selection ends with o',desc:'Press v, extend a selection across several words. Press o to jump to the other end of the selection. Adjust the start point, then delete.',cmds:[{k:'o',r:'jump to other end of selection'}]},
+]},
+s7:{
+buf:`-- SEARCH PRACTICE
+-- Open this file in Vim: vim search.txt
+
+function authenticate(user, token) {
+    if (!user || !token) return false;
+    let result = db.query("SELECT * FROM users WHERE id = " + user.id);
+    if (result.length === 0) return false;
+    let stored = result[0].token;
+    return stored === token;
+}
+
+function authorise(user, resource, permission) {
+    if (!user) return false;
+    let roles = user.roles || [];
+    return roles.some(role => role.permissions.includes(permission));
+}
+
+function fetchUser(id) {
+    return db.query("SELECT * FROM users WHERE id = " + id);
+}
+
+function updateUser(user, data) {
+    return db.update("users", user.id, data);
+}
+
+// Repetition for substitution practice:
+var oldVar1 = getValue(oldVar1);
+var oldVar2 = getValue(oldVar2);
+var oldVar3 = getValue(oldVar3);
+var oldVar4 = getValue(oldVar4);
+
+// Regex search practice:
+error_code_404: page not found
+error_code_500: internal server error
+error_code_401: unauthorised access
+error_code_403: forbidden resource
+
+// Words to find with * :
+user access user permission user token user session user profile`,
+exercises:[
+  {num:'01',title:'Forward search with /',desc:'Press / to enter search mode. Type "user" and press Enter. Use n to advance to every occurrence in the file. Use N to go backward.',cmds:[{k:'/user',r:'search forward for "user"'},{k:'n',r:'next match'},{k:'N',r:'previous match'}]},
+  {num:'02',title:'Search for word under cursor with *',desc:'Navigate to any occurrence of "user" in the code. Press * to search forward for that exact word. Press n to cycle through all instances.',cmds:[{k:'*',r:'search forward for word under cursor'},{k:'#',r:'search backward'}]},
+  {num:'03',title:'Search with regex',desc:'Press /error_code_\\d\\+ and Enter to match all error_code lines using a regex pattern.',cmds:[{k:'/error_code_\\d\\+',r:'match error_code_NNN lines'}]},
+  {num:'04',title:'Replace on current line with :s',desc:'Navigate to the first "var oldVar1" line. Type :s/oldVar1/newConst/g and Enter to replace on that line only.',cmds:[{k:':s/old/new/g',r:'replace on current line'},{k:':%s/old/new/g',r:'replace in whole file'}]},
+  {num:'05',title:'Replace across file with :%s',desc:'Type :%s/oldVar/newConst/g and Enter to rename all four occurrences across the file at once.',cmds:[{k:':%s/oldVar/newConst/g',r:'all occurrences, file-wide'},{k:':%s/old/new/gc',r:'confirm each one'}]},
+  {num:'06',title:'Clear highlighting with :noh',desc:'After any search the matches are highlighted in yellow. Type :noh and Enter to dismiss the highlighting.',cmds:[{k:':noh',r:'clear search highlighting'}]},
+]},
+s8:{
+buf:`-- POWER COMBOS PRACTICE
+-- Open this file in Vim: vim power.txt
+
+// Named register exercise:
+-- Preserve this important line: CONFIGURATION KEY = "prod-alpha-7"
+-- Work area — paste the above line here without losing it:
+work_a =
+work_b =
+work_c =
+
+// Marks exercise:
+-- mark_top: anchor point A — mark this with ma
+Section A content line one.
+Section A content line two.
+
+-- mark_bottom: anchor point B — mark this with mb  (about 20 lines away)
+Section B content line one.
+Section B content line two.
+
+// Macro exercise — add semicolons to each line:
+const alpha = 1
+const beta = 2
+const gamma = 3
+const delta = 4
+const epsilon = 5
+const zeta = 6
+const eta = 7
+const theta = 8
+
+// Count prefix exercise:
+jump_target_1
+jump_target_2
+jump_target_3
+jump_target_4
+jump_target_5
+
+// Dot + * chain exercise — replace all occurrences:
+The legacy function does legacy things in a legacy way.
+All legacy code should be updated before the deadline.
+Legacy patterns are considered harmful in this legacy codebase.
+
+// g~ / gU / gu range exercise:
+this entire line should become ALL UPPERCASE.
+THIS ENTIRE LINE SHOULD BECOME all lowercase.
+This Line Has Mixed Case And Should Be tOGGLEd.`,
+exercises:[
+  {num:'01',title:'Named registers "a',desc:'Navigate to "CONFIGURATION KEY" line. Press "ayy to yank it into register a. Navigate to work_a, work_b, work_c. Press "ap after each to paste from register a without overwriting it.',cmds:[{k:'"ayy',r:'yank line into register a'},{k:'"ap',r:'paste from register a'},{k:'"byy',r:'use register b separately'}]},
+  {num:'02',title:'Marks with ma and \'a',desc:'Navigate to the mark_top line. Press ma to set mark a. Navigate to the mark_bottom line (use G then search). Press \'a to jump back instantly.',cmds:[{k:'ma',r:'set mark a'},{k:"'a",r:'jump to line of mark a'},{k:'`a',r:'jump to exact row+col of mark a'}]},
+  {num:'03',title:'Record and replay a macro',desc:'Navigate to "const alpha = 1". Press qa to start recording. Press A; Esc j (append semicolon, Esc, move down). Press q to stop. Press 7@a to replay on the remaining 7 lines.',cmds:[{k:'qa',r:'start recording into register a'},{k:'A;Esc j',r:'the edit: append ; then move down'},{k:'q',r:'stop recording'},{k:'7@a',r:'replay 7 times'}]},
+  {num:'04',title:'Count prefix on motions and operators',desc:'From jump_target_1, press 4j to land on jump_target_5 in one motion. Press gg. Press 5dw to delete five words at once.',cmds:[{k:'4j',r:'jump 4 lines down'},{k:'5dw',r:'delete 5 words'},{k:'3>>',r:'indent 3 lines'}]},
+  {num:'05',title:'* + ciw + dot chain',desc:'Navigate to the first "legacy" in the dot exercise. Press * to search for it. Press ciw, type "modern", press Esc. Press n to find the next "legacy". Press . to replace it. Repeat n . for each one.',cmds:[{k:'*',r:'search for word under cursor'},{k:'ciw',r:'change inner word'},{k:'n',r:'jump to next match'},{k:'.',r:'repeat last change'}]},
+  {num:'06',title:'Case operators g~ gU gu',desc:'Navigate to "this entire line should become ALL UPPERCASE". Press gU$ to uppercase from cursor to line end. On the next line press gu$ to lowercase. On the mixed line, press g~$ to toggle.',cmds:[{k:'gU$',r:'uppercase to end of line'},{k:'gu$',r:'lowercase to end of line'},{k:'g~$',r:'toggle case to end of line'},{k:'gUiw',r:'uppercase inner word'}]},
+]},
+};
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+const STORE='vcs4';
+let states={};
+try{const d=localStorage.getItem(STORE);if(d)states=JSON.parse(d);}catch(e){}
+let filterState='all';
+let currentPage='ref';
+
+const ALL=STAGES.flatMap(s=>s.combos.map(c=>({...c,stageId:s.id})));
+
+function gs(id){return states[id]||'n';}
+function ss(id,s){
+  states[id]=s;
+  try{localStorage.setItem(STORE,JSON.stringify(states));}catch(e){}
+  syncCounts();syncSidebar();
+}
+function setStateDirect(id,s){ss(id,s);syncCard(id);}
+
+// ── counts ──
+function syncCounts(){
+  const tot=ALL.length;let l=0,f=0,n=0;
+  ALL.forEach(c=>{const s=gs(c.id);if(s==='l')l++;else if(s==='f')f++;else n++;});
+  document.getElementById('cnt-l').textContent=l;
+  document.getElementById('cnt-f').textContent=f;
+  document.getElementById('cnt-n').textContent=n;
+  document.getElementById('progtxt').textContent=l+'/'+tot;
+  document.getElementById('progfill').style.width=Math.round(l/tot*100)+'%';
+}
+
+// ── save / load ──
+function saveProgress(){
+  const data=JSON.stringify({version:1,states},null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='vim-progress.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  const btn=document.getElementById('save-btn');
+  btn.textContent='✓ saved';btn.classList.add('ok');
+  setTimeout(()=>{btn.textContent='↓ save';btn.classList.remove('ok');},2000);
+}
+function loadProgress(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(d.states&&typeof d.states==='object'){
+        states=d.states;
+        localStorage.setItem(STORE,JSON.stringify(states));
+        ALL.forEach(c=>syncCard(c.id));
+        syncCounts();syncSidebar();
+        alert('Progress loaded — '+Object.keys(states).length+' entries restored.');
+      } else {alert('Unrecognised file format.');}
+    }catch(err){alert('Could not parse file: '+err.message);}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+function resetAll(){
+  if(!confirm('Reset all states to "not yet"?'))return;
+  states={};try{localStorage.removeItem(STORE);}catch(e){}
+  ALL.forEach(c=>syncCard(c.id,true));
+  syncCounts();syncSidebar();
+}
+
+// ── filter ──
+function setFilter(f,btn){
+  filterState=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('on',b===btn));
+  applyFilter();
+}
+function applyFilter(){
+  document.querySelectorAll('.card').forEach(card=>{
+    const s=gs(card.dataset.id);
+    card.style.display=(filterState==='all'||s===filterState)?'':'none';
+  });
+  document.querySelectorAll('[data-stg]').forEach(sec=>{
+    const any=[...sec.querySelectorAll('.card')].some(c=>c.style.display!=='none');
+    sec.style.display=any?'':'none';
+  });
+}
+
+// ── navigation ──
+function goPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg){pg.classList.add('active');}
+  if(btn){btn.classList.add('active');}
+  currentPage=id;
+  location.hash=id;
+}
+
+// ── sidebar ──
+function syncSidebar(){
+  const sb=document.getElementById('sb');
+  let h='';
+  STAGES.forEach(st=>{
+    h+=`<div class="sh open" onclick="this.classList.toggle('open');this.nextElementSibling.style.display=this.classList.contains('open')?'block':'none'">`;
+    h+=`<span class="arr">▶</span>${esc(st.title)}`;
+    h+='</div><div class="si" style="display:block">';
+    st.combos.forEach(c=>{
+      const s=gs(c.id);
+      h+=`<div class="sitem" onclick="goCardPage('${c.id}')">`;
+      h+=`<span class="sdot${s==='l'?' l':s==='f'?' f':''}"></span>`;
+      h+=`<span style="font-size:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.keys.join(' '))}</span>`;
+      h+='</div>';
+    });
+    h+='</div>';
+  });
+  sb.innerHTML=h;
+}
+function goCardPage(id){
+  // switch to reference page and scroll to card
+  const refNavBtn=[...document.querySelectorAll('.navbtn')].find(b=>b.textContent==='Reference');
+  goPage('ref',refNavBtn);
+  setTimeout(()=>{
+    const el=document.getElementById('c-'+id);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+  },60);
+}
+
+// ════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function modeClass(m){return m==='n'?'mn':m==='v'?'mv':m==='i'?'mi':'mc';}
+function modeName(m){return m==='n'?'NORMAL':m==='v'?'VISUAL':m==='i'?'INSERT':'COMMAND';}
+function stateLabel(s){return s==='l'?'LEARNT':s==='f'?'FOREIGN':'NOT YET';}
+function stateClass(s){return 'state-lbl s-'+s;}
+function tbtnClass(cur,btn){return 'tbtn'+(cur===btn?' on-'+cur:'');}
+function cursorify(str){
+  const i=str.indexOf('|');if(i<0)return esc(str);
+  const ch=str[i+1]||' ';
+  return esc(str.slice(0,i))+'<span class="cur">'+esc(ch)+'</span>'+esc(str.slice(i+2));
+}
+
+// ════════════════════════════════════════════
+// REFERENCE CARDS
+// ════════════════════════════════════════════
+function makeCard(c){
+  const s=gs(c.id);
+  return `<div class="card${s==='l'?' learnt':s==='f'?' foreign':''}" id="c-${c.id}" data-id="${c.id}">
+  <div class="card-top">
+    <div class="card-keys">${c.keys.map(k=>`<span class="kk">${esc(k)}</span>`).join('')}</div>
+    <span class="mbadge ${modeClass(c.mode)}">${modeName(c.mode)}</span>
+  </div>
+  <div class="card-body">
+    <div class="card-desc">${esc(c.desc)}</div>
+    <div class="ba">
+      <div><div class="ba-lbl">BEFORE</div><div class="ba-buf">${cursorify(c.before)}</div></div>
+      <div class="ba-arr">→</div>
+      <div><div class="ba-lbl">AFTER</div><div class="ba-buf">${cursorify(c.after)}</div></div>
+    </div>
+    ${c.tip?`<div class="tip">${esc(c.tip)}</div>`:''}
+    ${c.try?`<div class="tryit"><strong>Try it →</strong> ${esc(c.try)}</div>`:''}
+  </div>
+  <div class="card-foot">
+    <span class="${stateClass(s)}">${stateLabel(s)}</span>
+    <div class="toggle">
+      <button class="${tbtnClass(s,'n')}" data-s="n" onclick="setStateDirect('${c.id}','n')">– NOT YET</button>
+      <button class="${tbtnClass(s,'l')}" data-s="l" onclick="setStateDirect('${c.id}','l')">✓ LEARNT</button>
+      <button class="${tbtnClass(s,'f')}" data-s="f" onclick="setStateDirect('${c.id}','f')">? FOREIGN</button>
+    </div>
+  </div>
+</div>`;
+}
+function syncCard(id,forceReset){
+  const el=document.getElementById('c-'+id);
+  if(!el)return;
+  if(forceReset)states[id]='n';
+  const s=gs(id);
+  el.className='card'+(s==='l'?' learnt':s==='f'?' foreign':'');
+  el.querySelector('.state-lbl').className=stateClass(s);
+  el.querySelector('.state-lbl').textContent=stateLabel(s);
+  el.querySelectorAll('.tbtn').forEach(b=>{b.className=tbtnClass(s,b.dataset.s);});
+  if(filterState!=='all'&&s!==filterState)el.style.display='none';
+  else el.style.display='';
+}
+function renderCards(){
+  let h='';
+  STAGES.forEach(st=>{
+    h+=`<div data-stg="${st.id}">`;
+    h+=`<div class="stage-hdr">${esc(st.title)}<em>${st.combos.length} combos</em></div>`;
+    h+='<div class="grid">';
+    st.combos.forEach(c=>{h+=makeCard(c);});
+    h+='</div></div>';
+  });
+  document.getElementById('cards').innerHTML=h;
+  applyFilter();
+}
+
+// ════════════════════════════════════════════
+// PRACTICE PAGES
+// ════════════════════════════════════════════
+function makePracticePage(stageId){
+  const stage=STAGES.find(s=>s.id===stageId);
+  const pdata=PRACTICE[stageId];
+  if(!stage||!pdata)return;
+
+  const pgEl=document.createElement('div');
+  pgEl.id='pg-p-'+stageId;
+  pgEl.className='page';
+
+  const lines=pdata.buf.split('\n');
+  const numberedBuf=lines.map((ln,i)=>`<span class="ln">${i+1}</span>${esc(ln)}`).join('\n');
+
+  const exHtml=pdata.exercises.map(ex=>{
+    const cmdRows=ex.cmds.map(c=>`<div class="cmd-row">
+      <span class="cmd-key">${esc(c.k)}</span>
+      <span class="cmd-arrow">→</span>
+      <span class="cmd-result">${esc(c.r)}</span>
+    </div>`).join('');
+    return `<div class="ex">
+      <div class="ex-num">EXERCISE ${ex.num}</div>
+      <div class="ex-title">${esc(ex.title)}</div>
+      <div class="ex-desc">${esc(ex.desc)}</div>
+      <div class="ex-cmds">${cmdRows}</div>
+    </div>`;
+  }).join('');
+
+  pgEl.innerHTML=`<div class="prac-wrap">
+  <div class="prac-left">
+    <div class="prac-title">${esc(stage.title)}</div>
+    <div class="prac-sub">Work through these exercises inside your own Vim instance using the practice buffer on the right.</div>
+    <div class="ex-list">${exHtml}</div>
+  </div>
+  <div class="prac-right">
+    <div class="buf-hdr">
+      <span class="buf-label">PRACTICE BUFFER — ${esc(stage.title.toUpperCase())}</span>
+      <div class="buf-actions">
+        <button class="copy-btn" id="copy-${stageId}" onclick="copyBuf('${stageId}')">copy all</button>
+        <button class="dl-btn" onclick="dlBuf('${stageId}')">↓ download .txt</button>
+      </div>
+    </div>
+    <pre class="buf-block" id="buf-${stageId}">${numberedBuf}</pre>
+    <div class="buf-note"><strong>How to use:</strong> Click "copy all" or "↓ download .txt" to get the buffer text. Open a terminal and run <span class="cmd-key" style="display:inline;font-size:11px">vim ${stage.title.toLowerCase().replace(/\s+/,'-')}.txt</span> then paste, or save and open the downloaded file directly. Work through each exercise in order.</div>
+  </div>
+</div>`;
+
+  document.getElementById('body').appendChild(pgEl);
+}
+
+const bufTexts={};
+STAGES.forEach(st=>{if(PRACTICE[st.id])bufTexts[st.id]=PRACTICE[st.id].buf;});
+
+function copyBuf(sid){
+  const txt=bufTexts[sid];if(!txt)return;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn=document.getElementById('copy-'+sid);
+    if(btn){btn.textContent='✓ copied';btn.classList.add('copied');setTimeout(()=>{btn.textContent='copy all';btn.classList.remove('copied');},1800);}
+  }).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+  });
+}
+function dlBuf(sid){
+  const stage=STAGES.find(s=>s.id===sid);
+  const txt=bufTexts[sid];if(!txt)return;
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=(stage?stage.title.toLowerCase().replace(/\s+/g,'-'):'practice')+'.txt';
+  a.click();URL.revokeObjectURL(a.href);
+}
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+renderCards();
+STAGES.forEach(st=>{if(PRACTICE[st.id])makePracticePage(st.id);});
+syncSidebar();
+syncCounts();
+
+// restore page from hash
+const hash=(location.hash||'').replace('#','');
+if(hash){
+  const btn=[...document.querySelectorAll('.navbtn')].find(b=>{
+    const pageId=b.getAttribute('onclick').match(/goPage\('([^']+)'/)?.[1];
+    return pageId===hash||'p-'+hash===pageId;
+  });
+  if(btn)btn.click();
+}
+</script>
+</body>
+</html>
