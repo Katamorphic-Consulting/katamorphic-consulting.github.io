@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8PQ0P2F31V"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8PQ0P2F31V');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ISO/IEC 42001: What an AI Management System Actually Requires – Katamorphic Consulting</title>
+    <meta name="description" content="ISO/IEC 42001 is the first certifiable management system standard for AI. This article explains what it covers, how it is structured, and what implementing it realistically involves.">
+    <meta name="theme-color" content="#f7f8fc">
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .article-hero { padding: 70px 0 40px; }
+        .article-hero .tag { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brand); margin-bottom: 12px; }
+        .article-hero h1 { max-width: 760px; font-size: 2rem; margin-bottom: 12px; }
+        .article-hero .meta { font-size: 0.85rem; color: var(--muted); }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+        .article-body h2 { font-size: 1.35rem; margin: 32px 0 10px; color: var(--text); }
+        .article-body p { color: var(--muted); margin-bottom: 16px; line-height: 1.75; }
+        .article-body ul { color: var(--muted); padding-left: 20px; margin-bottom: 16px; line-height: 1.75; }
+        .article-body ul li { margin-bottom: 6px; }
+        .callout { background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(139,92,246,0.07)); border-left: 3px solid var(--brand); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 20px; margin: 24px 0; }
+        .callout p { margin: 0; color: var(--text); font-weight: 600; font-size: 0.97rem; }
+        .breadcrumb { font-size: 0.88rem; margin-bottom: 18px; }
+        .breadcrumb a { color: var(--brand); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { color: var(--muted); margin: 0 6px; }
+        .cta-band { background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.08)); border-radius: var(--radius); padding: 36px; text-align: center; margin-top: 48px; }
+        .cta-band h2 { margin-bottom: 8px; font-size: 1.4rem; }
+        .cta-band p { max-width: 480px; margin: 0 auto 18px; }
+    </style>
+    <!-- SEO / social -->
+    <link rel="canonical" href="https://katamorphic.com/blog/iso-iec-42001-ai-management.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Katamorphic Consulting">
+    <meta property="og:title" content="ISO/IEC 42001: What an AI Management System Actually Requires – Katamorphic Consulting">
+    <meta property="og:description" content="ISO/IEC 42001 is the first certifiable management system standard for AI. This article explains what it covers, how it is structured, and what implementing it realistically involves.">
+    <meta property="og:url" content="https://katamorphic.com/blog/iso-iec-42001-ai-management.html">
+    <meta property="og:image" content="https://katamorphic.com/assets/katamorphic_consulting_512.png">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="nl_NL">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ISO/IEC 42001: What an AI Management System Actually Requires – Katamorphic Consulting">
+    <meta name="twitter:description" content="ISO/IEC 42001 is the first certifiable management system standard for AI. This article explains what it covers, how it is structured, and what implementing it realistically involves.">
+    <meta name="twitter:image" content="https://katamorphic.com/assets/katamorphic_consulting_512.png">
+</head>
+<body>
+    <header class="site-header" role="banner">
+        <div class="container">
+            <a class="brand" href="../index.html" aria-label="Katamorphic Consulting home">
+                <span class="logo">K</span>
+                <span class="brand-text">Katamorphic Consulting</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <a href="../index.html#values">Values</a>
+                <a href="../index.html#working-mode">Working Mode</a>
+                <a href="../index.html#service-areas">Services</a>
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#contact" class="btn btn-primary">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="article-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    <span>›</span>
+                    <a href="index.html">Insights</a>
+                    <span>›</span>
+                    ISO/IEC 42001
+                </div>
+                <div class="tag">AI Standards</div>
+                <h1>ISO/IEC 42001: What an AI Management System Actually Requires</h1>
+                <div class="meta">15 June 2026</div>
+            </div>
+        </section>
+
+        <div class="article-body">
+            <p>ISO/IEC 42001 is the first international management system standard for artificial intelligence — and the first against which an organisation can be certified. Published in December 2023 and developed within ISO/IEC JTC 1/SC42, it does for AI what ISO 9001 did for quality and ISO/IEC 27001 did for information security: it turns "we take this seriously" from a claim into an auditable set of organisational practices. Interest in certification has grown rapidly, driven by procurement requirements, regulatory pressure, and the simple fact that customers increasingly ask for evidence rather than assurances.</p>
+            <p>Yet much of the commentary on 42001 stays at the level of the acronym. This article looks at what the standard actually asks of an organisation — and what implementing it realistically involves.</p>
+
+            <h2>A Management System, Not a Product Checklist</h2>
+            <p>The most common misunderstanding about ISO/IEC 42001 is that it certifies an AI system. It does not. It certifies an <em>organisation's management system</em> for AI — the policies, roles, processes, and controls through which the organisation governs how it develops, provides, or uses AI. A company can hold a 42001 certificate and still ship a flawed model; what the certificate attests is that the organisation has a systematic, documented, and independently audited way of identifying and managing AI-related risks and responsibilities.</p>
+            <p>This distinction matters when reading vendor claims. "ISO 42001 certified" is meaningful evidence of organisational maturity. It is not a safety rating for any particular product, and treating it as one repeats the mistake of reading ISO 9001 certification as a product quality guarantee.</p>
+
+            <h2>How the Standard Is Structured</h2>
+            <p>Like other modern ISO management system standards, 42001 follows the harmonised structure — which means organisations already running an ISO/IEC 27001 or ISO 9001 system will find the skeleton familiar:</p>
+            <ul>
+                <li><strong>Context of the organisation:</strong> determining the organisation's role in the AI value chain (developer, provider, user — often several at once) and the internal and external issues that shape its AI activities.</li>
+                <li><strong>Leadership:</strong> an AI policy, top-management commitment, and clearly assigned roles and responsibilities for AI governance.</li>
+                <li><strong>Planning:</strong> risk assessment and risk treatment — plus a requirement distinctive to 42001: the <em>AI system impact assessment</em>, which considers consequences for individuals, groups, and society, not just for the organisation itself.</li>
+                <li><strong>Support and operation:</strong> resources, competence, awareness, documentation, and the operational processes through which risk treatments and controls are actually applied across the AI system lifecycle.</li>
+                <li><strong>Performance evaluation and improvement:</strong> monitoring, internal audit, management review, and corrective action — the machinery that keeps the system honest over time.</li>
+            </ul>
+            <p>Annex A provides a reference set of controls — spanning areas such as policies for AI, internal organisation, resources for AI systems, impact assessment, the AI system lifecycle, data management, information for interested parties, use of AI systems, and third-party relationships. As with ISO/IEC 27001, organisations select and justify controls based on their risk assessment rather than implementing everything mechanically.</p>
+
+            <div class="callout">
+                <p>"ISO/IEC 42001 does not certify your AI system. It certifies that your organisation has a systematic, auditable way of governing how AI is built, deployed, and used."</p>
+            </div>
+
+            <h2>The Impact Assessment: The Genuinely New Part</h2>
+            <p>For organisations experienced with other management systems, most of 42001 is a familiar discipline applied to a new domain. The element with the least precedent is the AI system impact assessment. Conventional risk assessment asks what could harm the organisation. The impact assessment asks what the AI system could do to <em>others</em> — individuals affected by its decisions, groups who may experience differential performance, and society more broadly.</p>
+            <p>Doing this well requires capabilities many organisations have never needed in a compliance function: understanding how a model's failure modes translate into human consequences, reasoning about fairness across groups, and documenting judgements that are contestable rather than mechanical. It is also where 42001 connects most directly to regulation — the reasoning it demands overlaps substantially with the fundamental-rights and risk-management thinking required under the EU AI Act.</p>
+
+            <h2>What Implementation Realistically Involves</h2>
+            <p>Timelines vary with organisational size and maturity, but the shape of the work is consistent:</p>
+            <ul>
+                <li><strong>Scoping and gap analysis:</strong> establishing which AI activities are in scope, what governance already exists, and where the gaps are. Organisations with an existing 27001 system typically find they can extend rather than duplicate much of the machinery.</li>
+                <li><strong>Building the inventory:</strong> most organisations discover during scoping that they do not have a reliable inventory of the AI systems they use — including AI embedded in procured software. This step alone often justifies the exercise.</li>
+                <li><strong>Risk and impact assessment:</strong> the analytical core, and the part most dependent on genuine AI expertise rather than management-system experience.</li>
+                <li><strong>Controls, documentation, and operation:</strong> selecting controls, writing the policies and procedures that give them effect, and — crucially — running them long enough to generate the records an auditor will ask for.</li>
+                <li><strong>Audit:</strong> internal audit and management review, followed by the two-stage certification audit if certification is the goal. Accredited certification is supported by ISO/IEC 42006, which sets requirements for the bodies that audit and certify AI management systems.</li>
+            </ul>
+            <p>A realistic end-to-end effort for a mid-sized organisation is measured in months, not weeks — and the common failure mode is treating it as a documentation sprint. Auditors are increasingly experienced at distinguishing a management system that operates from a binder of policies written the month before the audit.</p>
+
+            <h2>Should Your Organisation Pursue It?</h2>
+            <p>Certification is not the right first question. The right first question is whether your organisation can currently answer, with evidence: what AI systems do we develop or use, what could they do to the people affected by them, and who is accountable for that? If the answer is no, the disciplines in 42001 are worth adopting whether or not a certificate follows. If customers, regulators, or procurement frameworks are asking for demonstrable AI governance — an increasingly common situation — certification converts work you should be doing anyway into a portable, independently verified credential.</p>
+            <p>42001 also does not stand alone. It draws its vocabulary from ISO/IEC 22989, its risk-management guidance from ISO/IEC 23894, and its lifecycle framing from related SC42 work. Organisations get the most value when they treat it as the organising frame for that wider landscape rather than a standalone checkbox.</p>
+
+            <div class="cta-band">
+                <h2>Considering ISO/IEC 42001 for your organisation?</h2>
+                <p>We help organisations scope, gap-assess, and build AI management systems that hold up to audit — grounded in direct experience of the SC42 standards landscape.</p>
+                <a href="../index.html#contact" class="btn btn-primary">Contact us</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p>&copy; <span id="year"></span> Katamorphic Consulting. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
