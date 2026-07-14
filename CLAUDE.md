@@ -57,3 +57,8 @@ Language variants are hand-maintained parallel files. When updating content in `
 
 ## Analytics
 Google Analytics (tag `G-8PQ0P2F31V`) is included in every page `<head>`. Preserve it when creating new pages.
+
+## Writing guidelines
+- Do not use em dashes in any written content (pages, blog posts, documentation). Rephrase or use commas, colons, or parentheses instead.
+- Support factual claims with references and citations. Blog posts and content pages should cite their sources (for example, standards documents, official publications, or reputable articles), preferably with links.
+- Do not write anything in commit messages or pull request descriptions beyond a short, plain subject line. No bodies, no attributions, no co-author trailers, no generated boilerplate.
