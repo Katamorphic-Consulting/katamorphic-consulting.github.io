@@ -100,6 +100,15 @@ p { margin: 0 0 12px; color: var(--muted); }
   .grid.two, .grid.three { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 760px) {
+  .container { padding: 0 16px; box-sizing: border-box; }
+  .site-header { position: static; }
+  .site-header .container { height: auto; flex-wrap: wrap; gap: 8px 16px; padding-top: 12px; padding-bottom: 12px; }
+  .nav { flex-wrap: wrap; gap: 6px 14px; font-size: 0.95rem; }
+  .nav .lang-switcher { flex-basis: 100%; }
+  h1 { font-size: 1.6rem; overflow-wrap: break-word; }
+}
+
 
 
 .card {
@@ -127,6 +136,7 @@ p { margin: 0 0 12px; color: var(--muted); }
 .contact-form label span { display: block; margin-bottom: 6px; color: var(--text); font-weight: 600; }
 .contact-form input, .contact-form textarea {
   width: 100%;
+  box-sizing: border-box;
   padding: 12px 12px;
   border-radius: 12px;
   border: 1px solid rgba(17,24,39,0.14);
